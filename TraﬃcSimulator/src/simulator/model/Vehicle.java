@@ -15,7 +15,7 @@ public class Vehicle extends SimulatedObject {
 	private VehicleStatus status;
 	private Road road;
 	private int location = 0;
-	private int contamination;
+	private int contaminationClass;
 	private int totalTraveledDistance = 0;
 	
 	Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) throws VehicleException {
@@ -28,7 +28,15 @@ public class Vehicle extends SimulatedObject {
 		}
 		this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
 		this.maxSpeed = maxSpeed;
-		this.contamination = contClass;
+		this.contaminationClass = contClass;
+	}
+	
+	void setSpeed(int s) {
+		this.currentSpeed = s;
+	}
+	
+	void setContaminationClass(int c) {
+		this.contaminationClass = c;
 	}
 	
 	@Override
@@ -37,6 +45,10 @@ public class Vehicle extends SimulatedObject {
 
 	}
 
+	void moveToNextRoad() {
+		
+	}
+	
 	@Override
 	public JSONObject report() {
 		// TODO Auto-generated method stub
