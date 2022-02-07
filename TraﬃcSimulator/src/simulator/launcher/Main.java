@@ -107,8 +107,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		try {
-			//start(args);
-			System.out.println("Test");
+			start(args);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
