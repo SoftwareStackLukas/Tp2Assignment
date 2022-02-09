@@ -7,7 +7,7 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="C:/Users/lucas/Desktop/EclipseWorkspace/Tp2Assignment/lib/json.jar"/>
-	<classpathentry kind="lib" path="C:/Users/lucas/Desktop/EclipseWorkspace/Tp2Assignment/lib/commons-cli-1.4.jar"/>
+	<classpathentry kind="lib" path="E:/Hessenbox/Spanien/_Classes/TP2/Templates/TrafficSimulatorTP/lib/json.jar"/>
+	<classpathentry kind="lib" path="E:/Hessenbox/Spanien/_Classes/TP2/Templates/TrafficSimulatorTP/lib/commons-cli-1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
