@@ -16,6 +16,7 @@ public class Vehicle extends SimulatedObject {
 	private Road road;
 	private int location = 0;
 	private int contaminationClass;
+	private int totalContamination = 0;
 	private int totalTraveledDistance = 0;
 	
 	Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) throws VehicleException {
@@ -54,5 +55,30 @@ public class Vehicle extends SimulatedObject {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	
+	//Class getters
+	int getSpeed() {
+		return this.currentSpeed;
+	}
+	
+	int getMaxSpeed() {
+		return this.maxSpeed;
+	}
+	
+	VehicleStatus getStatus() {
+		return this.status;
+	}	
+	
+	int getContaminationClass() {
+		return this.totalContamination;
+	}
+	
+	List<Junction> getItinerary() {
+		return this.itinerary;
+	}
+	
+	Road getRoad() {
+		return this.road;
+	}
 }
