@@ -4,8 +4,8 @@ import org.json.JSONObject;
 
 public class Junction extends SimulatedObject {
 
-	public Junction() {
-		super("");
+	Junction(String id) {
+		super(id);
 	}
 	
 	@Override
