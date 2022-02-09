@@ -2,7 +2,7 @@ package simulator.model;
 
 import java.util.List;
 
-class MostCrowdedStrategy implements LightSwitchingStrategy {
+public class MostCrowdedStrategy implements LightSwitchingStrategy {
 	private int timeSlot;
 	
 	
