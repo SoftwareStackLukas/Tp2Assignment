@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import simulator.Exception.VehicleException;
-
 public class Vehicle extends SimulatedObject {
 	private List<Junction> itinerary;
 	private int maxSpeed;
@@ -19,13 +17,13 @@ public class Vehicle extends SimulatedObject {
 	private int totalContamination = 0;
 	private int totalTraveledDistance = 0;
 	
-	Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) throws VehicleException {
+	Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) {
 		super(id);
 		if (!(!id.isEmpty() &&
 				maxSpeed > 0 &&
 				(contClass >= 0 && contClass <= 10) &&
 				itinerary.size() >= 2)) {
-			throw new VehicleException("Params are corropted");
+			throw new IllegalArgumentException("IllegalArguments");
 		}
 		this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
 		this.maxSpeed = maxSpeed;
@@ -33,27 +31,59 @@ public class Vehicle extends SimulatedObject {
 	}
 	
 	void setSpeed(int s) {
-		this.currentSpeed = s;
+		int toSetSpeed = Math.min(this.maxSpeed, s);		
+		if (0 > toSetSpeed) {
+			throw new IllegalArgumentException("The speed is out of the legal range.");
+		} 
+		this.currentSpeed = toSetSpeed;
 	}
 	
 	void setContaminationClass(int c) {
+		//[0,10]
+		if (Math.subtractExact(10, c) < 0) {
+			throw new IllegalArgumentException("The contamination class has to be between [0,10]");
+		}
 		this.contaminationClass = c;
 	}
 	
+	
+	//Has to be coded
 	@Override
 	void advance(int time) {
-		// TODO Auto-generated method stub
-
+		if (this.status == VehicleStatus.TRAVELING) {
+			int previewsLocation =  this.location;
+			this.location = Math.addExact(this.location, this.currentSpeed);
+			//the length of the current road;
+			int c = Math.multiplyExact(time, previewsLocation);
+			this.contaminationClass += c;
+			road.addContamination(c);
+		}
 	}
 
 	void moveToNextRoad() {
+		road.exit(this);
 		
+		//How to get the new pointer for the road?
+		road.enter(this);
 	}
 	
 	@Override
 	public JSONObject report() {
-		// TODO Auto-generated method stub
-		return null;
+		JSONObject jo = new JSONObject();
+		
+		jo.put("id", this._id);
+		jo.put("speed", this.currentSpeed);
+		jo.put("distance", this.totalTraveledDistance);
+		jo.put("co2", this.totalContamination);
+		jo.put("class", this.contaminationClass);
+		jo.put("status", this.status);
+		if (!(this.status == VehicleStatus.ARRIVED 
+				|| this.status == VehicleStatus.PENDING)) {
+			jo.put("road", this.road.getId());
+			jo.put("location", this.location);
+		}
+		
+		return jo;
 	}
 	
 	
