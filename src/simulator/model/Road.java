@@ -1,6 +1,7 @@
 package simulator.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -38,43 +39,57 @@ public abstract class Road extends SimulatedObject {
 	abstract int calculateVehicleSpeed(Vehicle v);
 	
 	void enter(Vehicle v) {
-		// it should check that following
-		//		hold and throw a corresponding exception otherwise: the vehicle’s location is 0; the
-		//		vehicle’s speed is 0.
+		if (v.getLocation() != 0) {
+			throw new IllegalArgumentException("Location is != 0");
+		} else if (v.getSpeed() != 0) {
+			throw new IllegalArgumentException("Speed is != 0");
+		}
 		vehicleList.add(v);
 	}
 	
 	void exit(Vehicle v) {
-		
+		vehicleList.remove(v);
 	}
 	
 	void setWeather(Weather w) {
-		
+		if (w == null) {
+			throw new NullPointerException("Wheather is null");
+		}
+		this.weather = w;
 	}
 
 	void addContamination(int c) {
-		
-	}
-	
-	
-	void advance(int time) {
-		
-	}
-	
-	public JSONObject report() {
-		
+		if (c < 0) {
+			throw new IllegalArgumentException("contamination should be non negative");
+		this.totalCO2 += c;
 	}
 	
 	@Override
 	void advance(int time) {
-		// TODO Auto-generated method stub
-
+		this.reduceTotalContamination();
+		this.updateSpeedLimit();
+		for (Vehicle v: vehicleList) {
+			v.setSpeed(calculateVehicleSpeed(v));
+			v.advance(time);
+		}
+		vehicleList.sort(new ComparatorVehicle());
 	}
-
+	
 	@Override
 	public JSONObject report() {
-		// TODO Auto-generated method stub
-		return null;
+		JSONObject jo = new JSONObject();
+		jo.put("id", this._id);
+		jo.put("speedlimit", this.speedLimit);
+		jo.put("weather", this.weather);
+		jo.put("co2", this.totalCO2);
+		
+		JSONArray jarr = new JSONArray();
+		for (Vehicle v: vehicleList) {
+			jarr.put(v._id);			
+		}
+		jo.put("vehicles", jarr);
+				
+		return jo;
 	}
 	
 	// ------------------------------------------- Getters and Setters ----------------------------------------
@@ -110,7 +125,7 @@ public abstract class Road extends SimulatedObject {
 	public List<Vehicle> getVehicleList() {
 		// should return the list of vehicles as a read-only list
 		// (i.e., it returns Collections.unmodifiableList(vehicles) where vehicles is the list of vehilces).
-		return unmodifiableList(vehicleList);
+		return Collections.unmodifiableList(vehicleList);
 	}
 
 //	public void setSrcJunc(Junction srcJunc) {

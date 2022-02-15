@@ -92,6 +92,10 @@ public class Vehicle extends SimulatedObject {
 		return this.currentSpeed;
 	}
 	
+	int getLocation() {
+		return this.location;
+	}
+	
 	int getMaxSpeed() {
 		return this.maxSpeed;
 	}

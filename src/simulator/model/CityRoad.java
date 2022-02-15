@@ -4,7 +4,7 @@ public class CityRoad extends Road {
 
 	@Override
 	void reduceTotalContamination() {
-		int x;
+		int x = 0;
 		switch (weather) {
 		case WINDY:
 			x = 10;
