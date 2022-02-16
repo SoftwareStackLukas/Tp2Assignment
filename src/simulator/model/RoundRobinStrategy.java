@@ -26,6 +26,6 @@ public class RoundRobinStrategy implements LightSwitchStrategy {
 		} catch (Exception e) {
 			result = -1; 
 		}
-		return 0;
+		return result;
 	}
 }
