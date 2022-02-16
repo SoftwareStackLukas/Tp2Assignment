@@ -63,14 +63,18 @@ public class Vehicle extends SimulatedObject {
 		if (this.road != null) {
 			road.exit(this);
 		}
+		
 		//After this the vehicle has a road
 		if (VehicleStatus.PENDING == this.status) {
 			this.road = this.itinerary.get(0).roadTo(this.itinerary.get(1));
 		} else {
-			for(Junction j : this.itinerary) {
-				//this.road = j.
+			for (Junction j : this.itinerary) {
+				if (true) {
+					this.road = this.itinerary.get(0).roadTo(this.itinerary.get(1));
+				}
 			}
 		}
+		
 		road.enter(this);
 	}
 	

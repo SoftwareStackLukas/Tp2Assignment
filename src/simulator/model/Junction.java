@@ -16,10 +16,21 @@ public class Junction extends SimulatedObject {
 	private int x;
 	private int y;
 	
-	Junction(String id, LightSwitchStrategy lsStrategy, DequeingStrategy
+	Junction(String id, LightSwitchStrategy IsStrategy, DequeingStrategy
 			dqStrategy, int xCoor, int yCoor) {
 		super(id);
-		// ...
+		if (IsStrategy == null || dqStrategy == null) {
+			throw new IllegalArgumentException("A Strategy can not be null."); 
+		} else {
+			this.lightSwitchingStrategy = IsStrategy;
+			this.dequeuingStrategy = dqStrategy;
+		}
+		if (xCoor < 0 || yCoor < 0) {
+			throw new IllegalArgumentException("Coordinat can not be negativ"); 
+		} else {
+			this.x = xCoor;
+			this.y = yCoor;
+		}
 	}
 	
 	void addIncommingRoad(Road r) {
