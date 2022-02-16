@@ -7,8 +7,8 @@ import org.json.JSONObject;
 
 public class Junction extends SimulatedObject {
 	private List<Road> incomingRoads = null;
-	private Map<Junction,Road> OutgoingRoads = null;
-	private List<List<Vehicle>> Queues = null;
+	private Map<Junction,Road> outgoingRoads = null;
+	private List<List<Vehicle>> queues = null;
 	private int greenLightIndex;
 	private int lastSwitchingTime;
 	private LightSwitchStrategy lightSwitchingStrategy = null;

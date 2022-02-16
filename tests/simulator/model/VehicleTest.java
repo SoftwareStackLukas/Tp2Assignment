@@ -144,7 +144,7 @@ class VehicleTest {
 		assertEquals(50, v1.getLocation());
 		
 		// check the vehicle's contamination
-		assertEquals(50,v1.getTotalCO2());
+		assertEquals(50, v1.getTotalCO2());
 
 		// check that the report/toString is OK
 		String s = "{\"distance\":50,\"road\":\"r1\",\"co2\":50,\"location\":50,\"id\":\"v1\",\"class\":1,\"speed\":50,\"status\":\"TRAVELING\"}";

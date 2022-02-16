@@ -37,9 +37,8 @@ public class Vehicle extends SimulatedObject {
 		} 
 		this.currentSpeed = toSetSpeed;
 	}
-	
-	void setContaminationClass(int c) {
-		//[0,10]
+
+	void setContClass(int c) {
 		if (Math.subtractExact(10, c) < 0) {
 			throw new IllegalArgumentException("The contamination class has to be between [0,10]");
 		}
@@ -61,9 +60,17 @@ public class Vehicle extends SimulatedObject {
 	}
 
 	void moveToNextRoad() {
-		road.exit(this);
-		
-		//How to get the new pointer for the road?
+		if (this.road != null) {
+			road.exit(this);
+		}
+		//After this the vehicle has a road
+		if (VehicleStatus.PENDING == this.status) {
+			this.road = this.itinerary.get(0).roadTo(this.itinerary.get(1));
+		} else {
+			for(Junction j : this.itinerary) {
+				//this.road = j.
+			}
+		}
 		road.enter(this);
 	}
 	
@@ -104,7 +111,7 @@ public class Vehicle extends SimulatedObject {
 		return this.status;
 	}	
 	
-	int getContaminationClass() {
+	int getContClass() {
 		return this.totalContamination;
 	}
 	
