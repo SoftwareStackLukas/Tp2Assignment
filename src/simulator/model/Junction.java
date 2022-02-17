@@ -57,17 +57,26 @@ public class Junction extends SimulatedObject {
 	}
 	
 	void addOutGoingRoad(Road r) {
-		
+		if (this.outgoingRoads.get(r.getDestJunc()) == null &&
+				r.getSrcJunc().equals(this)) {
+			this.outgoingRoads.put(r.getDestJunc(), r);
+		} else {
+			throw new IllegalArgumentException("Road is not added to the outgoing roads");
+		}
 	}
 	
+	//has to be done!
 	void enter(Vehicle v) {
+		Road currentRoadVeh = v.getRoad();
 		
 	}
 	
 	Road roadTo(Junction j) {
-		return null;
+		return this.outgoingRoads.get(j);
 	}
 	
+	
+	//has to be done!
 	@Override
 	void advance(int time) {
 		// TODO Auto-generated method stub
@@ -78,6 +87,9 @@ public class Junction extends SimulatedObject {
 	public JSONObject report() {
 		// TODO Auto-generated method stub
 		return null;
+		
+		
+
 	}
 
 }

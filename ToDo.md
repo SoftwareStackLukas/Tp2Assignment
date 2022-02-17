@@ -6,7 +6,5 @@
 
 
 #Lukas
-	- moveToNextRoad
-	- Integrate the test suit
 
 #Lucas
