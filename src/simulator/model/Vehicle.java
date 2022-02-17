@@ -56,40 +56,24 @@ public class Vehicle extends SimulatedObject {
 		this.contClass = c;
 	}
 	
-	
-	//Has to be coded
 	@Override
 	void advance(int time) {
-		// TODO: Fix this method, it always advances 0.
 		if (this.status == VehicleStatus.TRAVELING) {
-			int previewsLocation =  this.location;
-			this.location = Math.addExact(this.location, this.currSpeed);
-			//the length of the current road;
-			int c = Math.multiplyExact(time, previewsLocation);
-			this.contClass += c;
-			road.addContamination(c);
+			int location = Math.min(this.getLocation() + this.getSpeed(), this.getRoad().getLength());
+			int traveledDistance = Math.subtractExact(location, this.getLocation());
+			int c = Math.multiplyExact(traveledDistance, this.contClass);
+			
+			//Setting global states + adding contamination to road
+			this.totalContamination += c;
+			this.location = location;
+			this.road.addContamination(c);
+			
+			if (this.getLocation() == this.road.getLength()) {
+				this.status = VehicleStatus.WAITING;
+				this.currSpeed = 0;
+				this.itinerary.get(this.itineraryIdx).enter(this);;
+			}
 		}
-		
-//	modify this or take it // see after running the tests.
-//		if(this.status == VehicleStatus.TRAVELING) {
-//			//Update location
-//			int newLocation = Math.min(this.getLocation()+this.getCurrSpeed(), this.getRoad().getLength());
-//			int distTravelledOnCycle = newLocation - getLocation();		// For contamination calculus
-//			this.setLocation(newLocation);
-//			this.totalDistance += distTravelledOnCycle;
-//			
-//			//Update contamination
-//			int c = getContClass() * distTravelledOnCycle;
-//			setTotalContamination(getTotalContamination() + c);
-//			this.road.addContamination(c);			
-//			
-//			//Check end of road
-//			if(this.getLocation() == this.getRoad().getLength()) {
-//				this.setStatus(VehicleStatus.WAITING);
-//				this.setSpeed(0);
-//				itinerary.get(itineraryIdx).enter(this);
-//			}
-//		}
 	}
 
 	void moveToNextRoad() {
@@ -101,7 +85,6 @@ public class Vehicle extends SimulatedObject {
 			this.status = VehicleStatus.TRAVELING;
 		}
 		else if (this.status == VehicleStatus.WAITING){
-			// Continues the trip
 			this.road.exit(this);			
 			if (itineraryIdx < itinerary.size() - 1) {
 				this.road = itinerary.get(itineraryIdx).roadTo(itinerary.get(itineraryIdx + 1));
@@ -112,13 +95,11 @@ public class Vehicle extends SimulatedObject {
 				itineraryIdx++;
 			}
 			else {
-				// Has arrived to end of itinerary
 				this.status = VehicleStatus.ARRIVED;
 			}
 		}
 		else {
-			// Status = ARRIVED -> End the trip -> no new road -> throw exception
-			// Status = TRAVELLING -> Still moving on previous road -> throw exception			
+			//Using https://docs.oracle.com/javase/7/docs/api/java/lang/UnsupportedOperationException.html
 			throw new UnsupportedOperationException();
 		}
 	}
@@ -144,24 +125,28 @@ public class Vehicle extends SimulatedObject {
 	
 	
 	//Class getters
-	int getSpeed() {
-		return this.currSpeed;
-	}
-	
 	int getLocation() {
 		return this.location;
+	}
+	
+	int getSpeed() {
+		return this.currSpeed;
 	}
 	
 	int getMaxSpeed() {
 		return this.maxSpeed;
 	}
 	
-	VehicleStatus getStatus() {
-		return this.status;
-	}	
-	
 	int getContClass() {
 		return this.contClass;
+	}
+	
+	VehicleStatus getStatus() {
+		return this.status;
+	}
+	
+	int getTotalCO2() {
+		return this.totalContamination;
 	}
 	
 	List<Junction> getItinerary() {
@@ -172,7 +157,5 @@ public class Vehicle extends SimulatedObject {
 		return this.road;
 	}
 
-	int getTotalCO2() {
-		return this.totalContamination;
-	}
+
 }
