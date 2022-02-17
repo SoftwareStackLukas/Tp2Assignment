@@ -1,6 +1,7 @@
 package simulator.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -66,7 +67,6 @@ public class Junction extends SimulatedObject {
 		}
 	}
 	
-	//has to be done!
 	void enter(Vehicle v) {
 		queueMap.get(v.getRoad()).add(v);
 	}
@@ -82,6 +82,7 @@ public class Junction extends SimulatedObject {
 		if (this.greenLightIndex != 1 && this.greenLightIndex < this.queues.size() -1) {
 			List<Vehicle> toAdvanceCar = this.queues.get(this.greenLightIndex);
 			if (toAdvanceCar.size() != 0) {
+				toAdvanceCar = this.dequeuingStrategy.dequeue(toAdvanceCar);
 				for (Vehicle v : toAdvanceCar) {
 					v.advance(time);
 					toAdvanceCar.remove(v);
@@ -126,4 +127,28 @@ public class Junction extends SimulatedObject {
 		return jo;
 	}
 
+	//Getters of the class
+	public int getX() {
+		return xCoor;
+	}
+	
+	public int getY() {
+		return yCoor;
+	}
+	
+	public int getGreenLightIndex() {
+		return this.greenLightIndex;
+	}
+	
+	public List<Road> getInRoads(){
+		return Collections.unmodifiableList(this.incomingRoads);
+	}
+	
+	public Map<Junction, Road> getOutRoads(){
+		return Collections.unmodifiableMap(this.outgoingRoads);
+	}
+
+	public List<List<Vehicle>> getQueueList() {
+		return Collections.unmodifiableList(this.queues);
+	}
 }
