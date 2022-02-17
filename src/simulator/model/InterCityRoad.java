@@ -1,10 +1,15 @@
 package simulator.model;
 
-public class InnerCityRoad extends Road {
+public class InterCityRoad extends Road {
+
+	InterCityRoad(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length,
+			Weather weather) {
+		super(id, srcJunc, destJunc, maxSpeed, contLimit, length, weather);
+	}
 
 	@Override
 	void reduceTotalContamination() {
-		int x;
+		int x = 0;
 		switch (weather) {
 		case SUNNY:
 			x = 2;
@@ -22,7 +27,7 @@ public class InnerCityRoad extends Road {
 			x = 20;
 			break;
 		}
-		totalCO2 = ((100 - x) * totalCO2) / 100);
+		totalCO2 = ((100 - x) * totalCO2) / 100;
 	}
 
 	@Override
@@ -34,8 +39,9 @@ public class InnerCityRoad extends Road {
 		}
 	}
 	
-	double calculateVehicleSpeed() {
-		double speed = maxSpeed;
+	@Override
+	int calculateVehicleSpeed(Vehicle v) {
+		int speed = maxSpeed;
 		if (weather == Weather.STORM) {
 			speed *= .20;
 		}

@@ -160,7 +160,7 @@ public class Vehicle extends SimulatedObject {
 	}	
 	
 	int getContClass() {
-		return this.totalContamination;
+		return this.contClass;
 	}
 	
 	List<Junction> getItinerary() {
@@ -169,5 +169,9 @@ public class Vehicle extends SimulatedObject {
 	
 	Road getRoad() {
 		return this.road;
+	}
+
+	int getTotalCO2() {
+		return this.totalContamination;
 	}
 }
