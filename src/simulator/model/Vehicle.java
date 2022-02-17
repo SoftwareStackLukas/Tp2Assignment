@@ -60,6 +60,7 @@ public class Vehicle extends SimulatedObject {
 	//Has to be coded
 	@Override
 	void advance(int time) {
+		// TODO: Fix this method, it always advances 0.
 		if (this.status == VehicleStatus.TRAVELING) {
 			int previewsLocation =  this.location;
 			this.location = Math.addExact(this.location, this.currSpeed);

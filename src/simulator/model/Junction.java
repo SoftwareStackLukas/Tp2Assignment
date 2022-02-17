@@ -57,9 +57,9 @@ public class Junction extends SimulatedObject {
 	}
 	
 	void addOutGoingRoad(Road r) {
-		if (this.outgoingRoads.get(r.getDestJunc()) == null &&
-				r.getSrcJunc().equals(this)) {
-			this.outgoingRoads.put(r.getDestJunc(), r);
+		if (this.outgoingRoads.get(r.getDest()) == null &&
+				r.getSrc().equals(this)) {
+			this.outgoingRoads.put(r.getDest(), r);
 		} else {
 			throw new IllegalArgumentException("Road is not added to the outgoing roads");
 		}

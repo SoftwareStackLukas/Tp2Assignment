@@ -40,7 +40,7 @@ public abstract class Road extends SimulatedObject {
 			this.length = length;
 			this.weather = weather;
 			
-//			srcJunc.addOutGoingRoad(this);
+			srcJunc.addOutGoingRoad(this);
 			destJunc.addIncommingRoad(this);
 			// The constructor should add the road as an incoming road to its destination junction, and
 			// as an outgoing road of its source junction
@@ -93,7 +93,7 @@ public abstract class Road extends SimulatedObject {
 		JSONObject jo = new JSONObject();
 		jo.put("id", this._id);
 		jo.put("speedlimit", this.speedLimit);
-		jo.put("weather", this.weather);
+		jo.put("weather", this.weather.toString());
 		jo.put("co2", this.totalCO2);
 		
 		JSONArray jarr = new JSONArray();
