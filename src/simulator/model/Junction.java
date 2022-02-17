@@ -46,7 +46,7 @@ public class Junction extends SimulatedObject {
 	}
 	
 	void addIncommingRoad(Road r) {
-		if (r.getDestJunc().equals(this)) {
+		if (r.getDest().equals(this)) {
 			this.incomingRoads.add(r);
 			LinkedList<Vehicle> waitingCars = new LinkedList<>();
 			this.queues.add(waitingCars);

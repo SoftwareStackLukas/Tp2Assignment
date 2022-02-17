@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public abstract class Road extends SimulatedObject {
@@ -18,8 +19,10 @@ public abstract class Road extends SimulatedObject {
 	Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed,
 			int contLimit, int length, Weather weather) {
 			super(id);
-			if (srcJunc == null || destJunc == null || weather == null) {
+			if (id == null || srcJunc == null || destJunc == null || weather == null) {
 				throw new NullPointerException();
+			} else if (id.isEmpty()) {
+				throw new IllegalArgumentException("id must be a non-empty string");
 			} else if (maxSpeed <= 0) {
 				throw new IllegalArgumentException("maxSpeed should be a positive number");
 			} else if (contLimit < 0) {
@@ -28,8 +31,17 @@ public abstract class Road extends SimulatedObject {
 				throw new IllegalArgumentException("length should be a positive number");
 			}
 			totalCO2 = 0;
-			speedLimit = maxSpeed;
 			vehicleList = new ArrayList<Vehicle>();
+			this.srcJunc = srcJunc;
+			this.destJunc = destJunc;
+			this.maxSpeed = maxSpeed;
+			this.speedLimit = maxSpeed;
+			this.contLimit = contLimit;
+			this.length = length;
+			this.weather = weather;
+			
+//			srcJunc.addOutGoingRoad(this);
+			destJunc.addIncommingRoad(this);
 			// The constructor should add the road as an incoming road to its destination junction, and
 			// as an outgoing road of its source junction
 	}
@@ -61,6 +73,7 @@ public abstract class Road extends SimulatedObject {
 	void addContamination(int c) {
 		if (c < 0) {
 			throw new IllegalArgumentException("contamination should be non negative");
+		}
 		this.totalCO2 += c;
 	}
 	
@@ -94,16 +107,20 @@ public abstract class Road extends SimulatedObject {
 	
 	// ------------------------------------------- Getters and Setters ----------------------------------------
 	
-	public Junction getSrcJunc() {
+	public Junction getSrc() {
 		return srcJunc;
 	}
 
-	public Junction getDestJunc() {
+	public Junction getDest() {
 		return destJunc;
 	}
 
 	public int getMaxSpeed() {
 		return maxSpeed;
+	}
+	
+	public int getSpeedLimit() {
+		return speedLimit;
 	}
 
 	public int getLength() {
@@ -122,7 +139,7 @@ public abstract class Road extends SimulatedObject {
 		return weather;
 	}
 
-	public List<Vehicle> getVehicleList() {
+	public List<Vehicle> getVehicles() {
 		// should return the list of vehicles as a read-only list
 		// (i.e., it returns Collections.unmodifiableList(vehicles) where vehicles is the list of vehilces).
 		return Collections.unmodifiableList(vehicleList);
