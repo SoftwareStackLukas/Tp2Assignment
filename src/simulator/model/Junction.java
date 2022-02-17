@@ -17,12 +17,12 @@ public class Junction extends SimulatedObject {
 	private Map<Road,List<Vehicle>> queueMap;		
 	private int greenLightIndex;
 	private int lastSwitchingTime;
-	private LightSwitchStrategy lightSwitchingStrategy = null;
-	private DequeingStrategy dequeuingStrategy = null;
+	private LightSwitchingStrategy lightSwitchingStrategy = null;
+	private DequeuingStrategy dequeuingStrategy = null;
 	private int xCoor;
 	private int yCoor;
 	
-	Junction(String id, LightSwitchStrategy IsStrategy, DequeingStrategy
+	Junction(String id, LightSwitchingStrategy IsStrategy, DequeuingStrategy
 			dqStrategy, int xCoor, int yCoor) {
 		super(id);
 		if (IsStrategy == null || dqStrategy == null) {
