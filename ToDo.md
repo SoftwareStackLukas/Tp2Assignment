@@ -4,10 +4,8 @@
 	- JunctionTest, MostCrowdedStrategyTest, RoundRobinStrategyTest,
 	- MoveFirstStrategyTest, MoveAllStrategyTest.
 	
-
 #Errors
 advance() method in vehicles
-
 
 #Lukas
 5.1.3.3 Class Junction
@@ -15,7 +13,6 @@ advance() method in vehicles
 5.3.1. New Junction Event
 5.3.3. New Vehicle Event
 5.3.5. Set Contamination Class Event
-
 
 #Lucas
 Road map
