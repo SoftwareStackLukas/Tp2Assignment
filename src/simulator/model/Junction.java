@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Junction extends SimulatedObject {
@@ -85,11 +86,33 @@ public class Junction extends SimulatedObject {
 
 	@Override
 	public JSONObject report() {
-		// TODO Auto-generated method stub
-		return null;
+		JSONObject jo = new JSONObject();
+		jo.put("id", this._id);
+		if (this.greenLightIndex != -1) {
+			jo.put("green", this.greenLightIndex);
+		} else {
+			jo.put("green", "none");
+		}
+		JSONArray jsonArrayQu = new JSONArray();
+		JSONObject qu;
+		JSONArray jsonVehicles;
+		int roadID = 1;
+		int quID = 1; 
+		for (List<Vehicle> ls : this.queues) {
+			qu = new JSONObject();
+		    jsonVehicles = new JSONArray();
+			for (Vehicle v : ls) {
+				jsonVehicles.put(v.getId());
+			}
+			qu.put("road", roadID);
+			qu.put("vehicles", jsonVehicles);
+			jsonArrayQu.put(quID, jsonVehicles);
+			quID++;
+			roadID++;
+		}
+		jo.put("queues", jsonArrayQu);
 		
-		
-
+		return jo;
 	}
 
 }
