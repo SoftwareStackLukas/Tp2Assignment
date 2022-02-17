@@ -12,6 +12,7 @@ public class Junction extends SimulatedObject {
 	private List<Road> incomingRoads = null;
 	private Map<Junction,Road> outgoingRoads = null;
 	private List<List<Vehicle>> queues = null;
+	private Map<Road,List<Vehicle>> queueMapList;		
 	private int greenLightIndex;
 	private int lastSwitchingTime;
 	private LightSwitchStrategy lightSwitchingStrategy = null;
@@ -36,6 +37,7 @@ public class Junction extends SimulatedObject {
 			this.incomingRoads = new ArrayList<>();
 			this.outgoingRoads = new HashMap<>();
 			this.queues = new ArrayList<>();
+			this.queueMapList = new HashMap<>();
 			
 			this.greenLightIndex = -1;
 			this.xCoor = xCoor;
@@ -48,9 +50,9 @@ public class Junction extends SimulatedObject {
 			this.incomingRoads.add(r);
 			LinkedList<Vehicle> waitingCars = new LinkedList<>();
 			this.queues.add(waitingCars);
-			this.			
+			this.queueMapList.put(r, waitingCars);			
 		} else {
-			
+			throw new IllegalArgumentException();
 		}
 	}
 	
