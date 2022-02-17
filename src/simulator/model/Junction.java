@@ -13,7 +13,7 @@ public class Junction extends SimulatedObject {
 	private List<Road> incomingRoads = null;
 	private Map<Junction,Road> outgoingRoads = null;
 	private List<List<Vehicle>> queues = null;
-	private Map<Road,List<Vehicle>> queueMapList;		
+	private Map<Road,List<Vehicle>> queueMap;		
 	private int greenLightIndex;
 	private int lastSwitchingTime;
 	private LightSwitchStrategy lightSwitchingStrategy = null;
@@ -38,7 +38,7 @@ public class Junction extends SimulatedObject {
 			this.incomingRoads = new ArrayList<>();
 			this.outgoingRoads = new HashMap<>();
 			this.queues = new ArrayList<>();
-			this.queueMapList = new HashMap<>();
+			this.queueMap = new HashMap<>();
 			
 			this.greenLightIndex = -1;
 			this.xCoor = xCoor;
@@ -51,7 +51,7 @@ public class Junction extends SimulatedObject {
 			this.incomingRoads.add(r);
 			LinkedList<Vehicle> waitingCars = new LinkedList<>();
 			this.queues.add(waitingCars);
-			this.queueMapList.put(r, waitingCars);			
+			this.queueMap.put(r, waitingCars);			
 		} else {
 			throw new IllegalArgumentException();
 		}
@@ -68,8 +68,7 @@ public class Junction extends SimulatedObject {
 	
 	//has to be done!
 	void enter(Vehicle v) {
-		Road currentRoadVeh = v.getRoad();
-		
+		queueMap.get(v.getRoad()).add(v);
 	}
 	
 	Road roadTo(Junction j) {
@@ -80,8 +79,20 @@ public class Junction extends SimulatedObject {
 	//has to be done!
 	@Override
 	void advance(int time) {
-		// TODO Auto-generated method stub
-
+		if (this.greenLightIndex != 1 && this.greenLightIndex < this.queues.size() -1) {
+			List<Vehicle> toAdvanceCar = this.queues.get(this.greenLightIndex);
+			if (toAdvanceCar.size() != 0) {
+				for (Vehicle v : toAdvanceCar) {
+					v.advance(time);
+					toAdvanceCar.remove(v);
+				}
+			}
+		}
+		
+		int greenLightIndex = this.lightSwitchingStrategy.chooseNextGreen(this.incomingRoads, this.queues, this.greenLightIndex, this.lastSwitchingTime, time);
+		if (this.greenLightIndex != greenLightIndex) {
+			this.greenLightIndex = greenLightIndex;
+		}
 	}
 
 	@Override
