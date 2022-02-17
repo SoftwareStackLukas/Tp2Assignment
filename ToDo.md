@@ -5,7 +5,9 @@
 	- MoveFirstStrategyTest, MoveAllStrategyTest.
 	
 #Errors
-advance() method in vehicles
+- advance() method in vehicles --> Should be fixed but in Road are problems
+- Check in Road the method <b> void advance(int time) </b>
+- Change the accessors in the Road classes from package private to private. The access should just be possible via the setter/getter
 
 #Lukas
 5.1.3.3 Class Junction
