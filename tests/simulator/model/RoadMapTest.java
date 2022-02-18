@@ -41,9 +41,9 @@ class RoadMapTest {
 		map.addVehicle(v4);
 	
 		// check the getters of simulated objects works fine
-		assertTrue(map.getJuntion("j1").equals(j1));
-		assertTrue(map.getJuntion("j2").equals(j2));
-		assertTrue(map.getJuntion("j3").equals(j3));
+		assertTrue(map.getJunction("j1").equals(j1));
+		assertTrue(map.getJunction("j2").equals(j2));
+		assertTrue(map.getJunction("j3").equals(j3));
 
 		assertTrue(map.getRoad("r1").equals(r1));
 		assertTrue(map.getRoad("r2").equals(r2));
@@ -62,7 +62,7 @@ class RoadMapTest {
 		assertEquals(r1,lr.get(0));
 		assertEquals(r2,lr.get(1));
 
-		List<Vehicle> lv = map.getVehilces();
+		List<Vehicle> lv = map.getVehicles();
 		assertEquals(v1, lv.get(0));
 		assertEquals(v2, lv.get(1));
 		assertEquals(v3, lv.get(2));

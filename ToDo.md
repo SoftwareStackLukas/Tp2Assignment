@@ -18,7 +18,7 @@ advance() method in vehicles
 
 
 #Lucas
-Road map
-5.3.2. New Roard Events
+~Road map~
+5.3.2. New Road Events
 5.3.4. Set Weather Event
 5.4. The Simulator Class
