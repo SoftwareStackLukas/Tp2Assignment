@@ -17,8 +17,20 @@ public abstract class Event implements Comparable<Event> {
 
 	@Override
 	public int compareTo(Event o) {
-		// TODO complete
-		return 0;
+		/*
+	    * returns < 0 then the String calling the method is lexicographically first
+	    * returns == 0 then the two strings are lexicographically equivalent
+	    * returns > 0 then the parameter passed to the Java compareTo() method is lexicographically first.
+		*/
+		int result;
+		if (this._time > o._time) {
+			result = 1;
+		} else if (this._time < o._time) {
+			result = -1;
+		} else {
+			result = 0;
+		}
+		return result;
 	}
 
 	abstract void execute(RoadMap map);
