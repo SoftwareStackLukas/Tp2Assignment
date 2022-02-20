@@ -108,7 +108,7 @@ public class Junction extends SimulatedObject {
 		JSONArray qu = new JSONArray();
 		JSONArray jsonVehicles;
 		JSONObject jObj;
-		for (Map.Entry<Road, List<Vehicle>> entry : queueMapList.entrySet()) {
+		for (Map.Entry<Road, List<Vehicle>> entry : queueMap.entrySet()) {
 			qu = new JSONArray();
 			jObj = new JSONObject();
 		    jsonVehicles = new JSONArray();
