@@ -3,7 +3,8 @@
 	- VehicleTest, RoadTest, CirtRoadTest, InterCityRoadTest,
 	- JunctionTest, MostCrowdedStrategyTest, RoundRobinStrategyTest,
 	- MoveFirstStrategyTest, MoveAllStrategyTest.
-	
+- In which classes do we have to overwrite the toString() method?
+
 #Errors
 - advance() method in vehicles --> Should be fixed but in Road are problems
 - Check in Road the method <b> void advance(int time) </b>
