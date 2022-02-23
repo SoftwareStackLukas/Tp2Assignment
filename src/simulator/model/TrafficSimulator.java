@@ -27,7 +27,26 @@ public class TrafficSimulator {
 	}
 	
 	public void advance() {
-		//TODO ...
+		try {
+		this.simulationTime++;
+		for(Event e : events) {
+			if (e.getTime() == this.simulationTime) {
+				e.execute(roadMap);
+				this.events.remove(e);
+			} else {
+				//Do nothing
+			}
+		}
+		for (Junction j : this.roadMap.getJunctions()) {
+			j.advance(simulationTime);
+		}
+		
+		for (Road r : this.roadMap.getRoads()) {
+			r.advance(simulationTime);
+		}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public void reset() {
