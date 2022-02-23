@@ -1,5 +1,6 @@
 package simulator.model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class NewVehicleEvent extends Event {
@@ -20,7 +21,14 @@ public class NewVehicleEvent extends Event {
 	
 	@Override
 	void execute(RoadMap map) {
-		Vehicle v = new Vehicle(id, maxSpeed, contClass, itinerary);
+		List<Junction> tempItinerary = new LinkedList<Junction>();
+		for (String id : itinerary) {
+			Junction temp = map.getJunction(id);
+			if (temp != null) {
+				tempItinerary.add(temp);
+			}
+		}
+		Vehicle v = new Vehicle(id, maxSpeed, contClass, tempItinerary);
 		map.addVehicle(v);
 		v.moveToNextRoad();
 	}
