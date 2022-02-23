@@ -3,18 +3,19 @@
 	- VehicleTest, RoadTest, CirtRoadTest, InterCityRoadTest,
 	- JunctionTest, MostCrowdedStrategyTest, RoundRobinStrategyTest,
 	- MoveFirstStrategyTest, MoveAllStrategyTest.
-	
+- In which classes do we have to overwrite the toString() method?
+
 #Errors
 - advance() method in vehicles --> Should be fixed but in Road are problems
 - Check in Road the method <b> void advance(int time) </b>
 - Change the accessors in the Road classes from package private to private. The access should just be possible via the setter/getter
 
 #Lukas
-5.1.3.3 Class Junction --> Done but please check again
-5.3 Events --> abstract class is created
-5.3.1. New Junction Event
-5.3.3. New Vehicle Event
-5.3.5. Set Contamination Class Event
+~5.1.3.3 Class Junction~
+~5.3 Events~
+~5.3.1. New Junction Event~
+~5.3.3. New Vehicle Event~
+~5.3.5. Set Contamination Class Event~
 
 #Lucas
 ~Road map~

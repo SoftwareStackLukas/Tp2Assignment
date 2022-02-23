@@ -76,7 +76,7 @@ public class RoadMap {
 		return Collections.unmodifiableList(_roadList);	
 	}
 
-	public List<Vehicle> getVehicles() {
+	public List<Vehicle> getVehilces() {
 		return Collections.unmodifiableList(_vehicleList);	
 	}
 	

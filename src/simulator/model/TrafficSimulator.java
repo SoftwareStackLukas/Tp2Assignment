@@ -2,6 +2,7 @@ package simulator.model;
 
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import simulator.misc.SortedArrayList;
@@ -22,20 +23,44 @@ public class TrafficSimulator {
 	}
 	
 	public void addEvent(Event e) {
-		//TODO ...
+		this.events.add(e);
 	}
 	
 	public void advance() {
-		//TODO ...
+		try {
+		this.simulationTime++;
+		for(Event e : events) {
+			if (e.getTime() == this.simulationTime) {
+				e.execute(roadMap);
+				this.events.remove(e);
+			} else {
+				//Do nothing
+			}
+		}
+		for (Junction j : this.roadMap.getJunctions()) {
+			j.advance(simulationTime);
+		}
+		
+		for (Road r : this.roadMap.getRoads()) {
+			r.advance(simulationTime);
+		}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public void reset() {
-		//TODO ...
+		this.init();
 	}
 	
+	//Has to be completed
 	public JSONObject report() {
 		JSONObject jo = new JSONObject();
-		//TODO ...
+		jo.append("time", this.simulationTime);
+		jo.append("state", (new JSONObject())
+							.append("junctions", "")													)
+							.append("road", "")
+							.append("vehicles", "");
 		return jo;
 	}
 	
