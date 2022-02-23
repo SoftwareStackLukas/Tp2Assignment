@@ -2,6 +2,7 @@ package simulator.model;
 
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import simulator.misc.SortedArrayList;
@@ -22,7 +23,7 @@ public class TrafficSimulator {
 	}
 	
 	public void addEvent(Event e) {
-		//TODO ...
+		this.events.add(e);
 	}
 	
 	public void advance() {
@@ -30,12 +31,17 @@ public class TrafficSimulator {
 	}
 	
 	public void reset() {
-		//TODO ...
+		this.init();
 	}
 	
+	//Has to be completed
 	public JSONObject report() {
 		JSONObject jo = new JSONObject();
-		//TODO ...
+		jo.append("time", this.simulationTime);
+		jo.append("state", (new JSONObject())
+							.append("junctions", "")													)
+							.append("road", "")
+							.append("vehicles", "");
 		return jo;
 	}
 	
