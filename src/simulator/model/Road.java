@@ -15,6 +15,7 @@ public abstract class Road extends SimulatedObject {
 	/* Should always be sorted by vehicle location
 	   Note that multiple vehicles can be at the same location, however, their order of
 	   arrival at this location must be preserved */
+	private ComparatorVehicle comparator;
 	
 	Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed,
 			int contLimit, int length, Weather weather) {
@@ -30,6 +31,7 @@ public abstract class Road extends SimulatedObject {
 			} else if (length <= 0) {
 				throw new IllegalArgumentException("length should be a positive number");
 			}
+			this.comparator = new ComparatorVehicle();
 			totalCO2 = 0;
 			vehicleList = new ArrayList<Vehicle>();
 			this.srcJunc = srcJunc;
@@ -85,7 +87,7 @@ public abstract class Road extends SimulatedObject {
 			v.setSpeed(calculateVehicleSpeed(v));
 			v.advance(time);
 		}
-		vehicleList.sort(new ComparatorVehicle());
+		vehicleList.sort(comparator);
 	}
 	
 	@Override

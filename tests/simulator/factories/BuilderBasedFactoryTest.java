@@ -24,7 +24,7 @@ import simulator.model.SetWeatherEvent;
 
 class BuilderBasedFactoryTest {
 
-	private static  Factory<LightSwitchingStrategy> createLSSFactory() {
+	private static Factory<LightSwitchingStrategy> createLSSFactory() {
 		ArrayList<Builder<LightSwitchingStrategy>> lsbs = new ArrayList<>();
 		lsbs.add(new RoundRobinStrategyBuilder());
 		lsbs.add(new MostCrowdedStrategyBuilder());
