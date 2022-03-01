@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import simulator.model.Event;
 import simulator.model.NewInterCityRoadEvent;
 
-public class NewInterCityRoadEventBuilder extends Builder<Event> {
+public class NewInterCityRoadEventBuilder extends RoadEventBuilder {
 
 	private static final String TYPE = "new_inter_city_road";
 	

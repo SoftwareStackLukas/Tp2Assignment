@@ -6,7 +6,7 @@ import simulator.model.Event;
 import simulator.model.NewCityRoadEvent;
 import simulator.model.Weather;
 
-public class NewCityRoadEventBuilder extends Builder<Event> {
+public class NewCityRoadEventBuilder extends RoadEventBuilder {
 
 	private static final String TYPE = "new_city_road";
 	
