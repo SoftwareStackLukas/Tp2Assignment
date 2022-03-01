@@ -16,6 +16,16 @@
 ~5.3.1. New Junction Event~
 ~5.3.3. New Vehicle Event~
 ~5.3.5. Set Contamination Class Event~
+- One of this classes may not create the json correctly
+- Are the moveBuilders correctly implemented?
+- Where shall I use this: 
+List<Builder<DequeuingStrategy>> dqbs = new ArrayList<>();
+dqbs.add( new MoveFirstStrategyBuilder() );
+dqbs.add( new MoveAllStrategyBuilder() );
+Factory<DequeuingStrategy> dqsFactory = new BuilderBasedFactory<>(
+dqbs);
+
+- Why does the MoveAllBuilder not work?
 
 #Lucas
 ~Road map~
@@ -28,11 +38,19 @@
 	- Factories
 		- BuilderBasedFactory 				[ ] 
 		- MostCrowdedStrategyBuilder		[x]
+<<<<<<< HEAD
 		- MoveAllStrategyBuilder			[ ] 
 		- MoveFirstStrategyBuilder			[ ] 
 		- NewCityRoadEventBuilder			[ ] 	Lucas
 		- NewInterCityRoadEventBuilder		[ ] 	Lucas
 		- NewJunctionEventBuilder			[ ] 	Lucas
+=======
+		- MoveAllStrategyBuilder			[x] --> works but I had to change the type name from the assignment
+		- MoveFirstStrategyBuilder			[x] 
+		- NewCityRoadEventBuilder			[ ] 
+		- NewInterCityRoadEventBuilder	[ ] 
+		- NewJunctionEventBuilder			[ ] 
+>>>>>>> c1696c005f97a2d1ba6dac837483d2f8675e4ca5
 		- NewVehicleEventBuilder			[ ] 
 		- RoundRobinStrategyBuilder			[x] 
 	- Model

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import simulator.factories.MoveFirstStrategyBuilder;
 import simulator.misc.Utils;
 
 public class MoveFirstStrategyTest {
@@ -14,8 +15,8 @@ public class MoveFirstStrategyTest {
 	@Test
 	void test_1() {
 		//  junctions
-		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
-		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
 
 
 		// vehicles entered from r1
@@ -25,7 +26,7 @@ public class MoveFirstStrategyTest {
 		
 		List<Vehicle> q = Utils.arrayToList(vs);
 		
-		MoveFirstStrategy st = new MoveFirstStrategy();
+		MoveFirstStrategyBuilder st = new MoveFirstStrategyBuilder();
 		List<Vehicle> nq = st.dequeue(q);
 
 		assertTrue( nq.size() == 1);

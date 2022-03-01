@@ -14,7 +14,7 @@ class NewJunctionEventTest {
 		RoadMap map = new RoadMap();
 
 		// add a new junction via an event
-		Event e = new NewJunctionEvent(10,"j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		Event e = new NewJunctionEvent(10,"j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
 		e.execute(map);
 		
 		List<Junction> lj = map.getJunctions();

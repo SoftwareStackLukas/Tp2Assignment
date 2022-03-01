@@ -9,11 +9,11 @@ class JunctionTest {
 	@Test
 	void test_1() {
 		// junctions
-		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
-		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
-		Junction j3 = new Junction("j3", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
-		Junction j4 = new Junction("j4", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
-		Junction j5 = new Junction("j5", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j3 = new Junction("j3", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j4 = new Junction("j4", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j5 = new Junction("j5", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
 
 		// roads
 		Road r1 = new InterCityRoad("r1", j1, j3, 100, 500, 1000, Weather.SUNNY);
@@ -37,16 +37,16 @@ class JunctionTest {
 	@Test
 	void error_handling() {
 		// id must be a non-empty string
-		assertThrows(Exception.class, () -> new Junction(null, new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0));
-		assertThrows(Exception.class, () -> new Junction("", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0));
+		assertThrows(Exception.class, () -> new Junction(null, new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0));
+		assertThrows(Exception.class, () -> new Junction("", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0));
 		
 		// strategies cannot be null
-		assertThrows(Exception.class, () -> new Junction("j1", null, new MoveFirstStrategy(), 0, 0));
+		assertThrows(Exception.class, () -> new Junction("j1", null, new MoveFirstStrategyBuilder(), 0, 0));
 		assertThrows(Exception.class, () -> new Junction("j1", new RoundRobinStrategy(10), null, 0, 0));
 		
 		// coordinates are non-negative
-		assertThrows(Exception.class, () -> new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), -1, 0));
-		assertThrows(Exception.class, () -> new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, -1));
+		assertThrows(Exception.class, () -> new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), -1, 0));
+		assertThrows(Exception.class, () -> new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, -1));
 	}
 
 }
