@@ -13,7 +13,7 @@ import simulator.model.Event;
 import simulator.model.LightSwitchingStrategy;
 import simulator.model.MostCrowdedStrategy;
 import simulator.model.MoveAllStrategy;
-import simulator.model.MoveFirstStrategy;
+import simulator.model.MoveFirstStrategyBuilder;
 import simulator.model.NewCityRoadEvent;
 import simulator.model.NewInterCityRoadEvent;
 import simulator.model.NewJunctionEvent;
@@ -124,7 +124,7 @@ class BuilderBasedFactoryTest {
 
 		String inputJSon = "{ \"type\" : \"move_first_dqs\", \"data\" : {\"timeslot\" : 5} }";
 
-		assertTrue(dqsFactory.createInstance(new JSONObject(inputJSon)) instanceof MoveFirstStrategy);
+		assertTrue(dqsFactory.createInstance(new JSONObject(inputJSon)) instanceof MoveFirstStrategyBuilder);
 	}
 
 	@Test
@@ -133,7 +133,7 @@ class BuilderBasedFactoryTest {
 
 		String inputJSon = "{ \"type\" : \"move_first_dqs\", \"data\" : {\"timeslot\" : 5} }";
 
-		assertTrue(dqsFactory.createInstance(new JSONObject(inputJSon)) instanceof MoveFirstStrategy);
+		assertTrue(dqsFactory.createInstance(new JSONObject(inputJSon)) instanceof MoveFirstStrategyBuilder);
 	}
 
 	@Test

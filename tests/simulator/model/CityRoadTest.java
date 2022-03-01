@@ -14,8 +14,8 @@ class CityRoadTest {
 	@Test
 	void test_basic_info() {
 		// two junctions
-		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
-		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
 
 		// a road
 		Road r1 = new CityRoad("r1", j1, j2, 100, 500, 1000, Weather.SUNNY);
@@ -51,8 +51,8 @@ class CityRoadTest {
 	void test_1() {
 
 		// two junctions
-		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
-		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
 
 		// a road
 		Road r1 = new CityRoad("r1", j1, j2, 100, 10, 1000, Weather.SUNNY);
@@ -102,8 +102,8 @@ class CityRoadTest {
 	void test_report() {
 
 		// two junctions
-		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
-		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
 
 		// a road
 		Road r1 = new CityRoad("r1", j1, j2, 100, 10, 1000, Weather.SUNNY);
@@ -131,8 +131,8 @@ class CityRoadTest {
 	void test_list_of_vehicles_is_readonly() {
 
 		// two junctions
-		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
-		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
 
 		// a road
 		Road r1 = new CityRoad("r1", j1, j2, 100, 10, 1000, Weather.SUNNY);
@@ -147,8 +147,8 @@ class CityRoadTest {
 	@Test
 	void error_handling() {
 		// two junctions
-		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
-		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
 
 		// id must be a non-empty string
 		assertThrows(Exception.class, () -> new CityRoad(null, j1, j2, 100, 500, 1000, Weather.SUNNY));

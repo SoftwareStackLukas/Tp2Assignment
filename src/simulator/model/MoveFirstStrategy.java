@@ -7,10 +7,10 @@ public class MoveFirstStrategy implements DequeuingStrategy {
 
 	@Override
 	public List<Vehicle> dequeue(List<Vehicle> q) {
-		// Does not work for empty queue
 		List<Vehicle> out = new ArrayList<Vehicle>();
-		out.add(q.get(0));
+		if(!q.isEmpty()) {
+			out.add(q.get(0));
+		}
 		return out;
 	}
-
 }

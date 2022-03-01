@@ -13,9 +13,9 @@ class NewVehicleEventTest {
 	void test_1() {
 		RoadMap map = new RoadMap();
 		//  junctions
-		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
-		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
-		Junction j3 = new Junction("j3", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j3 = new Junction("j3", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
 
 		//  roads
 		Road r1 = new CityRoad("r1", j1, j2, 100, 500, 1000, Weather.SUNNY);

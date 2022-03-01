@@ -5,9 +5,11 @@ import org.json.JSONObject;
 import simulator.model.MoveFirstStrategy;
 
 public class MoveFirstStrategyBuilder extends Builder<MoveFirstStrategy> {
-		
-	public MoveFirstStrategyBuilder (String type) {
-		super(type);
+	
+	private static final String TYPE = "move_first_dqs";
+	
+	public MoveFirstStrategyBuilder () {
+		super(MoveFirstStrategyBuilder.TYPE);
 	}
 	
 	@Override

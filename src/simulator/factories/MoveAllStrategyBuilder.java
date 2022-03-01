@@ -6,8 +6,10 @@ import simulator.model.MoveAllStrategy;
 
 public class MoveAllStrategyBuilder extends Builder<MoveAllStrategy> {
 	
-	public MoveAllStrategyBuilder(String type) {
-		super(type);
+	private static final String TYPE = "most_all_dqs";
+	
+	public MoveAllStrategyBuilder() {
+		super(MoveAllStrategyBuilder.TYPE);
 	}
 	
 	@Override
