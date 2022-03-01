@@ -25,6 +25,8 @@ dqbs.add( new MoveAllStrategyBuilder() );
 Factory<DequeuingStrategy> dqsFactory = new BuilderBasedFactory<>(
 dqbs);
 
+- Why does the MoveAllBuilder not work?
+
 #Lucas
 ~Road map~
 ~5.3.2. New Road Events~
@@ -36,7 +38,7 @@ dqbs);
 	- Factories
 		- BuilderBasedFactory 				[ ] 
 		- MostCrowdedStrategyBuilder		[x]
-		- MoveAllStrategyBuilder			[ ] 
+		- MoveAllStrategyBuilder			[x] --> works but I had to change the type name from the assignment
 		- MoveFirstStrategyBuilder			[x] 
 		- NewCityRoadEventBuilder			[ ] 
 		- NewInterCityRoadEventBuilder	[ ] 
