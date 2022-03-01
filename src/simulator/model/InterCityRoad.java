@@ -41,9 +41,9 @@ public class InterCityRoad extends Road {
 	
 	@Override
 	int calculateVehicleSpeed(Vehicle v) {
-		int speed = maxSpeed;
+		int speed = speedLimit;
 		if (weather == Weather.STORM) {
-			speed *= .20;
+			speed *= (1 - 0.20);
 		}
 		return speed;
 	}

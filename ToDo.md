@@ -22,3 +22,40 @@
 ~5.3.2. New Road Events~
 ~5.3.4. Set Weather Event~
 5.4. The Simulator Class (Lets right about this in the next days maybe I can do some stuff of it but lets see how much time I have)
+
+#Tests
+- Simulator
+	- Factories
+		- BuilderBasedFactory 				[ ] 
+		- MostCrowdedStrategyBuilder		[x]
+		- MoveAllStrategyBuilder			[ ] 
+		- MoveFirstStrategyBuilder			[ ] 
+		- NewCityRoadEventBuilder			[ ] 
+		- NewInterCityRoadEventBuilder	[ ] 
+		- NewJunctionEventBuilder			[ ] 
+		- NewVehicleEventBuilder			[ ] 
+		- RoundRobinStrategyBuilder		[x] 
+	- Model
+		- CityRoad 		 					[ ]		co2 does not update correctly with advance
+		- InterCityRoad						[x]
+		- Junction							[x]
+		- MostCrowdedStrategy				[ ]
+		- MoveAllStrategy					[x]
+		- MoveFirstStrategy					[x]
+		- NewCityRoad							[x]
+		- NewInterCityRoad					[x]
+		- NewJunction							[x]
+		- NewVehicle							[x]
+		- RoadMap								[ ]
+		- RoundRobinStrategy				[x]
+		- SetContClass						[x]
+		- SetWeather							[x]
+		- TrafficSimulator					[ ]
+		- Vehicle								[ ]
+		
+		
+		
+		
+		
+		
+	
