@@ -30,11 +30,11 @@
 		- MostCrowdedStrategyBuilder		[x]
 		- MoveAllStrategyBuilder			[ ] 
 		- MoveFirstStrategyBuilder			[ ] 
-		- NewCityRoadEventBuilder			[ ] 
-		- NewInterCityRoadEventBuilder	[ ] 
-		- NewJunctionEventBuilder			[ ] 
+		- NewCityRoadEventBuilder			[ ] 	Lucas
+		- NewInterCityRoadEventBuilder		[ ] 	Lucas
+		- NewJunctionEventBuilder			[ ] 	Lucas
 		- NewVehicleEventBuilder			[ ] 
-		- RoundRobinStrategyBuilder		[x] 
+		- RoundRobinStrategyBuilder			[x] 
 	- Model
 		- CityRoad 		 					[ ]		co2 does not update correctly with advance
 		- InterCityRoad						[x]
@@ -42,16 +42,16 @@
 		- MostCrowdedStrategy				[ ]
 		- MoveAllStrategy					[x]
 		- MoveFirstStrategy					[x]
-		- NewCityRoad							[x]
+		- NewCityRoad						[x]
 		- NewInterCityRoad					[x]
-		- NewJunction							[x]
-		- NewVehicle							[x]
-		- RoadMap								[ ]
+		- NewJunction						[x]
+		- NewVehicle						[x]
+		- RoadMap							[ ]
 		- RoundRobinStrategy				[x]
 		- SetContClass						[x]
-		- SetWeather							[x]
+		- SetWeather						[x]
 		- TrafficSimulator					[ ]
-		- Vehicle								[ ]
+		- Vehicle							[ ]
 		
 		
 		
