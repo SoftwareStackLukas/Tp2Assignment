@@ -14,7 +14,11 @@ public class MoveAllStrategyBuilder extends Builder<MoveAllStrategy> {
 	
 	@Override
 	protected MoveAllStrategy createTheInstance(JSONObject data) {
-		MoveAllStrategy result = new MoveAllStrategy(); 
-		return result;  
+		try {
+			MoveAllStrategy result = new MoveAllStrategy(); 
+			return result;  
+		} catch (Exception ex) {
+			throw new IllegalArgumentException("Something went wronge in" + MoveAllStrategyBuilder.TYPE);
+		}
 	}
 }

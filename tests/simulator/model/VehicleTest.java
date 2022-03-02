@@ -14,8 +14,8 @@ class VehicleTest {
 	void getset_contamination_class() {
 
 		// two junctions
-		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
-		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
 
 		// a vehicle
 		Vehicle v1 = new Vehicle("v1", 50, 1, Arrays.asList(j1, j2));
@@ -36,8 +36,8 @@ class VehicleTest {
 	void getset_test_speed() {
 
 		// two junctions
-		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
-		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
 
 		// a road
 		@SuppressWarnings("unused")
@@ -68,8 +68,8 @@ class VehicleTest {
 	@Test
 	void test_report() {
 		// two junctions
-		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
-		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
 
 		// a vehicle
 		Vehicle v1 = new Vehicle("v1", 50, 1, Arrays.asList(j1, j2));
@@ -88,9 +88,9 @@ class VehicleTest {
 	@Test
 	void test_iterinary_is_readonly() {
 		// two junctions
-		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
-		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
-		Junction j3 = new Junction("j3", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		Junction j3 = new Junction("j3", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
 
 		// a vehicle
 		Vehicle v1 = new Vehicle("v1", 50, 1, Arrays.asList(j1, j2));
@@ -103,8 +103,8 @@ class VehicleTest {
 	void test_1() {
 
 		// two junctions
-		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
-		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
 
 		// a road
 		Road r1 = new CityRoad("r1", j1, j2, 100, 10, 1000, Weather.SUNNY);
@@ -144,7 +144,7 @@ class VehicleTest {
 		assertEquals(50, v1.getLocation());
 		
 		// check the vehicle's contamination
-		assertEquals(50, v1.getTotalCO2());
+		assertEquals(50,v1.getTotalCO2());
 
 		// check that the report/toString is OK
 		String s = "{\"distance\":50,\"road\":\"r1\",\"co2\":50,\"location\":50,\"id\":\"v1\",\"class\":1,\"speed\":50,\"status\":\"TRAVELING\"}";
@@ -158,8 +158,8 @@ class VehicleTest {
 	void error_handling() {
 		
 		// two junctions
-		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
-		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0);
+		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
 
 		// id must be a non-empty string
 		assertThrows(Exception.class, () -> new Vehicle(null, 50, 1, Arrays.asList(j1, j2)));

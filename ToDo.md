@@ -25,7 +25,10 @@ dqbs.add( new MoveAllStrategyBuilder() );
 Factory<DequeuingStrategy> dqsFactory = new BuilderBasedFactory<>(
 dqbs);
 
-- Why does the MoveAllBuilder not work?
+- Test all Builder!
+- How to make the SetWeatherEventBuilder???
+- TravicSimulator's toJSON has to be improved!
+
 
 #Lucas
 ~Road map~

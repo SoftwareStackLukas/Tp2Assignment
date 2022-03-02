@@ -14,9 +14,9 @@ class TrafficSimulatorTest {
 	void test_1() {
 		TrafficSimulator ts = new TrafficSimulator();
 		
-		ts.addEvent(new NewJunctionEvent(1,"j1", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0));
-		ts.addEvent(new NewJunctionEvent(1,"j2", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0));
-		ts.addEvent(new NewJunctionEvent(1,"j3", new RoundRobinStrategy(10), new MoveFirstStrategyBuilder(), 0, 0));
+		ts.addEvent(new NewJunctionEvent(1,"j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0));
+		ts.addEvent(new NewJunctionEvent(1,"j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0));
+		ts.addEvent(new NewJunctionEvent(1,"j3", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0));
 		ts.addEvent(new NewCityRoadEvent(1, "r1", "j1", "j2", 1000, 500, 100, Weather.SUNNY));
 		ts.addEvent(new NewCityRoadEvent(1, "r2", "j2", "j3", 1000, 500, 100, Weather.SUNNY));
 		ts.addEvent(new NewVehicleEvent(1,"v1", 50, 1, Arrays.asList("j1", "j2")));

@@ -13,7 +13,7 @@ import simulator.model.Event;
 import simulator.model.LightSwitchingStrategy;
 import simulator.model.MostCrowdedStrategy;
 import simulator.model.MoveAllStrategy;
-import simulator.model.MoveFirstStrategyBuilder;
+import simulator.model.MoveFirstStrategy;
 import simulator.model.NewCityRoadEvent;
 import simulator.model.NewInterCityRoadEvent;
 import simulator.model.NewJunctionEvent;
@@ -24,7 +24,7 @@ import simulator.model.SetWeatherEvent;
 
 class BuilderBasedFactoryTest {
 
-	private static Factory<LightSwitchingStrategy> createLSSFactory() {
+	private static  Factory<LightSwitchingStrategy> createLSSFactory() {
 		ArrayList<Builder<LightSwitchingStrategy>> lsbs = new ArrayList<>();
 		lsbs.add(new RoundRobinStrategyBuilder());
 		lsbs.add(new MostCrowdedStrategyBuilder());
@@ -124,7 +124,7 @@ class BuilderBasedFactoryTest {
 
 		String inputJSon = "{ \"type\" : \"move_first_dqs\", \"data\" : {\"timeslot\" : 5} }";
 
-		assertTrue(dqsFactory.createInstance(new JSONObject(inputJSon)) instanceof MoveFirstStrategyBuilder);
+		assertTrue(dqsFactory.createInstance(new JSONObject(inputJSon)) instanceof MoveFirstStrategy);
 	}
 
 	@Test
@@ -133,7 +133,7 @@ class BuilderBasedFactoryTest {
 
 		String inputJSon = "{ \"type\" : \"move_first_dqs\", \"data\" : {\"timeslot\" : 5} }";
 
-		assertTrue(dqsFactory.createInstance(new JSONObject(inputJSon)) instanceof MoveFirstStrategyBuilder);
+		assertTrue(dqsFactory.createInstance(new JSONObject(inputJSon)) instanceof MoveFirstStrategy);
 	}
 
 	@Test
