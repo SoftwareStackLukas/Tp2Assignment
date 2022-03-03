@@ -32,13 +32,11 @@ public class NewVehicleEventBuilder extends Builder<Event> {
 			itinerary.add(s);
 		}
 		Collections.reverse(itinerary);
-		NewVehicleEvent ve = new NewVehicleEvent(data.getInt(NewVehicleEventBuilder._time), 
+	    return new NewVehicleEvent(data.getInt(NewVehicleEventBuilder._time), 
 													data.getString(NewVehicleEventBuilder._id), 
 													data.getInt(NewVehicleEventBuilder._maxspeed), 
 													data.getInt(NewVehicleEventBuilder._class), 
 													itinerary);
-	
-		return ve;
 	}
 
 }

@@ -16,16 +16,10 @@
 ~5.3.1. New Junction Event~
 ~5.3.3. New Vehicle Event~
 ~5.3.5. Set Contamination Class Event~
-- Where shall I use this: 
-List<Builder<DequeuingStrategy>> dqbs = new ArrayList<>();
-dqbs.add( new MoveFirstStrategyBuilder() );
-dqbs.add( new MoveAllStrategyBuilder() );
-Factory<DequeuingStrategy> dqsFactory = new BuilderBasedFactory<>(
-dqbs);
-
 - Test all Builder!
-- How to make the SetWeatherEventBuilder and the SetWeatherEventBuilder???
+~- How to make the SetWeatherEventBuilder and the SetWeatherEventBuilder???~
 - TravicSimulator's toJSON has to be improved and the advance!
+- the setcon and weather could not have been tested!
 
 
 #Lucas
