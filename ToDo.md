@@ -25,7 +25,7 @@ dqbs);
 
 - Test all Builder!
 - How to make the SetWeatherEventBuilder and the SetWeatherEventBuilder???
-- TravicSimulator's toJSON has to be improved!
+- TravicSimulator's toJSON has to be improved and the advance!
 
 
 #Lucas

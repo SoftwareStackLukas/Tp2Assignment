@@ -27,8 +27,9 @@ public class NewVehicleEventBuilder extends Builder<Event> {
 	protected NewVehicleEvent createTheInstance(JSONObject data) {
 		List<String> itinerary = new ArrayList<>();	
 		JSONArray ja = data.getJSONArray(NewVehicleEventBuilder._itinerary);
-		for (int x = ja.length(); x >= 0; x--) {
-			itinerary.add(ja.getString(x));
+		for (int x = ja.length() - 1; x >= 0; x--) {
+			String s = ja.getString(x);
+			itinerary.add(s);
 		}
 		Collections.reverse(itinerary);
 		NewVehicleEvent ve = new NewVehicleEvent(data.getInt(NewVehicleEventBuilder._time), 

@@ -16,6 +16,8 @@ import simulator.model.SetWeatherEvent;
 
 public class SetWeatherEventBuilder extends Builder<Event> {
 	private static final String TYPE = "set_cont_class";
+	private static final String ROAD = "road";
+	private static final String WEATHER = "weather";
 	
 	private static final String _time = "time";
 	private static final String _info = "info";
@@ -31,27 +33,11 @@ public class SetWeatherEventBuilder extends Builder<Event> {
 		JSONObject jo; 
 		for (int x = ja.length(); x >= 0; x--) {
 			jo = ja.getJSONObject(x);
-			jo.ge
-			ws.add(new Pair<String, Weather>(null, null)ja.getInt(x));
+			ws.add(new Pair<String, Weather>(jo.getString(SetWeatherEventBuilder.ROAD), 
+					Weather.valueOf(jo.getString(SetWeatherEventBuilder.WEATHER))));
 		}
 		Collections.reverse(ws);
-		Event result = new SetWeatherEvent(data.getInt(SetWeatherEventBuilder._time),
-										
-							);
+		Event result = new SetWeatherEvent(data.getInt(SetWeatherEventBuilder._time), ws);
 		return result;
 	}
-	
-	/*
-	{
-	
-		"type" : "set_weather",
-		"data" : {
-			"time" : 10,
-			"info" : [ { "road" : r1, "weather": "SUNNY" },
-				{ "road" : r2, "weather": "STORM" },
-				...
-				]
-		}
-	}
-	*/
 }
