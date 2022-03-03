@@ -14,7 +14,12 @@ public class MoveAllStrategyBuilder extends Builder<DequeuingStrategy> {
 	}
 	
 	@Override
-	protected DequeuingStrategy createTheInstance(JSONObject data) { 
-		return new MoveAllStrategy();  
+	protected MoveAllStrategy createTheInstance(JSONObject data) {
+		try {
+			MoveAllStrategy result = new MoveAllStrategy(); 
+			return result;  
+		} catch (Exception ex) {
+			throw new IllegalArgumentException("Something went wronge in" + MoveAllStrategyBuilder.TYPE);
+		}
 	}
 }

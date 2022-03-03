@@ -8,7 +8,7 @@ public class SetWeatherEvent extends Event {
 
 	private List<Pair<String, Weather>> weathers; // (Road id, weather)
 
-	SetWeatherEvent(int time, List<Pair<String,Weather>> weathers) {
+	public SetWeatherEvent(int time, List<Pair<String,Weather>> weathers) {
 		super(time);
 		this.weathers = weathers;
 	}

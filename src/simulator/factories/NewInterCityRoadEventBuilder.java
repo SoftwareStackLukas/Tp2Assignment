@@ -10,14 +10,17 @@ public class NewInterCityRoadEventBuilder extends NewRoadEventBuilder {
 
 	private static final String TYPE = "new_inter_city_road";
 	
-	NewInterCityRoadEventBuilder() {
-		super(TYPE);
+	public NewInterCityRoadEventBuilder() {
+		super(NewInterCityRoadEventBuilder.TYPE);
 	}
 
 	@Override
-	protected NewInterCityRoadEvent createTheInstance(JSONObject data) {
-		parseData(data);
-		return new NewInterCityRoadEvent(time, id, src, dest, length, co2limit, maxspeed, weather);
+	NewInterCityRoadEvent createCorrespondingEvent() {
+		try {
+			return new NewInterCityRoadEvent(time, id, srcJunc, destJunc, length, co2Limit, maxSpeed, weather);
+		} catch (Exception ex) {
+			throw new IllegalArgumentException("Something went wronge in" + NewInterCityRoadEventBuilder.TYPE);
+		}
 	}
 
 }

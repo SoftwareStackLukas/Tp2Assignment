@@ -3,27 +3,41 @@ package simulator.factories;
 import org.json.JSONObject;
 
 import simulator.model.Event;
-import simulator.model.NewRodEvent;
+import simulator.model.NewRoudEvent;
 import simulator.model.Weather;
 
-abstract class NewRoadEventBuilder extends Builder<Event> {
-	int time, length, co2limit, maxspeed;
-	String id, src, dest, weatherName;
+public abstract class NewRoadEventBuilder extends Builder<Event> {
+
+	private static final String _time  = "time";
+	private static final String _id = "id";
+	private static final String _src = "src";
+	private static final String _dest = "dest";
+	private static final String _length = "length";
+	private static final String _co2limit = "co2limit";
+	private static final String _maxspeed = "maxspeed";
+	private static final String _weather = "weather";
+	
+	int time, length, co2Limit, maxSpeed;
+	String id, srcJunc, destJunc;
 	Weather weather;
 
 	NewRoadEventBuilder(String type) {
 		super(type);
 	}
+	abstract Event createCorrespondingEvent();
 	
-	protected void parseData(JSONObject data) {
-		time = data.getInt("time");
-		id = data.getString("id");
-		src = data.getString("src");
-		dest = data.getString("dest");
-		length = data.getInt("length");
-		co2limit = data.getInt("co2limit");
-		maxspeed = data.getInt("maxspeed");
-		weatherName = data.getString("weather");
-		weather = Weather.valueOf(weatherName);
+	@Override
+	protected Event createTheInstance(JSONObject data) {
+		this.time = data.getInt(NewRoadEventBuilder._time);
+		this.length = data.getInt(NewRoadEventBuilder._length);
+		this.co2Limit = data.getInt(NewRoadEventBuilder._co2limit);
+		this.maxSpeed = data.getInt(NewRoadEventBuilder._maxspeed);
+		this.id = data.getString(NewRoadEventBuilder._id);
+		this.srcJunc = data.getString(NewRoadEventBuilder._src);
+		this.destJunc = data.getString(NewRoadEventBuilder._dest);
+		this.weather = Weather.valueOf(data.getString(NewRoadEventBuilder._weather));
+		
+		Event e = createCorrespondingEvent();
+		return e;
 	}
 }

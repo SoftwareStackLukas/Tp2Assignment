@@ -16,8 +16,6 @@
 ~5.3.1. New Junction Event~
 ~5.3.3. New Vehicle Event~
 ~5.3.5. Set Contamination Class Event~
-- One of this classes may not create the json correctly
-- Are the moveBuilders correctly implemented?
 - Where shall I use this: 
 List<Builder<DequeuingStrategy>> dqbs = new ArrayList<>();
 dqbs.add( new MoveFirstStrategyBuilder() );
@@ -25,7 +23,10 @@ dqbs.add( new MoveAllStrategyBuilder() );
 Factory<DequeuingStrategy> dqsFactory = new BuilderBasedFactory<>(
 dqbs);
 
-- Why does the MoveAllBuilder not work?
+- Test all Builder!
+- How to make the SetWeatherEventBuilder???
+- TravicSimulator's toJSON has to be improved!
+
 
 #Lucas
 ~Road map~
