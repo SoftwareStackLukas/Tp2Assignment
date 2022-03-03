@@ -24,7 +24,7 @@ Factory<DequeuingStrategy> dqsFactory = new BuilderBasedFactory<>(
 dqbs);
 
 - Test all Builder!
-- How to make the SetWeatherEventBuilder???
+- How to make the SetWeatherEventBuilder and the SetWeatherEventBuilder???
 - TravicSimulator's toJSON has to be improved!
 
 
