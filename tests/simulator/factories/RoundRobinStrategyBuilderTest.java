@@ -6,37 +6,37 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import simulator.model.LightSwitchingStrategy;
-import simulator.model.MostCrowdedStrategy;
+import simulator.model.RoundRobinStrategy;
 
 class RoundRobinStrategyBuilderTest {
 
 	@Test
 	void test_1() {
-		MostCrowdedStrategyBuilder eb = new MostCrowdedStrategyBuilder();
+		RoundRobinStrategyBuilder eb = new RoundRobinStrategyBuilder();
 		
-		String inputJSon = "{ \"type\" : \"most_crowded_lss\", \"data\" : {\"timeslot\" : 5} }";
+		String inputJSon = "{ \"type\" : \"round_robin_lss\", \"data\" : {\"timeslot\" : 5} }";
 		LightSwitchingStrategy o = eb.createInstance(new JSONObject(inputJSon));
-		assertTrue( o instanceof MostCrowdedStrategy );
+		assertTrue( o instanceof RoundRobinStrategy );
 		
 	}
 
 	@Test
 	void test_2() {
-		MostCrowdedStrategyBuilder eb = new MostCrowdedStrategyBuilder();
+		RoundRobinStrategyBuilder eb = new RoundRobinStrategyBuilder();
 		
-		String inputJSon = "{ \"type\" : \"most_crowded_lss\", \"data\" : {} }";
+		String inputJSon = "{ \"type\" : \"round_robin_lss\", \"data\" : {} }";
 		LightSwitchingStrategy o = eb.createInstance(new JSONObject(inputJSon));
-		assertTrue( o instanceof MostCrowdedStrategy );
+		assertTrue( o instanceof RoundRobinStrategy );
 		
 	}
 
 	@Test
 	void test_4() {
-		MostCrowdedStrategyBuilder eb = new MostCrowdedStrategyBuilder();
+		RoundRobinStrategyBuilder eb = new RoundRobinStrategyBuilder();
 		
-		String inputJSon = "{ \"type\" : \"most_crowded_lss\" }";
+		String inputJSon = "{ \"type\" : \"round_robin_lss\" }";
 		LightSwitchingStrategy o = eb.createInstance(new JSONObject(inputJSon));
-		assertTrue( o instanceof MostCrowdedStrategy );
+		assertTrue( o instanceof RoundRobinStrategy );
 		
 	}
 

@@ -39,21 +39,13 @@ dqbs);
 	- Factories
 		- BuilderBasedFactory 				[ ] 
 		- MostCrowdedStrategyBuilder		[x]
-<<<<<<< HEAD
-		- MoveAllStrategyBuilder			[ ] 
-		- MoveFirstStrategyBuilder			[ ] 
-		- NewCityRoadEventBuilder			[ ] 	Lucas
-		- NewInterCityRoadEventBuilder		[ ] 	Lucas
-		- NewJunctionEventBuilder			[ ] 	Lucas
-=======
 		- MoveAllStrategyBuilder			[x] --> works but I had to change the type name from the assignment
 		- MoveFirstStrategyBuilder			[x] 
-		- NewCityRoadEventBuilder			[ ] 
-		- NewInterCityRoadEventBuilder	[ ] 
-		- NewJunctionEventBuilder			[ ] 
->>>>>>> c1696c005f97a2d1ba6dac837483d2f8675e4ca5
+		- NewCityRoadEventBuilder			[ ] 	Works but needs traffic simulator
+		- NewInterCityRoadEventBuilder	[ ] 	Same as above
+		- NewJunctionEventBuilder			[ ] 	Same as above
 		- NewVehicleEventBuilder			[ ] 
-		- RoundRobinStrategyBuilder			[x] 
+		- RoundRobinStrategyBuilder		[x] 
 	- Model
 		- CityRoad 		 					[ ]		co2 does not update correctly with advance
 		- InterCityRoad						[x]
@@ -61,16 +53,16 @@ dqbs);
 		- MostCrowdedStrategy				[ ]
 		- MoveAllStrategy					[x]
 		- MoveFirstStrategy					[x]
-		- NewCityRoad						[x]
+		- NewCityRoad							[x]
 		- NewInterCityRoad					[x]
-		- NewJunction						[x]
-		- NewVehicle						[x]
-		- RoadMap							[ ]
+	- NewJunction								[x]
+		- NewVehicle							[x]
+		- RoadMap								[ ]
 		- RoundRobinStrategy				[x]
 		- SetContClass						[x]
-		- SetWeather						[x]
+		- SetWeather							[x]
 		- TrafficSimulator					[ ]
-		- Vehicle							[ ]
+		- Vehicle								[ ]
 		
 		
 		

@@ -1,7 +1,5 @@
 package simulator.factories;
 
-
-import simulator.model.Event;
 import simulator.model.NewCityRoadEvent;
 
 public class NewCityRoadEventBuilder extends NewRoadEventBuilder {
@@ -10,11 +8,10 @@ public class NewCityRoadEventBuilder extends NewRoadEventBuilder {
 	
 	NewCityRoadEventBuilder() {
 		super(TYPE);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	Event createCorrespondingEvent() {
+	NewCityRoadEvent createCorrespondingEvent() {
 		try {
 			return new NewCityRoadEvent(time, id, srcJunc, destJunc, length, co2Limit, maxSpeed, weather);
 		} catch (Exception ex) {
