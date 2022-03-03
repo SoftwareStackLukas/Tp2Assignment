@@ -50,7 +50,7 @@ dqbs);
 		- NewVehicleEventBuilder			[ ] 
 		- RoundRobinStrategyBuilder		[x] 
 	- Model
-		- CityRoad 		 					[ ]		co2 does not update correctly with advance
+		- CityRoad 		 					[x]		
 		- InterCityRoad						[x]
 		- Junction							[x]
 		- MostCrowdedStrategy				[ ]

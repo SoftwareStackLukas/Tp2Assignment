@@ -11,9 +11,10 @@ public class CityRoad extends Road {
 		int x = 0;
 		switch (weather) {
 		case WINDY:
+		case STORM:
 			x = 10;
 			break;
-		case STORM:
+		default:
 			x = 2;
 			break;
 		}
