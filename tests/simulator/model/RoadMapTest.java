@@ -41,9 +41,9 @@ class RoadMapTest {
 		map.addVehicle(v4);
 	
 		// check the getters of simulated objects works fine
-		assertTrue(map.getJuntion("j1").equals(j1));
-		assertTrue(map.getJuntion("j2").equals(j2));
-		assertTrue(map.getJuntion("j3").equals(j3));
+		assertTrue(map.getJunction("j1").equals(j1));
+		assertTrue(map.getJunction("j2").equals(j2));
+		assertTrue(map.getJunction("j3").equals(j3));
 
 		assertTrue(map.getRoad("r1").equals(r1));
 		assertTrue(map.getRoad("r2").equals(r2));
@@ -101,7 +101,7 @@ class RoadMapTest {
 		map.addVehicle(v2);
 		
 		// Invalid itinerary 
-		assertThrows(Exception.class, () ->map.addVehicle(v3));
+		assertThrows(Exception.class, () -> map.addVehicle(v3));
 
 
 		// cannot add object with same id
