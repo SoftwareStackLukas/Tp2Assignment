@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONString;
 
 import simulator.misc.Pair;
 import simulator.model.Event;
@@ -15,7 +14,7 @@ import simulator.model.SetWeatherEvent;
 
 
 public class SetWeatherEventBuilder extends Builder<Event> {
-	private static final String TYPE = "set_cont_class";
+	private static final String TYPE = "set_weather";
 	
 	private static final String _time = "time";
 	private static final String _info = "info";

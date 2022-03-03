@@ -25,10 +25,10 @@ dqbs.add( new MoveAllStrategyBuilder() );
 Factory<DequeuingStrategy> dqsFactory = new BuilderBasedFactory<>(
 dqbs);
 
-
 - Test all Builder!
-- How to make the SetWeatherEventBuilder and the SetWeatherEventBuilder???
+~- How to make the SetWeatherEventBuilder and the SetWeatherEventBuilder???~
 - TravicSimulator's toJSON has to be improved and the advance!
+- the setcon and weather could not have been tested!
 
 
 #Lucas
