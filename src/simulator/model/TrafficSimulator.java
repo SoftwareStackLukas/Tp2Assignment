@@ -28,22 +28,22 @@ public class TrafficSimulator {
 	
 	public void advance() {
 		try {
-		this.simulationTime++;
-		for(Event e : events) {
-			if (e.getTime() == this.simulationTime) {
-				e.execute(roadMap);
-				this.events.remove(e);
-			} else {
-				//Do nothing
+			this.simulationTime++;
+			for(Event e : events) {
+				if (e.getTime() == this.simulationTime) {
+					e.execute(roadMap);
+					this.events.remove(e);
+				} else {
+					//Do nothing
+				}
 			}
-		}
-		for (Junction j : this.roadMap.getJunctions()) {
-			j.advance(simulationTime);
-		}
-		
-		for (Road r : this.roadMap.getRoads()) {
-			r.advance(simulationTime);
-		}
+			for (Junction j : this.roadMap.getJunctions()) {
+				j.advance(simulationTime);
+			}
+			
+			for (Road r : this.roadMap.getRoads()) {
+				r.advance(simulationTime);
+			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -56,11 +56,8 @@ public class TrafficSimulator {
 	//Has to be completed
 	public JSONObject report() {
 		JSONObject jo = new JSONObject();
-		jo.append("time", this.simulationTime);
-		jo.append("state", (new JSONObject())
-							.append("junctions", "")													)
-							.append("road", "")
-							.append("vehicles", "");
+		jo.put("time", this.simulationTime);
+		jo.put("state", this.roadMap.report());
 		return jo;
 	}
 	

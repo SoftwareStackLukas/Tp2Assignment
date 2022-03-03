@@ -12,13 +12,11 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import simulator.factories.Builder;
-import simulator.factories.BuilderBasedFactory;
-import simulator.factories.Factory;
-import simulator.factories.MostCrowdedStrategyBuilder;
-import simulator.factories.RoundRobinStrategyBuilder;
+import simulator.factories.*;
+import simulator.model.DequeuingStrategy;
 import simulator.model.Event;
 import simulator.model.LightSwitchingStrategy;
+import simulator.model.SetContClassEvent;
 
 public class Main {
 
@@ -26,6 +24,7 @@ public class Main {
 	private static String _inFile = null;
 	private static String _outFile = null;
 	private static Factory<Event> _eventsFactory = null;
+	private static int _ticks;
 
 	private static void parseArgs(String[] args) {
 
@@ -41,6 +40,7 @@ public class Main {
 			parseHelpOption(line, cmdLineOptions);
 			parseInFileOption(line);
 			parseOutFileOption(line);
+			parseTicksOption(line);
 
 			// if there are some remaining arguments, then something wrong is
 			// provided in the command line!
@@ -89,20 +89,43 @@ public class Main {
 	private static void parseOutFileOption(CommandLine line) throws ParseException {
 		_outFile = line.getOptionValue("o");
 	}
+	
+	private static void parseTicksOption(CommandLine line) {
+		if (line.hasOption("t")) {
+			Main._ticks = Integer.parseInt(line.getOptionValue("t"));
+		} else {
+			Main._ticks = _timeLimitDefaultValue;
+		}
+	}
 
 	private static void initFactories() {
 
-		// TODO complete this method to initialize _eventsFactory
+		// This method to initializes _eventsFactory
 		
 		List<Builder<LightSwitchingStrategy>> lsbs = new ArrayList<>();
 		lsbs.add( new RoundRobinStrategyBuilder() );
 		lsbs.add( new MostCrowdedStrategyBuilder() );
 		Factory<LightSwitchingStrategy> lssFactory = new BuilderBasedFactory<>(lsbs);
+		
+		List<Builder<DequeuingStrategy>> dqbs = new ArrayList<>();
+		dqbs.add( new MoveFirstStrategyBuilder() );
+		dqbs.add( new MoveAllStrategyBuilder() );
+		Factory<DequeuingStrategy> dqsFactory = new BuilderBasedFactory<>(dqbs);
+		
+		List<Builder<Event>> ebs = new ArrayList<>();
+		ebs.add( new NewJunctionEventBuilder(lssFactory,dqsFactory) );
+		ebs.add( new NewCityRoadEventBuilder() );
+		ebs.add( new NewInterCityRoadEventBuilder() );
+		ebs.add( new NewVehicleEventBuilder() );
+		ebs.add( new SetWeatherEventBuilder() );
+		ebs.add( new SetContClassEventBuilder() );
+		Main._eventsFactory = new BuilderBasedFactory<>(ebs);
 
 	}
 
 	private static void startBatchMode() throws IOException {
 		// TODO complete this method to start the simulation
+		
 	}
 
 	private static void start(String[] args) throws IOException {
