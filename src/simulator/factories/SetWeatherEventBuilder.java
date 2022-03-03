@@ -37,7 +37,6 @@ public class SetWeatherEventBuilder extends Builder<Event> {
 					Weather.valueOf(jo.getString(SetWeatherEventBuilder.WEATHER))));
 		}
 		Collections.reverse(ws);
-		Event result = new SetWeatherEvent(data.getInt(SetWeatherEventBuilder._time), ws);
-		return result;
+		return new SetWeatherEvent(data.getInt(SetWeatherEventBuilder._time), ws);
 	}
 }
