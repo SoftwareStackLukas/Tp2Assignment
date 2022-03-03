@@ -29,7 +29,7 @@ public class SetContClassEventBuilder extends Builder<Event> {
 			List<Pair<String, Integer>> cs = new ArrayList<>();
 			JSONArray ja = data.getJSONArray(SetContClassEventBuilder._info);
 			JSONObject jo; 
-			for (int x = ja.length(); x >= 0; x--) {
+			for (int x = ja.length() -1 ; x >= 0; x--) {
 				jo = ja.getJSONObject(x);
 				cs.add(new Pair<String, Integer>(jo.getString(SetContClassEventBuilder._vehicle), 
 												 jo.getInt(SetContClassEventBuilder._class)));
