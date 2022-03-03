@@ -5,6 +5,11 @@
 	- MoveFirstStrategyTest, MoveAllStrategyTest.
 - In which classes do we have to overwrite the toString() method?
 
+# Biggest Problems
+- to advance in TrafficSimulator
+- Reading the data for the main
+- some minor problems in the model
+
 #Errors
 - advance() method in vehicles --> Should be fixed but in Road are problems
 - Check in Road the method <b> void advance(int time) </b>
