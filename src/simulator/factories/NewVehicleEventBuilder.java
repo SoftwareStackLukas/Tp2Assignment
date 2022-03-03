@@ -18,8 +18,8 @@ public class NewVehicleEventBuilder extends Builder<NewVehicleEvent> {
 	private static final String _class = "class";
 	private static final String _itinerary = "itinerary";
 	
-	public NewVehicleEventBuilder(String type) {
-		super(type);
+	public NewVehicleEventBuilder() {
+		super(NewVehicleEventBuilder.TYPE);
 	}
 
 	@Override
