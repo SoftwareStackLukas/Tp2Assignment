@@ -1,6 +1,11 @@
 package simulator.launcher;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle.Control;
@@ -130,11 +135,11 @@ public class Main {
 		TrafficSimulator tp;
 		Controller c;
 		tp = new TrafficSimulator();
-		// Input create
-		// Outputstream create
+		InputStream in = new ByteArrayInputStream(StandardCharsets.UTF_16.encode(Main._inFile).array());;
+		OutputStream out = new FileOutputStream(Main._outFile);
 		c = new Controller(tp, _eventsFactory);
-		c.loadEvents(null);
-		c.run(_ticks, null);
+		c.loadEvents(in);
+		c.run(_ticks, out);
 	}
 
 	private static void start(String[] args) throws IOException {

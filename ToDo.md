@@ -36,6 +36,7 @@ dqbs);
 ~5.3.2. New Road Events~
 ~5.3.4. Set Weather Event~
 5.4. The Simulator Class (Lets right about this in the next days maybe I can do some stuff of it but lets see how much time I have)
+- Test the main class
 
 #Tests
 - Simulator
