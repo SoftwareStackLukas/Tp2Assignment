@@ -3,6 +3,7 @@ package simulator.control;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,16 +38,15 @@ public class Controller {
 	}
 	
 	public void run(int n, OutputStream out) {
-		JSONArray ja = new JSONArray();
-		for (int x = 0; x < n; x++) {
+		PrintStream p = new PrintStream(out);
+		p.print("{\"states\": [");
+		for (int x = 0; x < n -1; x++) {
+			p.print(this.simulator.report().toString());
+			p.print(",");
 			this.simulator.advance();
-			ja.put(this.simulator.report());
 		}
-		try {
-			out.write(ja.toString().getBytes());
-		} catch (IOException e) {
-			System.out.println("Error: Unexcepted failure appeaered in Controller");
-		}
+		p.print(this.simulator.report().toString());
+		p.print("]}");
 	}
 	
 	public void reset() {
