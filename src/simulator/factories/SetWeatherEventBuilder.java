@@ -30,11 +30,11 @@ public class SetWeatherEventBuilder extends Builder<Event> {
 		List<Pair<String, Weather>> ws = new ArrayList<>();
 		JSONArray ja = data.getJSONArray(SetWeatherEventBuilder._info);
 		JSONObject jo; 
-		for (int x = ja.length(); x >= 0; x--) {
+		for (int x = ja.length() - 1; x >= 0; x--) {
 			jo = ja.getJSONObject(x);
 			ws.add(new Pair<String, Weather>(jo.getString(SetWeatherEventBuilder._road), 
 					Weather.valueOf(jo.getString(SetWeatherEventBuilder._weather))));
-		}
+		} 
 		Collections.reverse(ws);
 		return new SetWeatherEvent(data.getInt(SetWeatherEventBuilder._time), ws);
 	}

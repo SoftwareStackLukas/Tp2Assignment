@@ -3,6 +3,7 @@ package simulator.launcher;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle.Control;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -12,11 +13,13 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import simulator.control.Controller;
 import simulator.factories.*;
 import simulator.model.DequeuingStrategy;
 import simulator.model.Event;
 import simulator.model.LightSwitchingStrategy;
 import simulator.model.SetContClassEvent;
+import simulator.model.TrafficSimulator;
 
 public class Main {
 
@@ -124,8 +127,14 @@ public class Main {
 	}
 
 	private static void startBatchMode() throws IOException {
-		// TODO complete this method to start the simulation
-		
+		TrafficSimulator tp;
+		Controller c;
+		tp = new TrafficSimulator();
+		// Input create
+		// Outputstream create
+		c = new Controller(tp, _eventsFactory);
+		c.loadEvents(null);
+		c.run(_ticks, null);
 	}
 
 	private static void start(String[] args) throws IOException {
