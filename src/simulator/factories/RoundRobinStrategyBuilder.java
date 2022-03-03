@@ -21,7 +21,4 @@ public class RoundRobinStrategyBuilder extends Builder<LightSwitchingStrategy> {
 		}
 		return new RoundRobinStrategy(timeSlot);
 	}
-
-	
-
 }

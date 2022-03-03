@@ -1,7 +1,10 @@
 package simulator.factories;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import simulator.misc.Pair;
@@ -14,6 +17,8 @@ public class SetContClassEventBuilder extends Builder<Event> {
 	private static final String _type = "type";
 	private static final String _time = "time";
 	private static final String _info = "info";
+	private static final String _vehicle = "vehicle";
+	private static final String _class = "class";
 	
 	public SetContClassEventBuilder() {
 		super(SetContClassEventBuilder.TYPE);
@@ -22,11 +27,17 @@ public class SetContClassEventBuilder extends Builder<Event> {
 	@Override
 	protected Event createTheInstance(JSONObject data) {		
 		try {
-			List<Pair<String, Integer>> cs = null;
-			//get the info out of the JSON???		
-			Event result = new SetContClassEvent(data.getInt(SetContClassEventBuilder._time), 
-												cs);
-			return result;
+			List<Pair<String, Integer>> cs = new ArrayList<>();
+			JSONArray ja = data.getJSONArray(SetContClassEventBuilder._info);
+			JSONObject jo; 
+			for (int x = ja.length(); x >= 0; x--) {
+				jo = ja.getJSONObject(x);
+				cs.add(new Pair<String, Integer>(jo.getString(SetContClassEventBuilder._vehicle), 
+												 jo.getInt(SetContClassEventBuilder._class)));
+			}
+			Collections.reverse(cs);
+			
+			return new SetContClassEvent(data.getInt(SetContClassEventBuilder._time), cs);
 		} catch (Exception ex) {
 			throw new IllegalArgumentException("Something went wronge in" + SetContClassEventBuilder.TYPE);
 		}
