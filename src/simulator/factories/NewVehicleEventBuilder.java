@@ -7,9 +7,10 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import simulator.model.Event;
 import simulator.model.NewVehicleEvent;
 
-public class NewVehicleEventBuilder extends Builder<NewVehicleEvent> {
+public class NewVehicleEventBuilder extends Builder<Event> {
 	private static final String TYPE = "new_vehicle";
 	
 	private static final String _time = "time";
