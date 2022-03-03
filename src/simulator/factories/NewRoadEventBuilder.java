@@ -4,18 +4,26 @@ import org.json.JSONObject;
 
 import simulator.model.Event;
 import simulator.model.NewRodEvent;
+import simulator.model.Weather;
 
-public class NewRoadEventBuilder extends Builder<Event> {
+abstract class NewRoadEventBuilder extends Builder<Event> {
+	int time, length, co2limit, maxspeed;
+	String id, src, dest, weatherName;
+	Weather weather;
 
 	NewRoadEventBuilder(String type) {
 		super(type);
-		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	protected NewRodEvent createTheInstance(JSONObject data) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	protected void parseData(JSONObject data) {
+		time = data.getInt("time");
+		id = data.getString("id");
+		src = data.getString("src");
+		dest = data.getString("dest");
+		length = data.getInt("length");
+		co2limit = data.getInt("co2limit");
+		maxspeed = data.getInt("maxspeed");
+		weatherName = data.getString("weather");
+		weather = Weather.valueOf(weatherName);
 	}
-
 }

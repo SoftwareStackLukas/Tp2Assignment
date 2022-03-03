@@ -2,9 +2,10 @@ package simulator.factories;
 
 import org.json.JSONObject;
 
+import simulator.model.DequeuingStrategy;
 import simulator.model.MoveAllStrategy;
 
-public class MoveAllStrategyBuilder extends Builder<MoveAllStrategy> {
+public class MoveAllStrategyBuilder extends Builder<DequeuingStrategy> {
 	
 	private static final String TYPE = "move_all_dqs";
 	
@@ -13,8 +14,7 @@ public class MoveAllStrategyBuilder extends Builder<MoveAllStrategy> {
 	}
 	
 	@Override
-	protected MoveAllStrategy createTheInstance(JSONObject data) {
-		MoveAllStrategy result = new MoveAllStrategy(); 
-		return result;  
+	protected DequeuingStrategy createTheInstance(JSONObject data) { 
+		return new MoveAllStrategy();  
 	}
 }
