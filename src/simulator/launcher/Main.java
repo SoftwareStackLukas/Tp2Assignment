@@ -73,7 +73,7 @@ public class Main {
 		cmdLineOptions.addOption(
 				Option.builder("o").longOpt("output").hasArg().desc("Output file, where reports are written.").build());
 		cmdLineOptions.addOption(Option.builder("h").longOpt("help").desc("Print this message").build());
-
+		cmdLineOptions.addOption(Option.builder("t").longOpt("ticks").hasArg().desc("Ticks to the simulator’s main loop (default value is 10).").build());
 		return cmdLineOptions;
 	}
 
@@ -155,8 +155,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		try {
-			//start(args);
-			System.out.println("Test");
+			start(args);
+//			System.out.println("Test");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
