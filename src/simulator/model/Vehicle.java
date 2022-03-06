@@ -48,8 +48,9 @@ public class Vehicle extends SimulatedObject {
 				throw new IllegalArgumentException("The speed is out of the legal range.");
 			} 
 			this.currSpeed = toSetSpeed;
+		} else {
+			this.currSpeed = 0;
 		}
-		this.currSpeed = 0;
 	}
 
 	void setContClass(int c) {
@@ -72,6 +73,7 @@ public class Vehicle extends SimulatedObject {
 			
 			//Setting global states + adding contamination to road
 			this.totalContamination += c;
+			this.totalTraveledDistance += traveledDistance;
 			this.location = location;
 			this.road.addContamination(c);
 			
