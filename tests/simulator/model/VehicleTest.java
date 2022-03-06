@@ -54,9 +54,8 @@ class VehicleTest {
 		// when vehicle is traveling, setSpeed changes the speed
 		v1.moveToNextRoad();
 		v1.setSpeed(30);
-		//Fails
 		assertEquals(30, v1.getSpeed());
-
+		
 		// when the maximum speed is exceeded, speed is set to maxSpeed
 		v1.setSpeed(51);
 		assertEquals(50, v1.getSpeed());

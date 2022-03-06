@@ -51,7 +51,6 @@ class MostCrowdedStrategyTest {
 		assertEquals(0, st.chooseNextGreen(rs, q, 0, 11, 12));
 		assertEquals(0, st.chooseNextGreen(rs, q, 0, 11, 13));
 		assertEquals(1, st.chooseNextGreen(rs, q, 0, 11, 14));
-
 		
 		q.get(0).remove(0);
 		assertEquals(1, st.chooseNextGreen(rs, q, -1, 0, 11));

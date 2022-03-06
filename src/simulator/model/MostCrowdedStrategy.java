@@ -37,6 +37,7 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy {
 		int countOfCars = 0;
 		//calcNextQueueIndex
 		for (int x = ((currGreen + 1) % roads.size()); x < qs.size() - 1; x++) {
+			//If two have the first size the first one will be taken
 			if (countOfCars < qs.get(x).size()) {
 				index = x;
 				countOfCars = qs.get(x).size();
