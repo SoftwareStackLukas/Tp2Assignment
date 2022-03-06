@@ -122,7 +122,7 @@ public class Vehicle extends SimulatedObject {
 		jo.put("distance", this.totalTraveledDistance);
 		jo.put("co2", this.totalContamination);
 		jo.put("class", this.contClass);
-		jo.put("status", this.status);
+		jo.put("status", this.status.toString());
 		if (!(this.status == VehicleStatus.ARRIVED 
 				|| this.status == VehicleStatus.PENDING)) {
 			jo.put("road", this.road.getId());
