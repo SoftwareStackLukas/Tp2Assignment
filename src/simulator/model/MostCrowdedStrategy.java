@@ -17,8 +17,6 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy {
 		try {
 			if (roads.isEmpty()) {
 				result = -1;
-			} else if (currGreen == -1) {				
-				result = calcStartQueueIndex(qs);
 			} else if (currTime-lastSwitchingTime < timeSlot) {
 				result = currGreen;
 			} else {
@@ -32,34 +30,19 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy {
 	}
 
 	private int calcNextQueueIndex(List<Road> roads, List<List<Vehicle>> qs, int currGreen) {
-		//Note that it might return currGreen
-		int index = 0;
-		int countOfCars = 0;
-		//calcNextQueueIndex
-		for (int x = ((currGreen + 1) % roads.size()); x < qs.size() - 1; x++) {
-			//If two have the first size the first one will be taken
-			if (countOfCars < qs.get(x).size()) {
-				index = x;
-				countOfCars = qs.get(x).size();
+		int startIndex = (currGreen + 1) % roads.size();
+		int max = qs.get(startIndex).size();
+		int maxIndex = startIndex;
+		int i = (startIndex + 1) % qs.size();
+		
+		while (i != startIndex) {
+			if (max < qs.get(i).size()) {
+				maxIndex = i;
+				max = qs.get(i).size();
 			}
-			if (x > qs.size() - 1) {
-				x = -1;
-			}
+			i = (i + 1) % qs.size();
 		}
 		
-		return index;
+		return maxIndex;
 	}
-
-	private int calcStartQueueIndex(List<List<Vehicle>> qs) {
-		int index = 0;
-		int countOfCars = 0;
-		for (List<Vehicle> vLs : qs ) {
-			if (vLs.size() > countOfCars) {
-				index = qs.indexOf(vLs);
-				countOfCars = vLs.size();
-			}
-		}
-		return index;
-	}
-
 }
