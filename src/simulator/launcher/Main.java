@@ -8,7 +8,6 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle.Control;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -23,7 +22,6 @@ import simulator.factories.*;
 import simulator.model.DequeuingStrategy;
 import simulator.model.Event;
 import simulator.model.LightSwitchingStrategy;
-import simulator.model.SetContClassEvent;
 import simulator.model.TrafficSimulator;
 
 public class Main {
