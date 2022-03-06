@@ -118,7 +118,7 @@ public class Junction extends SimulatedObject {
 		JSONObject jo = new JSONObject();
 		jo.put("id", this._id);
 		if (this.greenLightIndex != -1) {
-			jo.put("green", this.greenLightIndex);
+			jo.put("green", incomingRoads.get(greenLightIndex).getId());
 		} else {
 			jo.put("green", "none");
 		}
