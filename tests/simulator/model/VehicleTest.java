@@ -80,12 +80,11 @@ class VehicleTest {
 		
 		JSONObject report = v1.report();
 		//Failse
-		//assertTrue(jo.similar(report));
 		System.out.println("Zwei : " + report.toString());
 		System.out.println("     : " + jo.toString());
 		System.out.println();
-		
-		
+		assertTrue(jo.similar(report));
+
 		assertEquals("v1", v1.getId());
 	}
 	
@@ -156,10 +155,10 @@ class VehicleTest {
 		JSONObject jo = new JSONObject(s);
 		
 		JSONObject report = v1.report();
-		//assertTrue(jo.similar(report));
 		System.out.println("Eins : " + report.toString());
 		System.out.println("     : " + jo.toString());
 		System.out.println();
+		assertTrue(jo.similar(report));
 	}
 
 	@Test
