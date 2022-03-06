@@ -46,29 +46,33 @@ dqbs);
 #Tests
 - Simulator
 	- Factories
-		- BuilderBasedFactory 				[ ] 
+		- BuilderBasedFactory 				[x] 
 		- MostCrowdedStrategyBuilder		[x]
 		- MoveAllStrategyBuilder			[x] --> works but I had to change the type name from the assignment
 		- MoveFirstStrategyBuilder			[x] 
 		- NewCityRoadEventBuilder			[ ] 	Works but needs traffic simulator
-		- NewInterCityRoadEventBuilder	[ ] 	Same as above
+		- NewInterCityRoadEventBuilder		[ ] 	Same as above
 		- NewJunctionEventBuilder			[ ] 	Same as above
-		- NewVehicleEventBuilder			[ ] 
-		- RoundRobinStrategyBuilder		[x] 
+		- NewVehicleEventBuilder			[ ] 	Same as above
+		- RoundRobinStrategyBuilder			[x] 
 	- Model
 		- CityRoad 		 					[x]		
 		- InterCityRoad						[x]
 		- Junction							[x]
-		- MostCrowdedStrategy				[ ]
+		- MostCrowdedStrategy				[x]
 		- MoveAllStrategy					[x]
 		- MoveFirstStrategy					[x]
-		- NewCityRoad							[x]
+		- NewCityRoad						[x]
 		- NewInterCityRoad					[x]
-	- NewJunction								[x]
-		- NewVehicle							[x]
-		- RoadMap								[ ]
+	- NewJunction							[x]
+		- NewVehicle						[x]
+		- RoadMap							[x]
 		- RoundRobinStrategy				[x]
 		- SetContClass						[x]
-		- SetWeather							[x]
+		- SetWeather						[x]
 		- TrafficSimulator					[ ]
-		- Vehicle								[ ]
+		- Vehicle							[x]
+		
+		
+		
+		
