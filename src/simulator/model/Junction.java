@@ -75,25 +75,42 @@ public class Junction extends SimulatedObject {
 		return this.outgoingRoads.get(j);
 	}
 	
-	
 	//has to be done!
 	@Override
 	void advance(int time) {
-		if (this.greenLightIndex != 1 && this.greenLightIndex < this.queues.size() -1) {
-			List<Vehicle> toAdvanceCar = this.queues.get(this.greenLightIndex);
-			if (toAdvanceCar.size() != 0) {
-				toAdvanceCar = this.dequeuingStrategy.dequeue(toAdvanceCar);
-				for (Vehicle v : toAdvanceCar) {
-					v.advance(time);
-					toAdvanceCar.remove(v);
+		if (this.greenLightIndex != -1 && this.greenLightIndex < incomingRoads.size()) {
+			List<Vehicle> currQueue = this.queueMap.get(incomingRoads.get(this.greenLightIndex));
+			if (!currQueue.isEmpty()) {
+				List<Vehicle> toDequeue = this.dequeuingStrategy.dequeue(currQueue);
+				for (Vehicle v : toDequeue) {
+					v.moveToNextRoad();
+					currQueue.remove(v);
 				}
 			}
 		}
 		
-		int greenLightIndex = this.lightSwitchingStrategy.chooseNextGreen(this.incomingRoads, this.queues, this.greenLightIndex, this.lastSwitchingTime, time);
-		if (this.greenLightIndex != greenLightIndex) {
-			this.greenLightIndex = greenLightIndex;
+		int newGreen = this.lightSwitchingStrategy.chooseNextGreen(incomingRoads, this.queues, this.greenLightIndex, this.lastSwitchingTime, time);
+		if (newGreen != this.greenLightIndex) {
+			this.greenLightIndex = newGreen;
+			this.lastSwitchingTime = time;
 		}
+		
+		
+//		if (this.greenLightIndex != 1 && this.greenLightIndex < this.queues.size() -1) {
+//			List<Vehicle> toAdvanceCar = this.queues.get(this.greenLightIndex);
+//			if (toAdvanceCar.size() != 0) {
+//				toAdvanceCar = this.dequeuingStrategy.dequeue(toAdvanceCar);
+//				for (Vehicle v : toAdvanceCar) {
+//					v.advance(time);
+//					toAdvanceCar.remove(v);
+//				}
+//			}
+//		}
+//		
+//		int greenLightIndex = this.lightSwitchingStrategy.chooseNextGreen(this.incomingRoads, this.queues, this.greenLightIndex, this.lastSwitchingTime, time);
+//		if (this.greenLightIndex != greenLightIndex) {
+//			this.greenLightIndex = greenLightIndex;
+//		}
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package simulator.model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -25,17 +26,17 @@ public class TrafficSimulator {
 		this.events.add(e);
 	}
 	
-	public void advance() {
+	public void advance() {		
 		try {
 			this.simulationTime++;
+			List<Event> es = new LinkedList<>();
 			for(Event e : events) {
 				if (e.getTime() == this.simulationTime) {
 					e.execute(roadMap);
-					this.events.remove(e);
-				} else {
-					//Do nothing
-				}
+					es.add(e);
+				} 
 			}
+			this.events.removeAll(es);
 			for (Junction j : this.roadMap.getJunctions()) {
 				j.advance(simulationTime);
 			}
@@ -52,13 +53,10 @@ public class TrafficSimulator {
 		this.init();
 	}
 	
-	//Has to be completed
 	public JSONObject report() {
 		JSONObject jo = new JSONObject();
 		jo.put("time", this.simulationTime);
 		jo.put("state", this.roadMap.report());
 		return jo;
 	}
-	
-	
 }
