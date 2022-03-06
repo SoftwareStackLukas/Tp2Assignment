@@ -42,18 +42,25 @@ public class Vehicle extends SimulatedObject {
 	}
 	
 	void setSpeed(int s) {
-		int toSetSpeed = Math.min(this.maxSpeed, s);		
-		if (0 > toSetSpeed) {
-			throw new IllegalArgumentException("The speed is out of the legal range.");
-		} 
-		this.currSpeed = toSetSpeed;
+		if (this.status == VehicleStatus.TRAVELING) {
+			int toSetSpeed = Math.min(this.maxSpeed, s);		
+			if (0 > toSetSpeed) {
+				throw new IllegalArgumentException("The speed is out of the legal range.");
+			} 
+			this.currSpeed = toSetSpeed;
+		}
+		this.currSpeed = 0;
 	}
 
 	void setContClass(int c) {
-		if (Math.subtractExact(10, c) < 0) {
+		if (!(c <= 10 && c >= 0)) {
 			throw new IllegalArgumentException("The contamination class has to be between [0,10]");
 		}
 		this.contClass = c;
+	}
+	
+	void setLocation(int loc) {
+		this.location = loc;
 	}
 	
 	@Override
@@ -122,7 +129,6 @@ public class Vehicle extends SimulatedObject {
 		
 		return jo;
 	}
-	
 	
 	//Class getters
 	int getLocation() {
