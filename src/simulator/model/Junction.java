@@ -94,6 +94,7 @@ public class Junction extends SimulatedObject {
 			this.greenLightIndex = newGreen;
 			this.lastSwitchingTime = time;
 		}
+	}
 		
 		
 //		if (this.greenLightIndex != 1 && this.greenLightIndex < this.queues.size() -1) {
@@ -111,8 +112,6 @@ public class Junction extends SimulatedObject {
 //		if (this.greenLightIndex != greenLightIndex) {
 //			this.greenLightIndex = greenLightIndex;
 //		}
-	}
-
 	@Override
 	public JSONObject report() {
 		JSONObject jo = new JSONObject();
@@ -127,7 +126,6 @@ public class Junction extends SimulatedObject {
 		JSONObject jObj;
 		int i = 0;
 		for (List<Vehicle> queue: queues) {
-			qu = new JSONArray();
 			jObj = new JSONObject();
 		    jsonVehicles = new JSONArray(queue.toString());
 		    Road road = incomingRoads.get(i);
