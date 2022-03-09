@@ -43,7 +43,7 @@ public class InterCityRoad extends Road {
 	int calculateVehicleSpeed(Vehicle v) {
 		int speed = speedLimit;
 		if (weather == Weather.STORM) {
-			speed *= (1 - 0.20);
+			speed *= 0.8;
 		}
 		return speed;
 	}

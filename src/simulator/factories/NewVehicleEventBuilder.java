@@ -27,11 +27,12 @@ public class NewVehicleEventBuilder extends Builder<Event> {
 	protected NewVehicleEvent createTheInstance(JSONObject data) {
 		List<String> itinerary = new ArrayList<>();	
 		JSONArray ja = data.getJSONArray(NewVehicleEventBuilder._itinerary);
-		for (int x = ja.length() - 1; x >= 0; x--) {
+//		for (int x = ja.length() - 1; x >= 0; x--) {
+		for (int x = 0; x < ja.length(); x++) {
 			String s = ja.getString(x);
 			itinerary.add(s);
 		}
-		Collections.reverse(itinerary);
+//		Collections.reverse(itinerary);
 	    return new NewVehicleEvent(data.getInt(NewVehicleEventBuilder._time), 
 													data.getString(NewVehicleEventBuilder._id), 
 													data.getInt(NewVehicleEventBuilder._maxspeed), 

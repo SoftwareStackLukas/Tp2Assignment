@@ -29,12 +29,10 @@ public class RoadMap {
 	
 	boolean areConnected(Junction j1, Junction j2) {
 		boolean connected = false;
-		// Searches linearly for a road that connects the given junctions.
-		for (Road road: roadList) {
-			if (road.getSrc() == j1 && road.getDest() == j2) {
-				connected = true;
-				break;				
-			}
+		Road r = j1.roadTo(j2);
+
+		if (r != null && roadMap.containsKey(r.getId())) {
+			connected = true;
 		}
 		return connected;
 	}
@@ -53,31 +51,31 @@ public class RoadMap {
 	}
 	
 	void addJunction(Junction j) {
-		junctionList.add(j);
 		if (! junctionMap.containsKey(j.getId())) {
 			junctionMap.put(j.getId(), j);			
+			junctionList.add(j);
 		} else {
 			throw new InvalidParameterException("cannot add object with same id");
 		}
 	}
 	
 	void addRoad(Road r) {
-		roadList.add(r);
 		if (! roadMap.containsKey(r.getId())) {
 			roadMap.put(r.getId(), r);			
+			roadList.add(r);
 		} else {
 			throw new InvalidParameterException("cannot add object with same id");
 		}
 	}
 	
 	void addVehicle(Vehicle v) {
-		vehicleList.add(v);
 		if (vehicleMap.containsKey(v.getId())) {
 			throw new InvalidParameterException("Cannot add object with same id");
 		} else if (! isValidItinerary(v.getItinerary())){
 			throw new InvalidParameterException("Itinerary is not valid");
 		} else {
 			vehicleMap.put(v.getId(), v);	
+			vehicleList.add(v);
 		}
 	}
 	

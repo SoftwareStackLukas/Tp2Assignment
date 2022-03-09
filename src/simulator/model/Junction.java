@@ -125,19 +125,16 @@ public class Junction extends SimulatedObject {
 		JSONArray qu = new JSONArray();
 		JSONArray jsonVehicles;
 		JSONObject jObj;
-		for (Map.Entry<Road, List<Vehicle>> entry : queueMap.entrySet()) {
+		int i = 0;
+		for (List<Vehicle> queue: queues) {
 			qu = new JSONArray();
 			jObj = new JSONObject();
-		    jsonVehicles = new JSONArray();
-		    Road road = entry.getKey();
-		    List<Vehicle> vehicles = entry.getValue();
-			for (Vehicle v : vehicles) {
-				jsonVehicles.put(v.getId());
-			}
+		    jsonVehicles = new JSONArray(queue.toString());
+		    Road road = incomingRoads.get(i);
 			jObj.put("road", road.getId());
 			jObj.put("vehicles", jsonVehicles);
 			qu.put(jObj);
-//			jsonArrayQu.put(quID, jsonVehicles);
+			i++;
 		}
 		jo.put("queues", qu);
 		

@@ -32,20 +32,20 @@ public class Controller {
 		JSONArray ja = jo.getJSONArray(Controller._event);
 		if (ja.length() == 0) throw new IllegalArgumentException("No data");
 		for (int x = 0; x < ja.length(); x++) {
-			eventsFactory.createInstance(ja.getJSONObject(x));
+			simulator.addEvent(eventsFactory.createInstance(ja.getJSONObject(x)));
 		}		
 	}
 	
 	public void run(int n, OutputStream out) {
 		PrintStream p = new PrintStream(out);
-		p.print("{\"states\": [");
-		for (int x = 0; x < n -1; x++) {
-			p.print(this.simulator.report().toString());
-			p.print(",");
+		p.println("{\"states\": [");
+		for (int x = 0; x < n; x++) {
 			this.simulator.advance();
+			p.print(this.simulator.report().toString());
+			if (x < n - 1)
+				p.println(",");
 		}
-		p.print(this.simulator.report().toString());
-		p.print("]}");
+		p.println("]}");
 	}
 	
 	public void reset() {

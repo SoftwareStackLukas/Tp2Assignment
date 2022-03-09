@@ -80,7 +80,7 @@ public class Vehicle extends SimulatedObject {
 			if (this.getLocation() == this.road.getLength()) {
 				this.status = VehicleStatus.WAITING;
 				this.currSpeed = 0;
-				this.itinerary.get(this.itineraryIdx).enter(this);;
+				this.itinerary.get(this.itineraryIdx).enter(this);
 			}
 		}
 	}
@@ -94,7 +94,8 @@ public class Vehicle extends SimulatedObject {
 			this.status = VehicleStatus.TRAVELING;
 		}
 		else if (this.status == VehicleStatus.WAITING){
-			this.road.exit(this);			
+			this.road.exit(this);
+			road = null;
 			if (itineraryIdx < itinerary.size() - 1) {
 				this.road = itinerary.get(itineraryIdx).roadTo(itinerary.get(itineraryIdx + 1));
 				this.location = 0;
@@ -102,12 +103,12 @@ public class Vehicle extends SimulatedObject {
 				this.status = VehicleStatus.TRAVELING;
 				this.road.enter(this);
 				itineraryIdx++;
-			}
+			} 
 			else {
 				this.status = VehicleStatus.ARRIVED;
 			}
 		}
-		else {
+		else { 
 			//Using https://docs.oracle.com/javase/7/docs/api/java/lang/UnsupportedOperationException.html
 			throw new UnsupportedOperationException();
 		}

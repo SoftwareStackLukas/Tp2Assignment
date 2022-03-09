@@ -1,12 +1,12 @@
 package simulator.model;
 
-public class NewRoudEvent extends Event {
+public abstract class NewRoadEvent extends Event {
 
 	int length, co2Limit, maxSpeed;
 	String id, srcJunc, destJunc;
 	Weather weather;
 
-	public NewRoudEvent(int time, String id, String srcJunc, String destJunc, 
+	public NewRoadEvent(int time, String id, String srcJunc, String destJunc, 
 			int length, int co2Limit, int maxSpeed, Weather weather) {
 		super(time);
 		this.length = length;
@@ -16,12 +16,6 @@ public class NewRoudEvent extends Event {
 		this.srcJunc = srcJunc;
 		this.destJunc = destJunc;
 		this.weather = weather;
-	}
-
-	@Override
-	void execute(RoadMap map) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

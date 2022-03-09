@@ -1,6 +1,7 @@
 package simulator.launcher;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -132,11 +133,18 @@ public class Main {
 	private static void startBatchMode() throws IOException {
 		TrafficSimulator tp;
 		Controller c;
+		OutputStream out;
 		tp = new TrafficSimulator();
-		InputStream in = new ByteArrayInputStream(StandardCharsets.UTF_16.encode(Main._inFile).array());;
-		OutputStream out = new FileOutputStream(Main._outFile);
+		InputStream in = new FileInputStream(Main._inFile);
+		if (Main._outFile != null) {
+			out = new FileOutputStream(Main._outFile);			
+		} else {
+			out = System.out;
+		}
 		c = new Controller(tp, _eventsFactory);
+		
 		c.loadEvents(in);
+		in.close();
 		c.run(_ticks, out);
 	}
 
