@@ -23,7 +23,9 @@ public class TrafficSimulator {
 	}
 	
 	public void addEvent(Event e) {
-		this.events.add(e);
+		if (e.getTime() > this.simulationTime) {
+			this.events.add(e);
+		}
 	}
 	
 	public void advance() {		
