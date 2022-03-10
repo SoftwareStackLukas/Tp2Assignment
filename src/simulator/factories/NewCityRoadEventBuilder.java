@@ -12,10 +12,6 @@ public class NewCityRoadEventBuilder extends NewRoadEventBuilder {
 
 	@Override
 	NewCityRoadEvent createCorrespondingEvent() {
-		try {
-			return new NewCityRoadEvent(time, id, srcJunc, destJunc, length, co2Limit, maxSpeed, weather);
-		} catch (Exception ex) {
-			throw new IllegalArgumentException("Something went wronge in" + NewCityRoadEventBuilder.TYPE);
-		}
+		return new NewCityRoadEvent(time, id, srcJunc, destJunc, length, co2Limit, maxSpeed, weather);
 	}
 }

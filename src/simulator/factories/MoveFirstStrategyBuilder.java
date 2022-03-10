@@ -15,11 +15,7 @@ public class MoveFirstStrategyBuilder extends Builder<DequeuingStrategy> {
 	
 	@Override
 	protected MoveFirstStrategy createTheInstance(JSONObject data) {
-		try {
 			MoveFirstStrategy result = new MoveFirstStrategy(); 
 			return result; 
-		} catch (Exception ex) {
-			throw new IllegalArgumentException("Something went wronge in" + MoveFirstStrategyBuilder.TYPE);
-		}
 	}
 }

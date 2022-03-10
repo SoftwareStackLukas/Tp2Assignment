@@ -24,22 +24,18 @@ public class NewJunctionEventBuilder extends Builder<Event> {
 
 	@Override
 	protected NewJunctionEvent createTheInstance(JSONObject data) {
-		try {
-			int time = data.getInt("time");
+		int time = data.getInt("time");
+	
+		String id = data.getString("id");
+	
+		JSONArray coor = data.getJSONArray("coor");
+		int xCoor = coor.getInt(0);
+		int yCoor = coor.getInt(1);
 		
-			String id = data.getString("id");
+		LightSwitchingStrategy lss = lssFactory.createInstance(data.getJSONObject("ls_strategy"));
+		DequeuingStrategy dqs = dqsFactory.createInstance(data.getJSONObject("dq_strategy"));			
 		
-			JSONArray coor = data.getJSONArray("coor");
-			int xCoor = coor.getInt(0);
-			int yCoor = coor.getInt(1);
-			
-			LightSwitchingStrategy lss = lssFactory.createInstance(data.getJSONObject("ls_strategy"));
-			DequeuingStrategy dqs = dqsFactory.createInstance(data.getJSONObject("dq_strategy"));			
-			
-			return new NewJunctionEvent(time, id, lss, dqs, xCoor, yCoor);
-		} catch (Exception ex) {
-			throw new IllegalArgumentException("Something went wronge in" + NewJunctionEventBuilder.TYPE);
-		}
+		return new NewJunctionEvent(time, id, lss, dqs, xCoor, yCoor);
 	}
 }
 

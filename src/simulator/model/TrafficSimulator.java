@@ -29,25 +29,21 @@ public class TrafficSimulator {
 	}
 	
 	public void advance() {		
-		try {
-			this.simulationTime++;
-			List<Event> es = new LinkedList<>();
-			for(Event e : events) {
-				if (e.getTime() == this.simulationTime) {
-					e.execute(roadMap);
-					es.add(e);
-				} 
-			}
-			this.events.removeAll(es);
-			for (Junction j : this.roadMap.getJunctions()) {
-				j.advance(simulationTime);
-			}
-			
-			for (Road r : this.roadMap.getRoads()) {
-				r.advance(simulationTime);
-			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+		this.simulationTime++;
+		List<Event> es = new LinkedList<>();
+		for(Event e : events) {
+			if (e.getTime() == this.simulationTime) {
+				e.execute(roadMap);
+				es.add(e);
+			} 
+		}
+		this.events.removeAll(es);
+		for (Junction j : this.roadMap.getJunctions()) {
+			j.advance(simulationTime);
+		}
+		
+		for (Road r : this.roadMap.getRoads()) {
+			r.advance(simulationTime);
 		}
 	}
 	
