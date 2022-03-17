@@ -10,6 +10,7 @@ import org.json.JSONTokener;
 
 import simulator.factories.Factory;
 import simulator.model.Event;
+import simulator.model.TrafficSimObserver;
 import simulator.model.TrafficSimulator;
 
 public class Controller {
@@ -51,6 +52,20 @@ public class Controller {
 	public void reset() {
 		this.simulator.reset();
 	}
+	
+	//Add the Observer Methods (that the view is not accessing the TrafficSim directly)
+	public void addObserver(TrafficSimObserver o) {
+		this.simulator.addObserver(o);
+	}
+	
+	public void removeObserver(TrafficSimObserver o) {
+		this.simulator.removeObserver(o);
+	}
+	
+	public void addEvent(Event e) {
+		this.simulator.addEvent(e);
+	}
+	//End of the Observer methods	
 	
 	TrafficSimulator getTrafficSim() {
 		return this.simulator;

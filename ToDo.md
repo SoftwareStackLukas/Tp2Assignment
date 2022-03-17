@@ -5,6 +5,7 @@
 #Errors
 
 #Lukas
+- Where in the TrafficSimObserver shall be the method onError be called? I am not 100% sure about this.
 
 #Lucas
 
