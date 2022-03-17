@@ -1,21 +1,31 @@
 #General
+
+# Biggest Problems
+
+#Errors
+
+#Lukas
+
+#Lucas
+
+#Tests
+
+
+
+
+#Already done
 - The following tests have to be executed:
 	- VehicleTest, RoadTest, CirtRoadTest, InterCityRoadTest,
 	- JunctionTest, MostCrowdedStrategyTest, RoundRobinStrategyTest,
 	- MoveFirstStrategyTest, MoveAllStrategyTest.
 - In which classes do we have to overwrite the toString() method?
-
-# Biggest Problems
 - to advance in TrafficSimulator
 - Reading the data for the main
 - some minor problems in the model
-
-#Errors
 - advance() method in vehicles --> Should be fixed but in Road are problems
 - Check in Road the method <b> void advance(int time) </b>
 - Change the accessors in the Road classes from package private to private. The access should just be possible via the setter/getter
 
-#Lukas
 ~5.1.3.3 Class Junction~
 ~5.3 Events~
 ~5.3.1. New Junction Event~
@@ -35,15 +45,11 @@ dqbs);
 - TravicSimulator's toJSON has to be improved and the advance!
 - the setcon and weather could not have been tested!
 
-
-#Lucas
 ~Road map~
 ~5.3.2. New Road Events~
 ~5.3.4. Set Weather Event~
 5.4. The Simulator Class (Lets right about this in the next days maybe I can do some stuff of it but lets see how much time I have)
 - Test the main class
-
-#Tests
 - Simulator
 	- Factories
 		- BuilderBasedFactory 				[x] 
