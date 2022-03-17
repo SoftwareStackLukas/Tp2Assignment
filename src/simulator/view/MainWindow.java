@@ -4,7 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
@@ -23,9 +25,10 @@ public class MainWindow extends JFrame {
 		super("Traffic Simulator");
 		this.ctrl = ctrl;
 		this.initGUI();
+		this.setFrameIcon();
 	}
 	
-	public void initGUI() {
+	private void initGUI() {		
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		this.setContentPane(mainPanel);
 		
@@ -42,6 +45,7 @@ public class MainWindow extends JFrame {
 		JPanel mapsPanel = new JPanel();
 		mapsPanel.setLayout(new BoxLayout(mapsPanel, BoxLayout.Y_AXIS));
 		viewsPanel.add(mapsPanel);
+	
 		
 		//tables
 		//EventsTableModel
@@ -66,7 +70,7 @@ public class MainWindow extends JFrame {
 		JPanel mapRoadView = createViewPanel(new MapByRoadComponent(this.ctrl), "MapRoad");
 		mapRoadView.setPreferredSize(new Dimension(500, 400));
 		mapRoadView.add(mapRoadView);
-	
+		
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
@@ -81,4 +85,12 @@ public class MainWindow extends JFrame {
 		return null;
 	}
 	
+	//I did this because I do not like the standard frame icon from java!
+	private void setFrameIcon() {
+		try {
+			this.setIconImage(ImageIO.read(new File("resources/icons/car_front.png")));
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+	}
 }
