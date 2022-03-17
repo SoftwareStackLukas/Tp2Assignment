@@ -13,8 +13,6 @@
 #Tests
 
 
-
-
 #Already done
 - The following tests have to be executed:
 	- VehicleTest, RoadTest, CirtRoadTest, InterCityRoadTest,

@@ -25,7 +25,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 	
 	
-	//Exit the Simulator
+	//Exit the Simulator -- This method has to be checked
 	private void initExitButton() {
 		JButton exit = new JButton(new ImageIcon("resources/icons/exit.png"));
 		exit.setSize(10,10); //Which size should we take? 
