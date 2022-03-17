@@ -15,6 +15,7 @@ class NewJunctionEventTest {
 
 		// add a new junction via an event
 		Event e = new NewJunctionEvent(10,"j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
+		System.out.println(e.toString());
 		e.execute(map);
 		
 		List<Junction> lj = map.getJunctions();
@@ -22,6 +23,8 @@ class NewJunctionEventTest {
 		assertEquals(1, lj.size());
 		
 		assertEquals("j1", lj.get(0).getId());
+		
+		
 	}
 
 }

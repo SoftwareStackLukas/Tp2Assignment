@@ -24,4 +24,17 @@ public class SetContClassEvent extends Event {
 			tempV.setContClass(c.getSecond());
 		}
 	}
+	
+	@Override
+	public String toString() {	
+		StringBuilder sb = new StringBuilder();		
+		sb.append("Change contamination: [");
+		for (Pair<String,Integer> pair : this.cs) {	
+			sb.append("(" + pair.getFirst() + "," + pair.getSecond() + "), ");			
+		}
+		sb.delete(sb.length() - 2, sb.length());
+		sb.append("]");
+		
+		return sb.toString();
+	}
 }

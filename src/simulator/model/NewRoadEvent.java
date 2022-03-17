@@ -18,4 +18,8 @@ public abstract class NewRoadEvent extends Event {
 		this.weather = weather;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("New road '%s'", this.id);
+	}
 }

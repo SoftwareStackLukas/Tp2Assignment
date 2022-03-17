@@ -6,6 +6,7 @@
 
 #Lukas
 - Where in the TrafficSimObserver shall be the method onError be called? I am not 100% sure about this.
+- Did I consider everything in the toString() method. 
 
 #Lucas
 

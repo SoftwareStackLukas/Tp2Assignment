@@ -41,6 +41,7 @@ class SetContClassEventTest {
 
 		Event e = new SetContClassEvent(10,Arrays.asList(new Pair<>("v1",4),new Pair<>("v3",7)));
 		e.execute(map);
+		System.out.println(e.toString());
 		assertEquals(4, map.getVehicle("v1").getContClass());
 		assertEquals(7, map.getVehicle("v3").getContClass());
 
