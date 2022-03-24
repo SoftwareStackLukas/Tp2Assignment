@@ -1,17 +1,27 @@
 #General
 
+# TbD
+- RoadsTableModel
+- MapViewers
+
 # Biggest Problems
 
 #Errors
 
 #Lukas
+- Run, Stop and Ticks
+- Exit the Simulator
+- Status Bar
+- JunctionTableModel
+
 - Where in the TrafficSimObserver shall be the method onError be called? I am not 100% sure about this.
 - Did I consider everything in the toString() method. 
 
 #Lucas
+- EventsTableModel
+- VehiclesTableModel
 
 #Tests
-
 
 #Already done
 - The following tests have to be executed:
