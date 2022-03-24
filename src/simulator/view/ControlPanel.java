@@ -1,9 +1,11 @@
 package simulator.view;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -13,15 +15,34 @@ import simulator.control.Controller;
 import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
+import simulator.view.buttons.ChangeContClassButton;
+import simulator.view.buttons.ChangeWeatherButton;
+import simulator.view.buttons.LoadButton;
 
+@SuppressWarnings("serial")
 class ControlPanel extends JPanel implements TrafficSimObserver {
 
+	private Controller ctrl;
+	
 	ControlPanel(Controller ctrl) {
-		
+		this.ctrl = ctrl;
+		this.initGUI();
 	}
+	
 	//Building the gui
 	private void initGUI() {
+		setBorder(BorderFactory.createLineBorder(Color.BLACK, 4, true));
+		setBackground(Color.GRAY);
 		
+		JButton loadButton = new LoadButton();
+		add(loadButton);
+		
+		JButton changeCO2Button = new ChangeContClassButton();
+		add(changeCO2Button);
+		
+		JButton weatherButton = new ChangeWeatherButton();
+		add(weatherButton);
+//		setVisible(true);
 	}
 	
 	
@@ -41,9 +62,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 	
 	//gui end 
-
-	//Oberserver methods -- We can talk about that in the next lecture 
-	//For now please build the gui
+	
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub

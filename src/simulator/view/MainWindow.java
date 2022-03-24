@@ -31,8 +31,11 @@ public class MainWindow extends JFrame {
 	private void initGUI() {		
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		this.setContentPane(mainPanel);
-		
-		mainPanel.add(new ControlPanel(this.ctrl), BorderLayout.PAGE_START);
+//		
+		// Like this
+		ControlPanel ctrlPanel = new ControlPanel(this.ctrl);
+		mainPanel.add(ctrlPanel, BorderLayout.PAGE_START);
+		// Or like this?
 		mainPanel.add(new StatusBar(this.ctrl), BorderLayout.PAGE_END);
 		
 		JPanel viewsPanel = new JPanel(new GridLayout(1,2));	
@@ -46,33 +49,35 @@ public class MainWindow extends JFrame {
 		mapsPanel.setLayout(new BoxLayout(mapsPanel, BoxLayout.Y_AXIS));
 		viewsPanel.add(mapsPanel);
 	
-		
 		//tables
 		//EventsTableModel
-	    JPanel eventsView = createViewPanel(new JTable(new EventsTableModel(this.ctrl)), "Events");
-		eventsView.setPreferredSize(new Dimension(500,200));
-		// VehiclesTableModel
-	    JPanel vehicleView = createViewPanel(new JTable(new VehiclesTableModel(this.ctrl)), "Vehicles");
-	    vehicleView.setPreferredSize(new Dimension(500,200));
-		// RoadsTableModel
-	    JPanel roadView = createViewPanel(new JTable(new RoadsTableModel(this.ctrl)), "Roads");
-	    roadView.setPreferredSize(new Dimension(500,200));
-		// JunctionsTableModel
-	    JPanel junctionView = createViewPanel(new JTable(new JunctionsTableModel(this.ctrl)), "Junctions");
-	    junctionView.setPreferredSize(new Dimension(500,200));
+//	    JPanel eventsView = createViewPanel(new JTable(new EventsTableModel(this.ctrl)), "Events");
+//		eventsView.setPreferredSize(new Dimension(500,200));
+//		// VehiclesTableModel
+//	    JPanel vehicleView = createViewPanel(new JTable(new VehiclesTableModel(this.ctrl)), "Vehicles");
+//	    vehicleView.setPreferredSize(new Dimension(500,200));
+//		// RoadsTableModel
+//	    JPanel roadView = createViewPanel(new JTable(new RoadsTableModel(this.ctrl)), "Roads");
+//	    roadView.setPreferredSize(new Dimension(500,200));
+//		// JunctionsTableModel
+//	    JPanel junctionView = createViewPanel(new JTable(new JunctionsTableModel(this.ctrl)), "Junctions");
+//	    junctionView.setPreferredSize(new Dimension(500,200));
+//		
+//		//maps
+//	    //MapComponent
+//		JPanel mapView = createViewPanel(new MapComponent(this.ctrl), "Map");
+//		mapView.setPreferredSize(new Dimension(500, 400));
+//		mapsPanel.add(mapView);
+//		//MapByRoadComponent
+//		JPanel mapRoadView = createViewPanel(new MapByRoadComponent(this.ctrl), "MapRoad");
+//		mapRoadView.setPreferredSize(new Dimension(500, 400));
+//		mapRoadView.add(mapRoadView); 
 		
-		//maps
-	    //MapComponent
-		JPanel mapView = createViewPanel(new MapComponent(this.ctrl), "Map");
-		mapView.setPreferredSize(new Dimension(500, 400));
-		mapsPanel.add(mapView);
-		//MapByRoadComponent
-		JPanel mapRoadView = createViewPanel(new MapByRoadComponent(this.ctrl), "MapRoad");
-		mapRoadView.setPreferredSize(new Dimension(500, 400));
-		mapRoadView.add(mapRoadView);
-		
-		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.setContentPane(mainPanel);
+//		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);		
 		this.pack();
+		this.setSize(640, 480);
 		this.setVisible(true);
 		
 	}
@@ -87,6 +92,7 @@ public class MainWindow extends JFrame {
 	
 	//I did this because I do not like the standard frame icon from java!
 	private void setFrameIcon() {
+		// Why the try catch though?
 		try {
 			this.setIconImage(ImageIO.read(new File("resources/icons/car_front.png")));
 		} catch (Exception e) {
