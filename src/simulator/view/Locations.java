@@ -5,7 +5,7 @@ public enum Locations {
 	private String dir;
 	
 	Locations(String dir) {
-		this.dir = dir;
+		this.dir = System.getProperty("user.dir") + dir;
 	}
 	
 	public static String getIconsDir() {

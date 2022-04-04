@@ -18,6 +18,7 @@ import javax.swing.border.TitledBorder;
 
 import simulator.control.Controller;
 
+@SuppressWarnings("serial")
 public class MainWindow extends JFrame {
 	private Controller ctrl;
 	
@@ -33,10 +34,10 @@ public class MainWindow extends JFrame {
 		this.setContentPane(mainPanel);
 //		
 		// Like this
-		ControlPanel ctrlPanel = new ControlPanel(this.ctrl);
+		ControlPanel ctrlPanel = new ControlPanel(this.ctrl, mainPanel);
 		mainPanel.add(ctrlPanel, BorderLayout.PAGE_START);
 		// Or like this?
-		mainPanel.add(new StatusBar(this.ctrl), BorderLayout.PAGE_END);
+//		mainPanel.add(new StatusBar(this.ctrl), BorderLayout.PAGE_END);
 		
 		JPanel viewsPanel = new JPanel(new GridLayout(1,2));	
 		mainPanel.add(viewsPanel);
