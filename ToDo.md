@@ -5,6 +5,7 @@
 - MapViewers
 
 # Biggest Problems
+- ctrl.run(1); in the COntrolPanel
 
 #Errors
 
@@ -12,7 +13,7 @@
 - Run, Stop and Ticks (Ready for review)
 - Exit the Simulator (Ready for review)
 - Status Bar (Ready for review)
-- JunctionTableModel 
+- JunctionTableModel (Ready for review)
 
 - Where in the TrafficSimObserver shall be the method onError be called? I am not 100% sure about this.
 - Did I consider everything in the toString() method. 
