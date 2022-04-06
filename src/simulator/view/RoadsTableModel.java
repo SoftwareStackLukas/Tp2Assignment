@@ -17,7 +17,6 @@ class RoadsTableModel extends AbstractTableModel implements TrafficSimObserver {
 	}
 
 	
-	
 	//Method to change the values which are presented
 		@Override
 		public int getRowCount() {
