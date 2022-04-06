@@ -128,9 +128,9 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		//Lucas fill here the reset of the button 
 		//
 		//
-		this.runButton.setEnabled(b);
-		this.stopButton.setEnabled(!b);
-		this.exitButton.setEnabled(b);
+		this.runButton.setEnabled(enable);
+		this.stopButton.setEnabled(!enable);
+		this.exitButton.setEnabled(enable);
 	}
 	
 	private void showErrorMessage(Exception e) {
@@ -154,7 +154,6 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 			}
 		});
 	}
-	
 	//gui end 
 	
 	@Override
