@@ -12,7 +12,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeListener;
 
 import simulator.control.Controller;
 import simulator.model.Event;
@@ -25,13 +29,18 @@ import simulator.view.buttons.LoadButton;
 @SuppressWarnings("serial")
 class ControlPanel extends JPanel implements TrafficSimObserver {
 	private static final String TICKER_LABEL = "Ticks:";
+	private static final int TICK_MIN = 1;
+	private static final int TICK_MAX = 1000;
+	private static final int TICK_DEFAULT = 10;
+	private static final int TICK_STEP = 1;
+	private static final String TICKER_HELP_TEXT = "Simulation tick to run: " + ControlPanel.TICK_MIN + "-" + ControlPanel.TICK_MAX;
 	
 	private Controller ctrl;
 
 	private JButton runButton;
 	private JButton stopButton;
 	private JLabel tickLabel;
-	//private JCom  //Something to set the ticks
+	private JSpinner ticker;
 	
 	private boolean stopped;
 	
@@ -66,21 +75,37 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		this.runButton.setHorizontalAlignment(0);
 		this.runButton.setToolTipText("Runs the game");
 		this.runButton.setSize(new Dimension(60,60));
-		this.runButton.addActionListener(null);
+		this.runButton.addActionListener((e) -> {
+			this.stopped = true;
+			enableToolBar(false);
+			run_sim((Integer)this.ticker.getValue());
+		});
 		
 		this.stopButton = new JButton(new ImageIcon("resources/icons/stop.png"));
 		this.stopButton.setHorizontalAlignment(0);
 		this.stopButton.setToolTipText("Stops the game");
 		this.stopButton.setSize(new Dimension(60,60));
-		this.runButton.addActionListener(null);
+		this.stopButton.addActionListener((e) -> {
+			this.stopped = true;
+		});
 		
 		this.tickLabel = new JLabel(ControlPanel.TICKER_LABEL);	
 		this.tickLabel.setHorizontalAlignment(0);
-		//Add the component to show the text
+		SpinnerModel model = new SpinnerNumberModel(ControlPanel.TICK_DEFAULT, //initial value
+				   								  		  ControlPanel.TICK_MIN, //min
+				   								  		  ControlPanel.TICK_MAX, //max
+				   								  		  ControlPanel.TICK_STEP); //step
+		this.ticker = new JSpinner(model);
+		this.ticker.setToolTipText(TICKER_LABEL);
+		this.ticker.setToolTipText(ControlPanel.TICKER_HELP_TEXT);
+		this.ticker.setMaximumSize(new Dimension(80, 40));
+		this.ticker.setMinimumSize(new Dimension(80, 40));
+		this.ticker.setPreferredSize(new Dimension(80, 40));
 		
 		this.add(runButton);
 		this.add(stopButton);
 		this.add(tickLabel);
+		this.add(ticker);
 	}
 	
 	private void run_sim(int n) {
@@ -99,6 +124,10 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 			stopped = true;
 		}
 	}		
+	
+	private void enableToolBar(Boolean enable) {
+			//TODO
+	}
 	
 	private void showErrorMessage(Exception e) {
 		JOptionPane.showMessageDialog(this,

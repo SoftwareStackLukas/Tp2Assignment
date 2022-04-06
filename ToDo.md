@@ -9,7 +9,7 @@
 #Errors
 
 #Lukas
-- Run, Stop and Ticks
+- Run, Stop and Ticks (Ready for review)
 - Exit the Simulator
 - Status Bar (Ready for review)
 - JunctionTableModel
