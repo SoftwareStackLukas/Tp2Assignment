@@ -11,7 +11,7 @@
 #Lukas
 - Run, Stop and Ticks
 - Exit the Simulator
-- Status Bar
+- Status Bar (Ready for review)
 - JunctionTableModel
 
 - Where in the TrafficSimObserver shall be the method onError be called? I am not 100% sure about this.
