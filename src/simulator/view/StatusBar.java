@@ -33,6 +33,8 @@ class StatusBar extends JPanel implements TrafficSimObserver {
 		this.txtTime = new JLabel();
 		this.txtTime.setText(StatusBar.START_TIME);
 		
+		this.add(new JSeparator(SwingUtilities.VERTICAL));
+		
 		this.txtEvent = new JLabel();		
 		this.txtEvent.setText(StatusBar.START_EVENT);
 		this.setBorder(BorderFactory.createBevelBorder(1));

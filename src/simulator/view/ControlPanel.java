@@ -33,17 +33,16 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	private static final int TICK_MAX = 1000;
 	private static final int TICK_DEFAULT = 10;
 	private static final int TICK_STEP = 1;
-	private static final String TICKER_HELP_TEXT = "Simulation tick to run: " + ControlPanel.TICK_MIN + "-" + ControlPanel.TICK_MAX;
+	private static final String TICKER_HELP_TEXT = ("Simulation tick to run: " + ControlPanel.TICK_MIN + "-" + ControlPanel.TICK_MAX);
 	
 	private Controller ctrl;
+	private boolean stopped;
 
 	private JButton runButton;
 	private JButton stopButton;
 	private JLabel tickLabel;
 	private JSpinner ticker;
-	
-	private boolean stopped;
-	
+	private JButton exitButton;
 	
 	ControlPanel(Controller ctrl) {
 		this.ctrl = ctrl;
@@ -126,7 +125,12 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	}		
 	
 	private void enableToolBar(Boolean enable) {
-			//TODO
+		//Lucas fill here the reset of the button 
+		//
+		//
+		this.runButton.setEnabled(b);
+		this.stopButton.setEnabled(!b);
+		this.exitButton.setEnabled(b);
 	}
 	
 	private void showErrorMessage(Exception e) {
@@ -138,9 +142,9 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	//Exit the Simulator -- This method has to be checked
 	private void initExitButton() {
-		JButton exit = new JButton(new ImageIcon("resources/icons/exit.png"));
-		exit.setSize(10,10); //Which size should we take? 
-		exit.addActionListener(new ActionListener() {
+		this.exitButton = new JButton(new ImageIcon("resources/icons/exit.png"));
+		this.exitButton.setSize(10,10); //Which size should we take? 
+		this.exitButton.addActionListener(new ActionListener() {
 			Object[] options = {"Yes", "No"};
 			@Override
 			public void actionPerformed(ActionEvent e) {
