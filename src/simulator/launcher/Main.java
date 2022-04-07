@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -22,6 +24,7 @@ import simulator.model.DequeuingStrategy;
 import simulator.model.Event;
 import simulator.model.LightSwitchingStrategy;
 import simulator.model.TrafficSimulator;
+import simulator.view.MainWindow;
 
 public class Main {
 
@@ -30,7 +33,12 @@ public class Main {
 	private static String _outFile = null;
 	private static Factory<Event> _eventsFactory = null;
 	private static int _ticks;
-
+	private static Mode mode;
+	
+	enum Mode {
+		BATCH, GUI
+	}
+	
 	private static void parseArgs(String[] args) {
 
 		// define the valid command line options
@@ -49,7 +57,6 @@ public class Main {
 
 			// if there are some remaining arguments, then something wrong is
 			// provided in the command line!
-			//
 			String[] remaining = line.getArgs();
 			if (remaining.length > 0) {
 				String error = "Illegal arguments:";
@@ -62,7 +69,14 @@ public class Main {
 			System.err.println(e.getLocalizedMessage());
 			System.exit(1);
 		}
-
+	}
+	
+	void parseGUIorBATCH(String line) {
+		if (line.toUpperCase() == "GUI") {
+			Main.mode = Mode.GUI;
+		} else if (line.toUpperCase() == "CONSOLE") {
+			Main.mode = Mode.BATCH;
+		}
 	}
 
 	private static Options buildOptions() {
@@ -127,6 +141,11 @@ public class Main {
 		Main._eventsFactory = new BuilderBasedFactory<>(ebs);
 
 	}
+	
+	private static void startGUIMode() {
+		Controller ctrl = new Controller(new TrafficSimulator(), Main._eventsFactory);
+		SwingUtilities.invokeLater(() -> new MainWindow(ctrl));
+	}
 
 	private static void startBatchMode() throws IOException {
 		TrafficSimulator tp;
@@ -149,7 +168,14 @@ public class Main {
 	private static void start(String[] args) throws IOException {
 		initFactories();
 		parseArgs(args);
-		startBatchMode();
+		
+		if (Main.mode == Mode.BATCH) {
+			startBatchMode();
+		} else if (Main.mode == Mode.GUI) {
+			startGUIMode();
+		} else {
+			throw new IOException("False args");
+		}
 	}
 
 	// example command lines:
@@ -158,11 +184,10 @@ public class Main {
 	// -i resources/examples/ex1.json -t 300
 	// -i resources/examples/ex1.json -o resources/tmp/ex1.out.json
 	// --help
-
+	
 	public static void main(String[] args) {
 		try {
 			start(args);
-//			System.out.println("Test");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

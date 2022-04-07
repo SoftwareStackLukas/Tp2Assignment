@@ -140,6 +140,11 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		this.ticker.setMaximumSize(new Dimension(80, 40));
 		this.ticker.setMinimumSize(new Dimension(80, 40));
 		this.ticker.setPreferredSize(new Dimension(80, 40));
+//		this.ticker.addChangeListener((e) -> {
+//			JSpinner spinner = (JSpinner) e.getSource();
+//			spinner.getValue()
+//								
+				});
 		
 		this.add(runButton);
 		this.add(stopButton);
