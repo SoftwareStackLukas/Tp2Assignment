@@ -14,6 +14,7 @@
 - Exit the Simulator (Ready for review)
 - Status Bar (Ready for review)
 - JunctionTableModel (Ready for review)
+- Changes Main Class 
 
 - Where in the TrafficSimObserver shall be the method onError be called? I am not 100% sure about this.
 - Did I consider everything in the toString() method. 

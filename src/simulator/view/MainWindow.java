@@ -60,9 +60,9 @@ public class MainWindow extends JFrame {
 //		// RoadsTableModel
 //	    JPanel roadView = createViewPanel(new JTable(new RoadsTableModel(this.ctrl)), "Roads");
 //	    roadView.setPreferredSize(new Dimension(500,200));
-//		// JunctionsTableModel
-//	    JPanel junctionView = createViewPanel(new JTable(new JunctionsTableModel(this.ctrl)), "Junctions");
-//	    junctionView.setPreferredSize(new Dimension(500,200));
+		// JunctionsTableModel
+	    JPanel junctionView = createViewPanel(new JTable(new JunctionsTableModel(this.ctrl)), "Junctions");
+	    junctionView.setPreferredSize(new Dimension(500,200));
 //		
 //		//maps
 //	    //MapComponent
@@ -88,7 +88,7 @@ public class MainWindow extends JFrame {
 		p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), title,
 													TitledBorder.LEFT, TitledBorder.TOP)); 
 		p.add(new JScrollPane(c));
-		return null;
+		return p;
 	}
 	
 	//I did this because I do not like the standard frame icon from java!
