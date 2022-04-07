@@ -1,12 +1,9 @@
 package simulator.view;
 
 import java.awt.Color;
-<<<<<<< HEAD
 import java.awt.Frame;
 import java.awt.Toolkit;
-=======
 import java.awt.Dimension;
->>>>>>> 95593e4a45f39df0d467d0f928a7c13fb89c5b51
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -19,7 +16,6 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-<<<<<<< HEAD
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -27,16 +23,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
-=======
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeListener;
->>>>>>> 95593e4a45f39df0d467d0f928a7c13fb89c5b51
 
 import simulator.control.Controller;
 import simulator.factories.BuilderBasedFactory;
@@ -56,11 +47,9 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	private static final String TICKER_HELP_TEXT = ("Simulation tick to run: " + ControlPanel.TICK_MIN + "-" + ControlPanel.TICK_MAX);
 	
 	private Controller ctrl;
-<<<<<<< HEAD
 	private JFrame mainFrame;
 	private JFileChooser fileChooser;
 	private JToolBar tb;
-=======
 	private boolean stopped;
 
 	private JButton runButton;
@@ -68,7 +57,6 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	private JLabel tickLabel;
 	private JSpinner ticker;
 	private JButton exitButton;
->>>>>>> 95593e4a45f39df0d467d0f928a7c13fb89c5b51
 	
 	ControlPanel(Controller ctrl, JFrame mainFrame) {
 		this.ctrl = ctrl;
