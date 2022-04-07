@@ -63,7 +63,7 @@ public class MainWindow extends JFrame {
 		// JunctionsTableModel
 	    JPanel junctionView = createViewPanel(new JTable(new JunctionsTableModel(this.ctrl)), "Junctions");
 	    junctionView.setPreferredSize(new Dimension(500,200));
-//		
+		tablesPanel.add(junctionView);
 //		//maps
 //	    //MapComponent
 //		JPanel mapView = createViewPanel(new MapComponent(this.ctrl), "Map");
