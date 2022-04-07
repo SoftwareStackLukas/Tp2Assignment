@@ -1,6 +1,8 @@
 package simulator.view;
 
 import java.awt.Color;
+import java.awt.Frame;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -13,10 +15,13 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+import javax.swing.SwingUtilities;
 
 import simulator.control.Controller;
 import simulator.factories.BuilderBasedFactory;
@@ -24,17 +29,19 @@ import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 import simulator.model.TrafficSimulator;
+import tp.examples.swing.graphviewer.ControlPanel;
 
 @SuppressWarnings("serial")
 class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	private Controller ctrl;
-	private JPanel mainPanel;
+	private JFrame mainFrame;
 	private JFileChooser fileChooser;
+	private JToolBar tb;
 	
-	ControlPanel(Controller ctrl, JPanel mainPanel) {
+	ControlPanel(Controller ctrl, JFrame mainFrame) {
 		this.ctrl = ctrl;
-		this.mainPanel = mainPanel;
+		this.mainFrame = mainFrame;
 		this.initGUI();
 	}
 	
@@ -43,7 +50,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		setBorder(BorderFactory.createLineBorder(Color.BLACK, 4, true));
 		setBackground(Color.GRAY);
 		
-		JToolBar tb = new JToolBar();
+		tb = new JToolBar();
 		this.add(tb);
 		
 //		JButton loadButton = new LoadButton();
@@ -67,6 +74,9 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 			changeWeather();
 		});
 		tb.add(weatherButton);
+		
+		// Exit
+		initExitButton();
 //		setVisible(true);
 	}
 	
@@ -81,21 +91,31 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	//Exit the Simulator -- This method has to be checked
 	private void initExitButton() {
-		JButton exit = new JButton(new ImageIcon("resources/icons/exit.png"));
+		JButton exit = createToolButton("exit", "Quit");
 		exit.setSize(10,10); //Which size should we take? 
-		exit.addActionListener(new ActionListener() {
-			Object[] options = {"Yes", "No"};
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int n = JOptionPane.showOptionDialog(null, "Are you sure to quickt the simulator?", "Quit", 
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, (Object[]) options[0], (Object[]) options[1]);
-				if (n == 0) System.exit(n);
+		exit.addActionListener((e) -> {
+			int n = JOptionPane.showOptionDialog((Frame) SwingUtilities.getWindowAncestor(this),
+					"Are sure you want to quit?", "Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					null, null);
+
+			if (n == 0) {
+				System.exit(0);
 			}
 		});
+		tb.add(exit);
 	}
 	private void changeCO2() {
 		// TODO Auto-generated method stub
 		System.out.println("Changing CO2");
+		ChangeCO2ClassDialog dialog = new ChangeCO2ClassDialog(mainFrame);
+		System.out.println(dialog.getContClass());
+//		int option = JOptionPane.showOptionDialog(mainPanel, "Schedule an event to change the CO2 class of a vehicle after a given number of simulation ticks from now.", "Change CO2 Class", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+//		if (option == JOptionPane.CLOSED_OPTION) {
+//			System.out.println("Closed");
+//		} else {
+//			
+//		}
+
 	}
 	
 	private void load() {
@@ -118,10 +138,11 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 	
 	private void changeWeather() {
-		JOptionPane panel = new JOptionPane();
-		int option = panel.showOptionDialog(mainPanel, "Schedule an event to change the CO2 class of a vehicle after a given number of simulation ticks from now.", "Change CO2 Class", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
-		if (option == JOptionPane.CLOSED_OPTION)
 		System.out.println("Changing Weather");
+	}	
+
+	private ImageIcon loadImage(String file) {
+		return new ImageIcon(Toolkit.getDefaultToolkit().createImage(ControlPanel.class.getResource(file)));
 	}
 	
 	//gui end 
