@@ -35,15 +35,14 @@ import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 import simulator.model.TrafficSimulator;
-import tp.examples.swing.graphviewer.ControlPanel;
 
 @SuppressWarnings("serial")
 class ControlPanel extends JPanel implements TrafficSimObserver {
 	private static final String TICKER_LABEL = "Ticks:";
-	private static final int TICK_MIN = 1;
-	private static final int TICK_MAX = 1000;
-	private static final int TICK_DEFAULT = 10;
-	private static final int TICK_STEP = 1;
+	static final int TICK_MIN = 1;
+	static final int TICK_MAX = 1000;
+	static final int TICK_DEFAULT = 10;
+	static final int TICK_STEP = 1;
 	private static final String TICKER_HELP_TEXT = ("Simulation tick to run: " + ControlPanel.TICK_MIN + "-" + ControlPanel.TICK_MAX);
 	
 	private Controller ctrl;
@@ -99,7 +98,6 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 //		setVisible(true);
 		
 		this.initRunStopTick();
-		this.initExitButton();
 	}
 	
 
@@ -190,7 +188,6 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 			int n = JOptionPane.showOptionDialog((Frame) SwingUtilities.getWindowAncestor(this),
 					"Are sure you want to quit?", "Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 					null, null);
-
 			if (n == 0) {
 				System.exit(0);
 			}

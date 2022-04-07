@@ -14,6 +14,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 
 import simulator.model.Road;
 import simulator.model.Vehicle;
@@ -21,7 +24,7 @@ import simulator.model.Vehicle;
 @SuppressWarnings("serial")
 public class ChangeCO2ClassDialog extends JDialog {
 	int status;
-	JDialog dialog;
+	JPanel dialogPanel;
 	
 	JComboBox<Vehicle> vehicleBox;
 	JComboBox<Integer> classBox;
@@ -34,14 +37,35 @@ public class ChangeCO2ClassDialog extends JDialog {
 	}
 	
 	private void initDialog() {
-		JPanel dialogPanel = new JPanel();
+		dialogPanel = new JPanel();
 		dialogPanel.setLayout( new BoxLayout( dialogPanel, BoxLayout.Y_AXIS) );
 		
-		JLabel description = new JLabel("Schedule an event to change the CO2 class of a vehicle after a given number of simulation ticks from now.");
-		description.setAlignmentY(Component.TOP_ALIGNMENT);
-		dialogPanel.add(description);
 //		vehicleBox = new JComboBox<Vehicle>();
 		
+		initTopPanel();
+		initBoxPanel();
+		
+		setContentPane(dialogPanel);
+		setMinimumSize(new Dimension(100, 100));
+		setPreferredSize(new Dimension(500, 250));
+		
+//		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		dialogPanel.setSize(640, 480);
+		pack();
+		setVisible(true);
+	}
+	
+	private void initTopPanel () {
+		JPanel topPanel = new JPanel();
+		topPanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		dialogPanel.add(topPanel);
+		
+		JLabel description = new JLabel("Schedule an event to change the CO2 class of a vehicle after a given number of simulation ticks from now.");
+		topPanel.add(description);
+		dialogPanel.add(description);
+	}
+	
+	private void initBoxPanel() {
 		JPanel boxPanel = new JPanel();
 		boxPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
 		dialogPanel.add(boxPanel);
@@ -58,14 +82,16 @@ public class ChangeCO2ClassDialog extends JDialog {
 		classBox = new JComboBox<Integer>(new Integer[] {0,1,2,3,4,5,6,7,8,9,10});
 		boxPanel.add(classBox);
 		
-		setContentPane(dialogPanel);
-		setMinimumSize(new Dimension(100, 100));
 		
-//		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		dialogPanel.setSize(640, 480);
-		pack();
-		setVisible(true);
-	}	
+		boxPanel.add(new JLabel("Ticks: "));
+		SpinnerModel model = new SpinnerNumberModel(ControlPanel.TICK_DEFAULT, //initial value
+			  		  ControlPanel.TICK_MIN, //min
+			  		  ControlPanel.TICK_MAX, //max
+			  		  ControlPanel.TICK_STEP); //step
+
+		JSpinner ticksSpinner = new JSpinner(model);
+		boxPanel.add(ticksSpinner);
+	}
 	
 //	public int open() {
 //		setLocation(getParent().getLocation().x + 50, getParent().getLocation().y + 50);
