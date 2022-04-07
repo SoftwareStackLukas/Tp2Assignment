@@ -6,6 +6,8 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.SwingUtilities;
 
 import simulator.control.Controller;
 import simulator.model.Event;
@@ -32,6 +34,8 @@ class StatusBar extends JPanel implements TrafficSimObserver {
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.txtTime = new JLabel();
 		this.txtTime.setText(StatusBar.START_TIME);
+		
+		this.add(new JSeparator(SwingUtilities.VERTICAL));
 		
 		this.txtEvent = new JLabel();		
 		this.txtEvent.setText(StatusBar.START_EVENT);

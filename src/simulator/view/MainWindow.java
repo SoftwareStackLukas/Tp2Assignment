@@ -75,8 +75,8 @@ public class MainWindow extends JFrame {
 //		mapRoadView.add(mapRoadView); 
 		
 		this.setContentPane(mainPanel);
-//		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);		
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+//		this.setDefaultCloseOperation(EXIT_ON_CLOSE);		
 		this.pack();
 		this.setSize(640, 480);
 		this.setVisible(true);
