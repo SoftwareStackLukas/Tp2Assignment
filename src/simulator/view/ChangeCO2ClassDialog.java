@@ -1,5 +1,7 @@
 package simulator.view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -7,6 +9,7 @@ import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,13 +26,16 @@ import simulator.model.Vehicle;
 
 @SuppressWarnings("serial")
 public class ChangeCO2ClassDialog extends JDialog {
+	public static final int CANCEL = 0;
+	public static final int OK = 1;
+	
 	int status;
 	JPanel dialogPanel;
 	
 	JComboBox<Vehicle> vehicleBox;
 	JComboBox<Integer> classBox;
 	int contClass;
-	
+	int closeOption;
 	
 	public ChangeCO2ClassDialog (Frame parent) {
 		super(parent, true);
@@ -38,36 +44,70 @@ public class ChangeCO2ClassDialog extends JDialog {
 	
 	private void initDialog() {
 		dialogPanel = new JPanel();
+		setTitle("Change CO2 Class");
 		dialogPanel.setLayout( new BoxLayout( dialogPanel, BoxLayout.Y_AXIS) );
-		
-//		vehicleBox = new JComboBox<Vehicle>();
-		
-		initTopPanel();
-		initBoxPanel();
-		
 		setContentPane(dialogPanel);
+
+		JPanel helpPanel = new JPanel(new BorderLayout());
+		helpPanel.setMaximumSize( new Dimension(1000, 700));
+		dialogPanel.add(helpPanel);
+	
+		JLabel description = new JLabel("<html><p>Schedule an event to change the CO2 class of a vehicle after a given number of simulation ticks from now.</p></html>");
+		description.setAlignmentX(LEFT_ALIGNMENT);
+		helpPanel.add(description);
+		
+//		dialogPanel.add(description);
+		
+//		dialogPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+		
+		initBoxPanel();
+		initOptionButtons();
+		
 		setMinimumSize(new Dimension(100, 100));
 		setPreferredSize(new Dimension(500, 250));
-		
-//		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		dialogPanel.setSize(640, 480);
+	}
+	
+	public int open() {
 		pack();
 		setVisible(true);
+		return closeOption;
 	}
 	
-	private void initTopPanel () {
-		JPanel topPanel = new JPanel();
-		topPanel.setAlignmentY(Component.TOP_ALIGNMENT);
-		dialogPanel.add(topPanel);
+	private void initOptionButtons() {
+		// TODO Auto-generated method stub
+		JPanel botPannel = new JPanel();
+		botPannel.setMaximumSize(new Dimension(1000, 1000));
+		dialogPanel.add(botPannel);
 		
-		JLabel description = new JLabel("Schedule an event to change the CO2 class of a vehicle after a given number of simulation ticks from now.");
-		topPanel.add(description);
-		dialogPanel.add(description);
+		JButton cancel = new JButton();
+		cancel.setText("Cancel");
+		cancel.addActionListener((e) -> {
+			closeOption = CANCEL;
+			dispose();
+		});
+		botPannel.add(cancel);
+		
+		JButton ok = new JButton();
+		ok.setText("Ok");
+		ok.addActionListener((e) -> {
+			closeOption = OK;
+			dispose();
+		});
+		botPannel.add(ok);
 	}
-	
+
+	//	private void initTopPanel () {
+//		JPanel topPanel = new JPanel();
+//		topPanel.setAlignmentY(Component.TOP_ALIGNMENT);
+//		dialogPanel.add(topPanel);
+//		
+//		
+//		dialogPanel.add(description);
+//	}
+//	
 	private void initBoxPanel() {
 		JPanel boxPanel = new JPanel();
-		boxPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+		boxPanel.setMaximumSize(new Dimension(1000, 1000));
 		dialogPanel.add(boxPanel);
 		
 		boxPanel.add(new JLabel("Vehicle: "));

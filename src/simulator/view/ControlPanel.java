@@ -198,7 +198,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		// TODO Auto-generated method stub
 		System.out.println("Changing CO2");
 		ChangeCO2ClassDialog dialog = new ChangeCO2ClassDialog(mainFrame);
-		System.out.println(dialog.getContClass());
+		System.out.println(dialog.open());
 //		int option = JOptionPane.showOptionDialog(mainPanel, "Schedule an event to change the CO2 class of a vehicle after a given number of simulation ticks from now.", "Change CO2 Class", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
 //		if (option == JOptionPane.CLOSED_OPTION) {
 //			System.out.println("Closed");
