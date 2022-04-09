@@ -1,5 +1,6 @@
 package simulator.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Toolkit;
@@ -13,9 +14,11 @@ import java.io.InputStream;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -48,7 +51,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	private Controller ctrl;
 	private JFrame mainFrame;
 	private JFileChooser fileChooser;
-	private JToolBar tb;
+	private JToolBar toolBar;
 	private boolean stopped;
 
 	private JButton runButton;
@@ -58,6 +61,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	private JButton exitButton;
 	
 	ControlPanel(Controller ctrl, JFrame mainFrame) {
+		super(new BorderLayout()); 
 		this.ctrl = ctrl;
 		this.mainFrame = mainFrame;
 		this.initGUI();
@@ -65,39 +69,48 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	//Building the gui
 	private void initGUI() {
-		setBorder(BorderFactory.createLineBorder(Color.BLACK, 4, true));
-		setBackground(Color.GRAY);
+//		setBorder(BorderFactory.createLineBorder(Color.BLACK, 4, true));
+//		setBackground(Color.GRAY);
 		
-		tb = new JToolBar();
-		this.add(tb);
+		toolBar = new JToolBar();
+		toolBar.setFloatable(false);
+//		toolBar.setMinimumSize(new Dimension(80, 40));
+		this.add(toolBar, BorderLayout.CENTER);
 		
 //		JButton loadButton = new LoadButton();
 		fileChooser = new JFileChooser();
 		JButton loadButton = createToolButton("open", "Load File");
 		loadButton.addActionListener((e) -> {
 			load();
-		});
-		tb.add(loadButton);
+		}); 
+		toolBar.add(loadButton);
+		
+		toolBar.addSeparator();
 		
 //		JButton changeCO2Button = new ChangeContClassButton(); co2class changeWeather
 		JButton changeCO2Button = createToolButton("co2class", "Change CO2 Class");
 		changeCO2Button.addActionListener((e) -> {
 			changeCO2();
 		});
-		tb.add(changeCO2Button);
+		toolBar.add(changeCO2Button);
 		
 //		JButton weatherButton = new ChangeWeatherButton();
 		JButton weatherButton = createToolButton("weather", "Change Weather");
 		weatherButton.addActionListener((e) -> {
 			changeWeather();
 		});
-		tb.add(weatherButton);
+		toolBar.add(weatherButton);
+		
+		toolBar.addSeparator();
+		
+		this.initRunStopTick();
+		
+		
+		toolBar.add(Box.createHorizontalGlue());
+		toolBar.addSeparator();
 		
 		// Exit
 		initExitButton();
-//		setVisible(true);
-		
-		this.initRunStopTick();
 	}
 	
 
@@ -106,24 +119,21 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		Icon icon = new ImageIcon(Locations.getIconsDir() + imageName + ".png");
 		button.setIcon(icon);
 		button.setToolTipText(tipText);
+		button.setSize(new Dimension(60,60));
 		return button;
 	}
 	
 	private void initRunStopTick() {
-		this.runButton = new JButton(new ImageIcon("resources/icons/run.png"));
+		this.runButton = createToolButton("run", "Runs the game");
 		this.runButton.setHorizontalAlignment(0);
-		this.runButton.setToolTipText("Runs the game");
-		this.runButton.setSize(new Dimension(60,60));
 		this.runButton.addActionListener((e) -> {
 			this.stopped = true;
 			enableToolBar(false);
 			run_sim((Integer)this.ticker.getValue());
 		});
 		
-		this.stopButton = new JButton(new ImageIcon("resources/icons/stop.png"));
+		this.stopButton = createToolButton("stop", "Stops the game");
 		this.stopButton.setHorizontalAlignment(0);
-		this.stopButton.setToolTipText("Stops the game");
-		this.stopButton.setSize(new Dimension(60,60));
 		this.stopButton.addActionListener((e) -> {
 			this.stopped = true;
 		});
@@ -144,12 +154,12 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 //			JSpinner spinner = (JSpinner) e.getSource();
 //			spinner.getValue()
 //								
-				});
+//				});
 		
-		this.add(runButton);
-		this.add(stopButton);
-		this.add(tickLabel);
-		this.add(ticker);
+		toolBar.add(runButton);
+		toolBar.add(stopButton);
+		toolBar.add(tickLabel);
+		toolBar.add(ticker);
 	}
 	
 	private void run_sim(int n) {
@@ -197,19 +207,19 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 				System.exit(0);
 			}
 		});
-		tb.add(exit);
+		exit.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
+		toolBar.add(exit);
 	}
+	
 	private void changeCO2() {
-		// TODO Auto-generated method stub
-		System.out.println("Changing CO2");
-		ChangeCO2ClassDialog dialog = new ChangeCO2ClassDialog(mainFrame);
-		System.out.println(dialog.open());
-//		int option = JOptionPane.showOptionDialog(mainPanel, "Schedule an event to change the CO2 class of a vehicle after a given number of simulation ticks from now.", "Change CO2 Class", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
-//		if (option == JOptionPane.CLOSED_OPTION) {
-//			System.out.println("Closed");
-//		} else {
-//			
-//		}
+		CO2Dialog dialog = new CO2Dialog(mainFrame);
+		int closeOption = dialog.open();
+		if (closeOption == CO2Dialog.OK) {
+			System.out.println("Vehicle: " + dialog.getVehicle());
+			System.out.println("CO2 Class: " + dialog.getContClass());
+		} else {
+			System.out.println("Closed");
+		}
 
 	}
 	
@@ -227,13 +237,21 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 				System.out.println("Load cancelled by user.");
 			}
 //		} catch (IOException e){
-//			System.out.println("File doesn't exist");
+//			System.out.println("File doesn't exist"); 
 //		}
 		System.out.println("Im loading");
 	}
 	
 	private void changeWeather() {
-		System.out.println("Changing Weather");
+		ChangeWeatherDialog dialog = new ChangeWeatherDialog(mainFrame);
+		int closeOption = dialog.open();
+		if (closeOption == CO2Dialog.OK) {
+			System.out.println("Weather: " + dialog.getWeather());
+			System.out.println("Road: " + dialog.getRoad());
+			System.out.println("Ticks: " + dialog.getTicks());
+		} else {
+			System.out.println("Closed");
+		}
 	}	
 
 	private ImageIcon loadImage(String file) {

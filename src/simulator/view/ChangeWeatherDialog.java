@@ -1,18 +1,12 @@
 package simulator.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.LayoutManager;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,29 +15,26 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
-import simulator.model.Road;
-import simulator.model.Vehicle;
-
 @SuppressWarnings("serial")
-public class CO2Dialog extends MyDialog {
+public class ChangeWeatherDialog extends MyDialog {
+	public static final int CANCEL = 0;
+	public static final int OK = 1;
 	
 	private static final String HELP_TEXT = "Schedule an event to change the weather of a road after a given number of simulation ticks from now.";
-
 	
 //	JComboBox<Vehicle> vehicleBox;
-	JComboBox<Integer> vehicleBox;
-	JComboBox<Integer> classBox;
+	JComboBox<Integer> weatherBox;
+	JComboBox<Integer> roadBox;
 	JSpinner ticksSpinner;
-	
 	int closeOption;
 	
-	public CO2Dialog (JFrame parent) {
+	public ChangeWeatherDialog (JFrame parent) {
 		super(parent);
 		initDialog();
 	}
 	
 	private void initDialog() {
-		setTitle("Change CO2 Class");
+		setTitle("Change Road Weather");
 		mainPanel.setLayout( new BoxLayout( mainPanel, BoxLayout.Y_AXIS) );
 		setContentPane(mainPanel);
 		
@@ -55,19 +46,21 @@ public class CO2Dialog extends MyDialog {
 		setPreferredSize(new Dimension(500, 250));
 	}
 	
+	
 	private void initBoxPanel() {
 		JPanel boxPanel = new JPanel();
 		boxPanel.setMaximumSize(new Dimension(1000, 1000));
+		boxPanel.setAlignmentY(JComponent.CENTER_ALIGNMENT);
 		mainPanel.add(boxPanel);
 		
-		boxPanel.add(new JLabel("CO2 Class: "));
-		classBox = new JComboBox<Integer>(new Integer[] {0,1,2,3,4,5,6,7,8,9,10});
-		classBox.setPreferredSize(new Dimension(50, 20));
-		boxPanel.add(classBox);
+		boxPanel.add(new JLabel("Road: "));
+		roadBox = new JComboBox<Integer>(new Integer[] {0,1,2,3,4,5,6,7,8,9,10});
+		roadBox.setPreferredSize(new Dimension(50, 20));
+		boxPanel.add(roadBox);
 		
-		boxPanel.add(new JLabel("Vehicle: "));
-		vehicleBox = new JComboBox<Integer>(new Integer[] {0,1,2,3,4,5,6,7,8,9,10});
-		boxPanel.add(vehicleBox);
+		boxPanel.add(new JLabel("Weather: "));
+		weatherBox = new JComboBox<Integer>(new Integer[] {0,1,2,3,4,5,6,7,8,9,10});
+		boxPanel.add(weatherBox);
 		
 		
 		boxPanel.add(new JLabel("Ticks: "));
@@ -80,16 +73,16 @@ public class CO2Dialog extends MyDialog {
 		boxPanel.add(ticksSpinner);
 	}
 	
-	public int getContClass() {
-		return (int) classBox.getSelectedItem();
+	public int getRoad() {
+		return (int) roadBox.getSelectedItem();
 	}
 	
-	public int getVehicle() {
-		return (int) vehicleBox.getSelectedItem();
+	public int getWeather() {
+		return (int) weatherBox.getSelectedItem();
 	}
 	
 	public int getTicks() {
 		return (int) ticksSpinner.getValue();
 	}
-
 }
+
