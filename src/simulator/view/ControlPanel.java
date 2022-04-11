@@ -24,12 +24,14 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeListener;
 
 import simulator.control.Controller;
@@ -53,12 +55,16 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	private JFileChooser fileChooser;
 	private JToolBar toolBar;
 	private boolean stopped;
-
+	
+	JButton loadButton;
+	JButton changeCO2Button;
+	JButton weatherButton;
+	
 	private JButton runButton;
 	private JButton stopButton;
-	private JLabel tickLabel;
-	private JSpinner ticker;
 	private JButton exitButton;
+	private JSpinner ticker;
+	private JLabel tickLabel;
 	
 	ControlPanel(Controller ctrl, JFrame mainFrame) {
 		super(new BorderLayout()); 
@@ -79,7 +85,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		
 //		JButton loadButton = new LoadButton();
 		fileChooser = new JFileChooser();
-		JButton loadButton = createToolButton("open", "Load File");
+		loadButton = createToolButton("open", "Load File");
 		loadButton.addActionListener((e) -> {
 			load();
 		}); 
@@ -88,14 +94,14 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		toolBar.addSeparator();
 		
 //		JButton changeCO2Button = new ChangeContClassButton(); co2class changeWeather
-		JButton changeCO2Button = createToolButton("co2class", "Change CO2 Class");
+		changeCO2Button = createToolButton("co2class", "Change CO2 Class");
 		changeCO2Button.addActionListener((e) -> {
 			changeCO2();
 		});
 		toolBar.add(changeCO2Button);
 		
 //		JButton weatherButton = new ChangeWeatherButton();
-		JButton weatherButton = createToolButton("weather", "Change Weather");
+		weatherButton = createToolButton("weather", "Change Weather");
 		weatherButton.addActionListener((e) -> {
 			changeWeather();
 		});
@@ -107,7 +113,12 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		
 		
 		toolBar.add(Box.createHorizontalGlue());
-		toolBar.addSeparator();
+		
+		
+		JSeparator sep = new JSeparator(SwingConstants.VERTICAL);
+		sep.setAlignmentX(JComponent.LEFT_ALIGNMENT);
+		toolBar.add(sep);
+//		toolBar.addSeparator();
 		
 		// Exit
 		initExitButton();
@@ -183,6 +194,9 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		//Lucas fill here the reset of the button 
 		//
 		//
+		loadButton.setEnabled(enable);
+		changeCO2Button.setEnabled(enable);
+		weatherButton.setEnabled(enable);
 		this.runButton.setEnabled(enable);
 		this.stopButton.setEnabled(!enable);
 		this.exitButton.setEnabled(enable);
@@ -207,7 +221,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 				System.exit(0);
 			}
 		});
-		exit.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
+//		exit.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
 		toolBar.add(exit);
 	}
 	

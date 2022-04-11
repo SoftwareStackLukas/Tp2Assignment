@@ -1,26 +1,20 @@
 package simulator.view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.io.File;
-
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
+
+import java.awt.*;
+import java.io.File;
 
 import simulator.control.Controller;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
 	private Controller ctrl;
+	
+	JPanel viewsPanel;
+	private GridBagConstraints constraints;
 	
 	public MainWindow(Controller ctrl) {
 		super("Traffic Simulator");
@@ -39,32 +33,14 @@ public class MainWindow extends JFrame {
 		// Or like this?
 //		mainPanel.add(new StatusBar(this.ctrl), BorderLayout.PAGE_END);
 		
-		JPanel viewsPanel = new JPanel(new GridLayout(1,2));	
+
+		constraints = new GridBagConstraints();
+		initViewsPanel();
 		mainPanel.add(viewsPanel);
-		
-		JPanel tablesPanel = new JPanel();
-		tablesPanel.setLayout(new BoxLayout(tablesPanel, BoxLayout.Y_AXIS));
-		viewsPanel.add(tablesPanel);
-		
-		JPanel mapsPanel = new JPanel();
-		mapsPanel.setLayout(new BoxLayout(mapsPanel, BoxLayout.Y_AXIS));
-		viewsPanel.add(mapsPanel);
-	
-		//tables
-		//EventsTableModel
-//	    JPanel eventsView = createViewPanel(new JTable(new EventsTableModel(this.ctrl)), "Events");
-//		eventsView.setPreferredSize(new Dimension(500,200));
-//		// VehiclesTableModel
-//	    JPanel vehicleView = createViewPanel(new JTable(new VehiclesTableModel(this.ctrl)), "Vehicles");
-//	    vehicleView.setPreferredSize(new Dimension(500,200));
-//		// RoadsTableModel
-//	    JPanel roadView = createViewPanel(new JTable(new RoadsTableModel(this.ctrl)), "Roads");
-//	    roadView.setPreferredSize(new Dimension(500,200));
-		
-		// JunctionsTableModel
-	    JPanel junctionView = createViewPanel(new JTable(new JunctionsTableModel(this.ctrl)), "Junctions");
-	    junctionView.setPreferredSize(new Dimension(500,200));
-		tablesPanel.add(junctionView);
+
+//		tablesPanel.add(junctionView);
+	    
+	    
 //		//maps
 //	    //MapComponent
 //		JPanel mapView = createViewPanel(new MapComponent(this.ctrl), "Map");
@@ -81,7 +57,38 @@ public class MainWindow extends JFrame {
 		this.pack();
 		this.setSize(640, 480);
 		this.setVisible(true);
+	}
+	
+	private void initViewsPanel() {
+		// General settings
+		viewsPanel = new JPanel(new GridBagLayout());
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.weightx = 0.5;
+		constraints.weighty = 0.5;
+
+//		EventsTableModel
+	    JPanel eventsView = createViewPanel(new JTable(new EventsTableModel(this.ctrl)), "Events");
+	    constraints.gridx = 0;
+	    constraints.gridy = 0;
+		viewsPanel.add(eventsView, constraints);
 		
+		// VehiclesTableModel
+	    JPanel vehicleView = createViewPanel(new JTable(new VehiclesTableModel(this.ctrl)), "Vehicles");
+	    constraints.gridx = 0;
+	    constraints.gridy = 1;
+	    viewsPanel.add(vehicleView, constraints);
+	    
+//		// RoadsTableModel
+	    JPanel roadView = createViewPanel(new JTable(new RoadsTableModel(this.ctrl)), "Roads");
+	    constraints.gridx = 0;
+	    constraints.gridy = 2;
+	    viewsPanel.add(roadView, constraints);
+		
+		// JunctionsTableModel
+	    JPanel junctionView = createViewPanel(new JTable(new JunctionsTableModel(this.ctrl)), "Junctions");
+	    constraints.gridx = 0;
+	    constraints.gridy = 3;
+	    viewsPanel.add(junctionView, constraints);
 	}
 	
 	private JPanel createViewPanel(JComponent c, String title) {
