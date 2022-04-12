@@ -10,51 +10,21 @@ import simulator.model.Junction;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
-public class JunctionsTableModel extends AbstractTableModel implements TrafficSimObserver {
-	private static final String[] columnNames = {"Id", "Green", "Queues"};
+@SuppressWarnings("serial")
+public class JunctionsTableModel extends MyTable {
+	private static final String[] COLUMN_NAMES = {"Id", "Green", "Queues"};
 	private List<Junction> rowData; //from where do we get this data?
 	
 	
 	JunctionsTableModel(Controller ctlr) {
-		ctlr.addObserver(this);
-		initGUI();
+		super(ctlr, COLUMN_NAMES);
 	}
 
-	private void initGUI() {
-		//Do we need this?
-	}
-	
 	void settingTheRowData(List<Junction> rowData) {
 		this.rowData = rowData;
 		this.fireTableDataChanged();
 	}
-	
-	//Method to change the values which are presented
-	@Override
-	public String getColumnName(int col) {
-		return columnNames[col].toString();
-	}
-	
-	@Override
-	public int getRowCount() {
-		return this.rowData != null ? this.rowData.size() : 0;
-	}
-	
-	@Override
-	public boolean isCellEditable(int row, int col) {
-		return false;
-	}
-	
-	@Override
-	public void setValueAt(Object value, int row, int col) {
-		//Values can not be set
-		//Overrideing the parent that parent logic can not be accessed
-	}
 
-	@Override
-	public int getColumnCount() {
-		return this.columnNames.length;
-	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
@@ -107,13 +77,6 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
 		this.settingTheRowData(map.getJunctions());
-	}
-
-	@Override
-	public void onError(String err) {
-		//DO NOTHING
-		//IF WE THROW ALWAYS AN ERROR MSG 
-		//THE GUI WOULD BE FULL OF IT 
 	}
 	
 }

@@ -16,6 +16,8 @@ public class MainWindow extends JFrame {
 	JPanel viewsPanel;
 	private GridBagConstraints constraints;
 	
+	public static final Color mainColor = new Color(240, 240, 240);
+	
 	public MainWindow(Controller ctrl) {
 		super("Traffic Simulator");
 		this.ctrl = ctrl;
@@ -25,6 +27,7 @@ public class MainWindow extends JFrame {
 	
 	private void initGUI() {		
 		JPanel mainPanel = new JPanel(new BorderLayout());
+//		mainPanel.setBackground(MainWindow.mainColor);
 		this.setContentPane(mainPanel);
 //		
 		// Like this
@@ -42,10 +45,17 @@ public class MainWindow extends JFrame {
 	    
 	    
 //		//maps
-//	    //MapComponent
-//		JPanel mapView = createViewPanel(new MapComponent(this.ctrl), "Map");
-//		mapView.setPreferredSize(new Dimension(500, 400));
-//		mapsPanel.add(mapView);
+	    //MapComponent
+		JPanel mapView = new MapComponent(this.ctrl);
+		mapView.setPreferredSize(new Dimension(500, 400));
+		mapView.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Map",
+				TitledBorder.LEFT, TitledBorder.TOP)); 
+		constraints.gridx = 1;
+		constraints.gridy = 1;
+		constraints.gridheight = 2;
+		constraints.fill = GridBagConstraints.BOTH;
+		viewsPanel.add(mapView, constraints);
+		
 //		//MapByRoadComponent
 //		JPanel mapRoadView = createViewPanel(new MapByRoadComponent(this.ctrl), "MapRoad");
 //		mapRoadView.setPreferredSize(new Dimension(500, 400));
@@ -65,29 +75,23 @@ public class MainWindow extends JFrame {
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.weightx = 0.5;
 		constraints.weighty = 0.5;
+		constraints.gridx = 0;
+		constraints.gridy = 0;
 
 //		EventsTableModel
-	    JPanel eventsView = createViewPanel(new JTable(new EventsTableModel(this.ctrl)), "Events");
-	    constraints.gridx = 0;
-	    constraints.gridy = 0;
+	    JPanel eventsView = createViewPanel(new PersonalizedTable(new EventsTableModel(this.ctrl)), "Events");
 		viewsPanel.add(eventsView, constraints);
-		
+//		
 		// VehiclesTableModel
-	    JPanel vehicleView = createViewPanel(new JTable(new VehiclesTableModel(this.ctrl)), "Vehicles");
-	    constraints.gridx = 0;
-	    constraints.gridy = 1;
+	    JPanel vehicleView = createViewPanel(new PersonalizedTable(new VehiclesTableModel(this.ctrl)), "Vehicles");
 	    viewsPanel.add(vehicleView, constraints);
 	    
-//		// RoadsTableModel
-	    JPanel roadView = createViewPanel(new JTable(new RoadsTableModel(this.ctrl)), "Roads");
-	    constraints.gridx = 0;
-	    constraints.gridy = 2;
+////		// RoadsTableModel
+	    JPanel roadView = createViewPanel(new PersonalizedTable(new RoadsTableModel(this.ctrl)), "Roads");
 	    viewsPanel.add(roadView, constraints);
 		
 		// JunctionsTableModel
-	    JPanel junctionView = createViewPanel(new JTable(new JunctionsTableModel(this.ctrl)), "Junctions");
-	    constraints.gridx = 0;
-	    constraints.gridy = 3;
+	    JPanel junctionView = createViewPanel(new PersonalizedTable(new JunctionsTableModel(this.ctrl)), "Junctions");
 	    viewsPanel.add(junctionView, constraints);
 	}
 	
@@ -95,7 +99,13 @@ public class MainWindow extends JFrame {
 		JPanel p = new JPanel(new BorderLayout());
 		p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), title,
 													TitledBorder.LEFT, TitledBorder.TOP)); 
-		p.add(new JScrollPane(c));
+		
+		JScrollPane sp = new JScrollPane(c);
+		sp.setBorder(BorderFactory.createEmptyBorder());
+		p.setBackground(MainWindow.mainColor);
+		p.add(sp);
+		
+		constraints.gridy++;
 		return p;
 	}
 	

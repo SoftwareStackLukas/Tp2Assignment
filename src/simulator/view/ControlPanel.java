@@ -43,7 +43,7 @@ import simulator.model.TrafficSimulator;
 
 @SuppressWarnings("serial")
 class ControlPanel extends JPanel implements TrafficSimObserver {
-	private static final String TICKER_LABEL = "Ticks:";
+	private static final String TICKER_LABEL = "Ticks: ";
 	static final int TICK_MIN = 1;
 	static final int TICK_MAX = 1000;
 	static final int TICK_DEFAULT = 10;
@@ -80,8 +80,10 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		
 		toolBar = new JToolBar();
 		toolBar.setFloatable(false);
+		toolBar.setBackground(MainWindow.mainColor);
 //		toolBar.setMinimumSize(new Dimension(80, 40));
 		this.add(toolBar, BorderLayout.CENTER);
+		
 		
 //		JButton loadButton = new LoadButton();
 		fileChooser = new JFileChooser();
@@ -91,6 +93,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		}); 
 		toolBar.add(loadButton);
 		
+//		toolBar.add(new JSeparator(SwingConstants.VERTICAL));
 		toolBar.addSeparator();
 		
 //		JButton changeCO2Button = new ChangeContClassButton(); co2class changeWeather
@@ -107,6 +110,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		});
 		toolBar.add(weatherButton);
 		
+//		toolBar.add(new JSeparator(SwingConstants.VERTICAL));
 		toolBar.addSeparator();
 		
 		this.initRunStopTick();
@@ -115,10 +119,10 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		toolBar.add(Box.createHorizontalGlue());
 		
 		
-		JSeparator sep = new JSeparator(SwingConstants.VERTICAL);
-		sep.setAlignmentX(JComponent.LEFT_ALIGNMENT);
-		toolBar.add(sep);
-//		toolBar.addSeparator();
+		
+//		addSeparator.setAlignmentX(JComponent.LEFT_ALIGNMENT);
+//		toolBar.add(new JSeparator(SwingConstants.VERTICAL));
+		toolBar.addSeparator();
 		
 		// Exit
 		initExitButton();
@@ -128,15 +132,17 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	private JButton createToolButton(String imageName, String tipText) {
 		JButton button = new JButton();
 		Icon icon = new ImageIcon(Locations.getIconsDir() + imageName + ".png");
+		button.setBackground(MainWindow.mainColor);
+//		button.setBorder(BorderFactory.createEmptyBorder());
+		button.setBorder(BorderFactory.createRaisedSoftBevelBorder());
 		button.setIcon(icon);
 		button.setToolTipText(tipText);
-		button.setSize(new Dimension(60,60));
+//		button.setSize(new Dimension(20,20));
 		return button;
 	}
 	
 	private void initRunStopTick() {
 		this.runButton = createToolButton("run", "Runs the game");
-		this.runButton.setHorizontalAlignment(0);
 		this.runButton.addActionListener((e) -> {
 			this.stopped = true;
 			enableToolBar(false);
@@ -144,17 +150,15 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		});
 		
 		this.stopButton = createToolButton("stop", "Stops the game");
-		this.stopButton.setHorizontalAlignment(0);
 		this.stopButton.addActionListener((e) -> {
 			this.stopped = true;
 		});
 		
 		this.tickLabel = new JLabel(ControlPanel.TICKER_LABEL);	
-		this.tickLabel.setHorizontalAlignment(0);
 		SpinnerModel model = new SpinnerNumberModel(ControlPanel.TICK_DEFAULT, //initial value
-				   								  		  ControlPanel.TICK_MIN, //min
-				   								  		  ControlPanel.TICK_MAX, //max
-				   								  		  ControlPanel.TICK_STEP); //step
+				   								    ControlPanel.TICK_MIN, //min
+				   								  	ControlPanel.TICK_MAX, //max
+				   								  	ControlPanel.TICK_STEP); //step
 		this.ticker = new JSpinner(model);
 		this.ticker.setToolTipText(TICKER_LABEL);
 		this.ticker.setToolTipText(ControlPanel.TICKER_HELP_TEXT);
@@ -166,9 +170,11 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 //			spinner.getValue()
 //								
 //				});
-		
+		Dimension sepDim = new Dimension(5, 0);
 		toolBar.add(runButton);
+//		toolBar.addSeparator(sepDim);
 		toolBar.add(stopButton);
+		toolBar.addSeparator(sepDim);
 		toolBar.add(tickLabel);
 		toolBar.add(ticker);
 	}
@@ -191,9 +197,6 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	}		
 	
 	private void enableToolBar(Boolean enable) {
-		//Lucas fill here the reset of the button 
-		//
-		//
 		loadButton.setEnabled(enable);
 		changeCO2Button.setEnabled(enable);
 		weatherButton.setEnabled(enable);
@@ -238,21 +241,21 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 	
 	private void load() {
-//		ctrl.reset();s
-//		try {
-			// Should open a dialog for selecting an events file
-//			InputStream in = new FileInputStream("resources2/examples/ex1.json");
-			int returnVal = fileChooser.showOpenDialog(this);
+		ctrl.reset();
+		try {
+			File file = new File("resources/examples/ex1.json");
+			int returnVal = JFileChooser.APPROVE_OPTION;
+//			int returnVal = fileChooser.showOpenDialog(this);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				File file = fileChooser.getSelectedFile();
+//				File file = fileChooser.getSelectedFile();
 				System.out.println("Loading: " + file.getName());
-//				ctrl.loadEvents(file);
+				ctrl.loadEvents(new FileInputStream(file));
 			} else {
 				System.out.println("Load cancelled by user.");
 			}
-//		} catch (IOException e){
-//			System.out.println("File doesn't exist"); 
-//		}
+		} catch (IOException e){
+			System.out.println("File doesn't exist"); 
+		}
 		System.out.println("Im loading");
 	}
 	

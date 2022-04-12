@@ -1,5 +1,6 @@
 	package simulator.model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,14 +15,14 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 	private List<TrafficSimObserver> observers; 
 	
 	public TrafficSimulator() {
-		this.init();
+		this.clear();
+		this.observers = new ArrayList<>();
 	}
 	
-	private void init() {
+	private void clear() {
 		this.roadMap = new RoadMap();
 		this.simulationTime = 0;
 		this.events = new SortedArrayList<>();
-		this.observers = new SortedArrayList<>();
 	}
 	
 	public void addEvent(Event e) {
@@ -68,7 +69,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 	}
 	
 	public void reset() {
-		this.init();
+		this.clear();
 		for (TrafficSimObserver o : this.observers) {
 			o.onReset(this.roadMap, this.events, this.simulationTime);
 		}

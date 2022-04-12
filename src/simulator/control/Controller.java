@@ -34,7 +34,7 @@ public class Controller {
 		if (ja.length() == 0) throw new IllegalArgumentException("No data");
 		for (int x = 0; x < ja.length(); x++) {
 			simulator.addEvent(eventsFactory.createInstance(ja.getJSONObject(x)));
-		}		
+		}
 	}
 	
 	public void run(int n, OutputStream out) {
@@ -47,6 +47,13 @@ public class Controller {
 				p.println(",");
 		}
 		p.println("]}");
+	}
+	
+	public void run(int n) {
+		// TODO: check if something is missing
+		for (int x = 0; x < n; x++) {
+			this.simulator.advance();
+		}
 	}
 	
 	public void reset() {
