@@ -34,14 +34,22 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 	
 	private RoadMap map;
 	
+	//Introduced const for no MagicLetters(-Numbers)
 	private Image car;
+	private static final String CAR = "car";
 	//final fix just the array size but the image are change able
 	private final Image[] contClass = new Image[6];
+	private static final String CONT = "cont_";
 	private Image rain;
+	private static final String RAIN = "rain";
 	private Image storm;
+	private static final String STORM = "storm";
 	private Image cloud;
+	private static final String CLOUD = "cloud";
 	private Image sun;
+	private static final String SUN = "sun";
 	private Image wind;
+	private static final String WIND = "wind";
 
 	public MapByRoadComponent(Controller ctrl) {
 		this.initGUI();
@@ -55,15 +63,15 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 	}
 
 	private void loadImgEsInCache() throws IOException {
-		this.car = this.loadI("car" + MapByRoadComponent.PNG);
+		this.car = this.loadI(MapByRoadComponent.CAR + MapByRoadComponent.PNG);
 		for (int i = 0; i <= 5; i++) {
-			this.contClass[i] =  this.loadI("cont_" + Integer.toString(i) + MapByRoadComponent.PNG);
+			this.contClass[i] =  this.loadI(MapByRoadComponent.CONT + Integer.toString(i) + MapByRoadComponent.PNG);
 		}
-		this.rain = this.loadI("rain" + MapByRoadComponent.PNG);
-		this.storm = this.loadI("storm" + MapByRoadComponent.PNG);
-		this.sun = this.loadI("sun" + MapByRoadComponent.PNG);
-		this.wind = this.loadI("wind" + MapByRoadComponent.PNG);
-		this.cloud = this.loadI("cloud" + MapByRoadComponent.PNG);
+		this.rain = this.loadI(MapByRoadComponent.RAIN + MapByRoadComponent.PNG);
+		this.storm = this.loadI(MapByRoadComponent.STORM + MapByRoadComponent.PNG);
+		this.sun = this.loadI(MapByRoadComponent.SUN + MapByRoadComponent.PNG);
+		this.wind = this.loadI(MapByRoadComponent.WIND + MapByRoadComponent.PNG);
+		this.cloud = this.loadI(MapByRoadComponent.CLOUD + MapByRoadComponent.PNG);
 	}
 
 	private void initGUI() {
