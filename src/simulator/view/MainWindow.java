@@ -44,22 +44,25 @@ public class MainWindow extends JFrame {
 //		tablesPanel.add(junctionView);
 	    
 	    
-//		//maps
-	    //MapComponent
+		//Common constraints
+		constraints.gridheight = 2;
+		constraints.fill = GridBagConstraints.BOTH;
+	    
+		//MapComponent
 		JPanel mapView = new MapComponent(this.ctrl);
-		mapView.setPreferredSize(new Dimension(500, 400));
 		mapView.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Map",
 				TitledBorder.LEFT, TitledBorder.TOP)); 
 		constraints.gridx = 1;
-		constraints.gridy = 1;
-		constraints.gridheight = 2;
-		constraints.fill = GridBagConstraints.BOTH;
+		constraints.gridy = 0;
 		viewsPanel.add(mapView, constraints);
 		
 //		//MapByRoadComponent
-//		JPanel mapRoadView = createViewPanel(new MapByRoadComponent(this.ctrl), "MapRoad");
-//		mapRoadView.setPreferredSize(new Dimension(500, 400));
-//		mapRoadView.add(mapRoadView); 
+		JPanel mapRoadView = new MapByRoadComponent(this.ctrl);
+		mapRoadView.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "MapRoad",
+				TitledBorder.LEFT, TitledBorder.TOP)); 
+		constraints.gridx = 1;
+		constraints.gridy = 2;
+		viewsPanel.add(mapRoadView, constraints);
 		
 		this.setContentPane(mainPanel);
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -84,14 +87,17 @@ public class MainWindow extends JFrame {
 //		
 		// VehiclesTableModel
 	    JPanel vehicleView = createViewPanel(new PersonalizedTable(new VehiclesTableModel(this.ctrl)), "Vehicles");
+	    constraints.gridy++;
 	    viewsPanel.add(vehicleView, constraints);
 	    
-////		// RoadsTableModel
+		// RoadsTableModel
 	    JPanel roadView = createViewPanel(new PersonalizedTable(new RoadsTableModel(this.ctrl)), "Roads");
+	    constraints.gridy++;
 	    viewsPanel.add(roadView, constraints);
 		
 		// JunctionsTableModel
 	    JPanel junctionView = createViewPanel(new PersonalizedTable(new JunctionsTableModel(this.ctrl)), "Junctions");
+	    constraints.gridy++;
 	    viewsPanel.add(junctionView, constraints);
 	}
 	
@@ -105,7 +111,6 @@ public class MainWindow extends JFrame {
 		p.setBackground(MainWindow.mainColor);
 		p.add(sp);
 		
-		constraints.gridy++;
 		return p;
 	}
 	
