@@ -34,32 +34,25 @@ public class MainWindow extends JFrame {
 		ControlPanel ctrlPanel = new ControlPanel(this.ctrl, this);
 		mainPanel.add(ctrlPanel, BorderLayout.PAGE_START);
 		// Or like this?
-//		mainPanel.add(new StatusBar(this.ctrl), BorderLayout.PAGE_END);
+		mainPanel.add(new StatusBar(this.ctrl), BorderLayout.PAGE_END);
 		
 
 		constraints = new GridBagConstraints();
 		initViewsPanel();
 		mainPanel.add(viewsPanel);
-
-//		tablesPanel.add(junctionView);
-	    
-	    
+		
 		//Common constraints
 		constraints.gridheight = 2;
 		constraints.fill = GridBagConstraints.BOTH;
 	    
 		//MapComponent
-		JPanel mapView = new MapComponent(this.ctrl);
-		mapView.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Map",
-				TitledBorder.LEFT, TitledBorder.TOP)); 
+		JPanel mapView = createViewPanel(new MapComponent(this.ctrl), "Map");
 		constraints.gridx = 1;
 		constraints.gridy = 0;
 		viewsPanel.add(mapView, constraints);
 		
 //		//MapByRoadComponent
-		JPanel mapRoadView = new MapByRoadComponent(this.ctrl);
-		mapRoadView.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "MapRoad",
-				TitledBorder.LEFT, TitledBorder.TOP)); 
+		JPanel mapRoadView = createViewPanel(new MapByRoadComponent(this.ctrl), "MapRoad");
 		constraints.gridx = 1;
 		constraints.gridy = 2;
 		viewsPanel.add(mapRoadView, constraints);
@@ -68,7 +61,7 @@ public class MainWindow extends JFrame {
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 //		this.setDefaultCloseOperation(EXIT_ON_CLOSE);		
 		this.pack();
-		this.setSize(640, 480);
+		this.setSize(700, 600);
 		this.setVisible(true);
 	}
 	

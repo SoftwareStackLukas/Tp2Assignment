@@ -1,5 +1,6 @@
 package simulator.view;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
+import javax.swing.border.BevelBorder;
 
 import simulator.control.Controller;
 import simulator.model.Event;
@@ -32,16 +34,16 @@ class StatusBar extends JPanel implements TrafficSimObserver {
 	
 	private void initGUI() {
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
-		this.txtTime = new JLabel();
-		this.txtTime.setText(StatusBar.START_TIME);
+		this.txtTime = new JLabel(StatusBar.START_TIME);
+		txtTime.setMinimumSize(new Dimension(100, 20));
 		
-		this.add(new JSeparator(SwingUtilities.VERTICAL));
 		
-		this.txtEvent = new JLabel();		
-		this.txtEvent.setText(StatusBar.START_EVENT);
-		this.setBorder(BorderFactory.createBevelBorder(1));
+		this.txtEvent = new JLabel(StatusBar.START_EVENT);
+		
+		this.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 	
 		this.add(txtTime);
+		this.add(new JSeparator(SwingUtilities.VERTICAL));
 		this.add(txtEvent);
 	}
 

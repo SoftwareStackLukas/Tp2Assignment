@@ -144,14 +144,15 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	private void initRunStopTick() {
 		this.runButton = createToolButton("run", "Runs the game");
 		this.runButton.addActionListener((e) -> {
-			this.stopped = true;
-			enableToolBar(false);
+			this.stopped = false;
+			enableToolBar(stopped);
 			run_sim((Integer)this.ticker.getValue());
 		});
 		
 		this.stopButton = createToolButton("stop", "Stops the game");
 		this.stopButton.addActionListener((e) -> {
 			this.stopped = true;
+			enableToolBar(stopped);
 		});
 		
 		this.tickLabel = new JLabel(ControlPanel.TICKER_LABEL);	
@@ -214,9 +215,9 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	//Exit the Simulator -- This method has to be checked
 	private void initExitButton() {
-		JButton exit = createToolButton("exit", "Quit");
-		exit.setSize(10,10); //Which size should we take? 
-		exit.addActionListener((e) -> {
+		exitButton = createToolButton("exit", "Quit");
+		exitButton.setSize(10,10); //Which size should we take? 
+		exitButton.addActionListener((e) -> {
 			int n = JOptionPane.showOptionDialog((Frame) SwingUtilities.getWindowAncestor(this),
 					"Are sure you want to quit?", "Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 					null, null);
@@ -225,7 +226,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 			}
 		});
 //		exit.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
-		toolBar.add(exit);
+		toolBar.add(exitButton);
 	}
 	
 	private void changeCO2() {

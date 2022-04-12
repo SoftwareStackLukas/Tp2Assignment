@@ -41,30 +41,30 @@ public class EventsTableModel extends MyTable<Event> {
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub
-		
+		rawData = events; // Not sure if this is a good idea
+		fireTableDataChanged();
 	}
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		rawData = events; // Not sure if this is a good idea
+		fireTableDataChanged();
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		System.out.println(e.toString());
-		rawData.add(e);
+		rawData = events; // Not sure if this is a good idea
 		fireTableDataChanged();
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
 		rawData = new SortedArrayList<Event>();
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+		rawData = events; // Not sure if this is a good idea
+		fireTableDataChanged();
 	}
 }
