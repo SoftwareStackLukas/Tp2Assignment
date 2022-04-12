@@ -20,6 +20,7 @@ import simulator.model.Road;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
+@SuppressWarnings("serial")
 class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 	
 	private static final Color BG_COLOR = Color.WHITE;
@@ -30,6 +31,7 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 	
 	private RoadMap map;
 
+	
 	public MapByRoadComponent(Controller ctrl) {
 		this.initGUI();
 		ctrl.addObserver(this);
@@ -71,7 +73,7 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 	private void drawRoad(Graphics g) {
 		//DO SOMETHING
 	}
-	
+		
 	private Image getContI(Road road) {
 		Image i = null;
 		
