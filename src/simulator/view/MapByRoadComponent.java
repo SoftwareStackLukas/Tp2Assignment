@@ -30,6 +30,13 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 	private static final Color RED_LIGHT_COLOR = Color.RED;
 	
 	private RoadMap map;
+	
+	private Image car;
+	private Image car;
+	private Image car;
+	private Image car;
+	private Image car;
+
 
 	
 	public MapByRoadComponent(Controller ctrl) {
