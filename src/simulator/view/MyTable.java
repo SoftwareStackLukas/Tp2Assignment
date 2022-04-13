@@ -19,7 +19,7 @@ public abstract class MyTable<T> extends AbstractTableModel implements TrafficSi
 	String[] columnNames;
 	List<T> rawData; //from where do we get this data?
 	
-	
+
 	MyTable(Controller ctlr, String[] columnNames) {
 		this.columnNames = columnNames;
 		ctlr.addObserver(this);

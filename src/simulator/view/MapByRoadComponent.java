@@ -28,6 +28,7 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 	//To encapsulate the used colors
 	private static class COLOR_CLASS {
 		static final Color BG_COLOR = Color.WHITE;
+		static final Color ROAD_COLOR = Color.BLACK;
 		static final Color JUNCTION_COLOR = Color.BLUE;
 		static final Color JUNCTION_LABEL_COLOR = new Color(200, 100, 0);
 		static final Color GREEN_LIGHT_COLOR = Color.GREEN;
@@ -113,10 +114,9 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 	}
 	
 	private void drawMap(Graphics g) {
-		
-		final List<Road> roads = map.getRoads();
-		for (int i = 0; i < roads.size(); i++) {
-			this.drawRoad(g, roads.get(i), i);
+		int i = 0;
+		for (Road road: map.getRoads()) {
+			this.drawRoad(g, road, i++);
 		}
 	}
 	
@@ -134,9 +134,10 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 	private void drawRoad(Graphics g, Road r, int index) {
 		//We have to fit the sizeing part in here
 		
-		//Lines
+		//Lines 
 		Coordinates co1 = new Coordinates(50, index);
-		Coordinates co2 = new Coordinates(getWidth() - 100, index);		
+		Coordinates co2 = new Coordinates(getWidth() - 100, index);	
+		g.setColor(COLOR_CLASS.ROAD_COLOR);
 		g.drawLine(co1.x, co1.y, co2.x, co2.y);
 		
 		//Circles
@@ -160,8 +161,8 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 		final List<Vehicle> vehicles = r.getVehicles();
 		int x = 0;
 		for (Vehicle v : vehicles) {
-			x = co1.x + (int) ((co2.x - co1.x) * ((double) v.getLocation() / (double) r.getLength()));
-			g.drawImage(this.car, x, co1.y - 15, MapByRoadComponent.CAR_SIZE_IMAGE, MapByRoadComponent.CAR_SIZE_IMAGE, this);
+			x = co1.x + JUNCTION_RADIUS + (int) ((co2.x - co1.x - 2 * JUNCTION_RADIUS) * ((double) v.getLocation() / (double) (r.getLength())));
+			g.drawImage(this.car, x, co1.y - CAR_SIZE_IMAGE + 4, MapByRoadComponent.CAR_SIZE_IMAGE, MapByRoadComponent.CAR_SIZE_IMAGE, this);
 			
 			// Choose a color for the vehcile's label and background, depending on its
 			// contamination class

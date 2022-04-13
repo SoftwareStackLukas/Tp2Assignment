@@ -2,6 +2,7 @@ package simulator.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -10,15 +11,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class MyDialog extends JDialog {
+import simulator.control.Controller;
+import simulator.model.Event;
+import simulator.model.RoadMap;
+import simulator.model.TrafficSimObserver;
+
+public class MyDialog extends JDialog implements TrafficSimObserver{
 	public static final int CANCEL = 0;
 	public static final int OK = 1;
 	
 	JPanel mainPanel;
 	int closeOption;
 	
-	public MyDialog(JFrame parent) {
+	public MyDialog(JFrame parent, Controller ctrl) {
 		super(parent, true);
+		ctrl.addObserver(this);
 		mainPanel = new JPanel();
 	}
 	
@@ -61,5 +68,41 @@ public class MyDialog extends JDialog {
 		pack();
 		setVisible(true);
 		return closeOption;
+	}
+
+	@Override
+	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onReset(RoadMap map, List<Event> events, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onRegister(RoadMap map, List<Event> events, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onError(String err) {
+		// TODO Auto-generated method stub
+		
 	}
 }

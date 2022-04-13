@@ -138,6 +138,18 @@ public class Junction extends SimulatedObject {
 		
 		return jo;
 	}
+	
+	public String getQueuesRepr() {
+		String repr = "";
+		int i = 0;
+		for (List<Vehicle> queue: queues) {
+		    Road road = incomingRoads.get(i);
+		    repr += road.getId() + ": " + queue.toString();
+		    if (i < incomingRoads.size()) repr += " ";
+			i++;
+		}
+		return repr;
+	}
 
 	//Getters of the class
 	public int getX() {

@@ -21,6 +21,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+import simulator.control.Controller;
 import simulator.model.Road;
 import simulator.model.Vehicle;
 
@@ -37,8 +38,8 @@ public class CO2Dialog extends MyDialog {
 	
 	int closeOption;
 	
-	public CO2Dialog (JFrame parent) {
-		super(parent);
+	public CO2Dialog (JFrame parent, Controller ctrl) {
+		super(parent, ctrl);
 		initDialog();
 	}
 	

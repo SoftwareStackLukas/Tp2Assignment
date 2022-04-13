@@ -2,6 +2,7 @@ package simulator.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -15,6 +16,12 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+import simulator.control.Controller;
+import simulator.model.Event;
+import simulator.model.Road;
+import simulator.model.RoadMap;
+import simulator.model.Weather;
+
 @SuppressWarnings("serial")
 public class ChangeWeatherDialog extends MyDialog {
 	public static final int CANCEL = 0;
@@ -22,14 +29,18 @@ public class ChangeWeatherDialog extends MyDialog {
 	
 	private static final String HELP_TEXT = "Schedule an event to change the weather of a road after a given number of simulation ticks from now.";
 	
-//	JComboBox<Vehicle> vehicleBox;
-	JComboBox<Integer> weatherBox;
-	JComboBox<Integer> roadBox;
+	Controller ctrl;
+	
+//	JComboBox<Integer> weatherBox;
+//	JComboBox<Integer> roadBox;
+	JComboBox<Weather> weatherBox;
+	JComboBox<Road> roadBox;
 	JSpinner ticksSpinner;
 	int closeOption;
 	
-	public ChangeWeatherDialog (JFrame parent) {
-		super(parent);
+	public ChangeWeatherDialog (JFrame parent, Controller ctrl) {
+		super(parent, ctrl);
+		this.ctrl = ctrl;
 		initDialog();
 	}
 	
@@ -54,12 +65,13 @@ public class ChangeWeatherDialog extends MyDialog {
 		mainPanel.add(boxPanel);
 		
 		boxPanel.add(new JLabel("Road: "));
-		roadBox = new JComboBox<Integer>(new Integer[] {0,1,2,3,4,5,6,7,8,9,10});
+		roadBox = new JComboBox<Road>();
 		roadBox.setPreferredSize(new Dimension(50, 20));
 		boxPanel.add(roadBox);
 		
 		boxPanel.add(new JLabel("Weather: "));
-		weatherBox = new JComboBox<Integer>(new Integer[] {0,1,2,3,4,5,6,7,8,9,10});
+		weatherBox = new JComboBox<Weather>();
+		weatherBox.setPreferredSize(new Dimension(50, 20));
 		boxPanel.add(weatherBox);
 		
 		
@@ -73,12 +85,23 @@ public class ChangeWeatherDialog extends MyDialog {
 		boxPanel.add(ticksSpinner);
 	}
 	
-	public int getRoad() {
-		return (int) roadBox.getSelectedItem();
+	@Override
+	public void onRegister(RoadMap map, List<Event> events, int time) {
+		for (Road road: map.getRoads()) {
+			roadBox.addItem(road);
+		}
+		
+		for (Weather weather: Weather.values()) {
+			weatherBox.addItem(weather);
+		}
 	}
 	
-	public int getWeather() {
-		return (int) weatherBox.getSelectedItem();
+	public Road getRoad() {
+		return (Road) roadBox.getSelectedItem();
+	}
+	
+	public Weather getWeather() {
+		return (Weather) weatherBox.getSelectedItem();
 	}
 	
 	public int getTicks() {

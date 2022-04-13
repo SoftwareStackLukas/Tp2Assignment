@@ -18,7 +18,7 @@ import simulator.model.TrafficSimObserver;
 
 class StatusBar extends JPanel implements TrafficSimObserver {
 	private static final String START_TIME = "Time: 0";
-	private static final String START_EVENT = "Until now no event has happend";
+	private static final String START_EVENT = "Welcome!";
 	private static final String TIME = "Time: ";
 	private static final String ADD_EVENT = "Event added ";
 	private static final String NOTHING = "";

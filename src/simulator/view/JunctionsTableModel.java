@@ -21,7 +21,7 @@ public class JunctionsTableModel extends MyTable<Junction> {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Object o = "No data in row/col space";
+		Object o = "NONE";
 		Junction junction = getRow(rowIndex);
 		if (junction == null) return "Not Available";
 		
@@ -39,11 +39,10 @@ public class JunctionsTableModel extends MyTable<Junction> {
 			break;
 		case 2:
 			//Return a junction queue
-			o = junction.getQueueList();
-			if(o == null || o == "{}") {
-				o =  "";
-			}
+			o = junction.getQueuesRepr();
 			break;
+		default:
+			 o = "ERROR";
 		}
 		return o;
 	}

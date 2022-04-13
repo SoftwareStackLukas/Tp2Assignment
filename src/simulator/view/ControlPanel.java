@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -36,10 +37,13 @@ import javax.swing.event.ChangeListener;
 
 import simulator.control.Controller;
 import simulator.factories.BuilderBasedFactory;
+import simulator.misc.Pair;
 import simulator.model.Event;
 import simulator.model.RoadMap;
+import simulator.model.SetWeatherEvent;
 import simulator.model.TrafficSimObserver;
 import simulator.model.TrafficSimulator;
+import simulator.model.Weather;
 
 @SuppressWarnings("serial")
 class ControlPanel extends JPanel implements TrafficSimObserver {
@@ -230,7 +234,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 	
 	private void changeCO2() {
-		CO2Dialog dialog = new CO2Dialog(mainFrame);
+		CO2Dialog dialog = new CO2Dialog(mainFrame, ctrl); // Maybe should be outside of this method
 		int closeOption = dialog.open();
 		if (closeOption == CO2Dialog.OK) {
 			System.out.println("Vehicle: " + dialog.getVehicle());
@@ -249,7 +253,6 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 //			int returnVal = fileChooser.showOpenDialog(this);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 //				File file = fileChooser.getSelectedFile();
-				System.out.println("Loading: " + file.getName());
 				ctrl.loadEvents(new FileInputStream(file));
 			} else {
 				System.out.println("Load cancelled by user.");
@@ -257,11 +260,10 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		} catch (IOException e){
 			System.out.println("File doesn't exist"); 
 		}
-		System.out.println("Im loading");
 	}
 	
 	private void changeWeather() {
-		ChangeWeatherDialog dialog = new ChangeWeatherDialog(mainFrame);
+		ChangeWeatherDialog dialog = new ChangeWeatherDialog(mainFrame, ctrl);
 		int closeOption = dialog.open();
 		if (closeOption == CO2Dialog.OK) {
 			System.out.println("Weather: " + dialog.getWeather());
@@ -270,6 +272,10 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		} else {
 			System.out.println("Closed");
 		}
+		ArrayList<Pair<String, Weather>> weathers = new ArrayList<Pair<String, Weather>>();
+//		weathers.add(new Pair<String, Weather>(dialog.getRoad(), dialog.getWeather()));
+		weathers.add(new Pair<String, Weather>(dialog.getRoad().getId(), Weather.RAINY));
+		ctrl.addEvent(new SetWeatherEvent(dialog.getTicks(), weathers));
 	}	
 
 	private ImageIcon loadImage(String file) {

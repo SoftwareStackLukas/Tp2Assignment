@@ -20,7 +20,7 @@ public class EventsTableModel extends MyTable<Event> {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object obj;
 		Event e = getRow(rowIndex);
-		if (e == null) return "Not Available";
+		if (e == null) return "NONE";
 		
 		switch (columnIndex) {
 			case 0:
