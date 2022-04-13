@@ -20,8 +20,8 @@
 - Did I consider everything in the toString() method. 
 
 #Lucas
-- EventsTableModel
 - VehiclesTableModel
+- Center the dialogs
 
 #Tests
 

@@ -9,6 +9,9 @@ import java.awt.*;
 
 import simulator.control.Controller;
 import simulator.misc.SortedArrayList;
+import simulator.model.Event;
+import simulator.model.Junction;
+import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
 @SuppressWarnings("serial")
@@ -24,7 +27,13 @@ public abstract class MyTable<T> extends AbstractTableModel implements TrafficSi
 		
 //		setBorder(BorderFactory.createEmptyBorder());
 	}
+	
+	abstract void setRawData(RoadMap map, List<Event> events, int time);
 
+	protected T getRow(int rowIndex) {
+		return rowIndex < rawData.size() ? rawData.get(rowIndex) : null;
+	}
+	
 	//Method to change the values which are presented
 	@Override
 	public String getColumnName(int col) {
@@ -59,4 +68,32 @@ public abstract class MyTable<T> extends AbstractTableModel implements TrafficSi
 		//THE GUI WOULD BE FULL OF IT 
 	}
 	
+	@Override
+	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
+//		setRawData(map, events, time);
+//		fireTableDataChanged();
+	}
+
+	@Override
+	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
+		setRawData(map, events, time);
+		fireTableDataChanged();
+	}
+
+	@Override
+	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
+		setRawData(map, events, time);
+		fireTableDataChanged();
+	}
+
+	@Override
+	public void onReset(RoadMap map, List<Event> events, int time) {
+		rawData = new SortedArrayList<T>();
+	}
+
+	@Override
+	public void onRegister(RoadMap map, List<Event> events, int time) {
+		setRawData(map, events, time);
+		fireTableDataChanged();
+	}
 }

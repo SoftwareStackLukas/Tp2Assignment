@@ -11,39 +11,35 @@ import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
 @SuppressWarnings("serial")
-public class JunctionsTableModel extends MyTable {
+public class JunctionsTableModel extends MyTable<Junction> {
 	private static final String[] COLUMN_NAMES = {"Id", "Green", "Queues"};
-	private List<Junction> rowData; //from where do we get this data?
 	
 	
 	JunctionsTableModel(Controller ctlr) {
 		super(ctlr, COLUMN_NAMES);
 	}
 
-	void settingTheRowData(List<Junction> rowData) {
-		this.rowData = rowData;
-		this.fireTableDataChanged();
-	}
-
-
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object o = "No data in row/col space";
+		Junction junction = getRow(rowIndex);
+		if (junction == null) return "Not Available";
+		
 		switch (columnIndex) {
 		case 0:
 			//Return ID
-			o = this.rowData.get(rowIndex).getId();
+			o = junction.getId();
 			break;
 		case 1:
 			//Return GreenIdx
-			int index = this.rowData.get(rowIndex).getGreenLightIndex();
-			if(index >= 0 && index < this.rowData.get(rowIndex).getQueueList().size()) {
-				o = this.rowData.get(rowIndex).getInRoads().get(index).toString();
+			int index = junction.getGreenLightIndex();
+			if(index >= 0 && index < junction.getQueueList().size()) {
+				o = junction.getInRoads().get(index).toString();
 			}
 			break;
 		case 2:
 			//Return a junction queue
-			o = this.rowData.get(rowIndex).getQueueList();
+			o = junction.getQueueList();
 			if(o == null || o == "{}") {
 				o =  "";
 			}
@@ -53,30 +49,7 @@ public class JunctionsTableModel extends MyTable {
 	}
 
 	@Override
-	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+	void setRawData(RoadMap map, List<Event> events, int time) {
+		rawData = map.getJunctions();
 	}
-
-	@Override
-	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		this.settingTheRowData(map.getJunctions());
-	}
-
-	@Override
-	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReset(RoadMap map, List<Event> events, int time) {
-		this.settingTheRowData(map.getJunctions());
-	}
-
-	@Override
-	public void onRegister(RoadMap map, List<Event> events, int time) {
-		this.settingTheRowData(map.getJunctions());
-	}
-	
 }

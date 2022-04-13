@@ -22,36 +22,40 @@ class RoadsTableModel extends MyTable<Road> {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+		Object obj;
+		Road road = getRow(rowIndex);
+		if (road == null) return "Not Available";
 		
+		switch (columnIndex) {
+			case 0:
+				obj = road.getId();
+				break;
+			case 1:
+				obj = road.getLength();
+				break;
+			case 2:
+				obj = road.getWeather();
+				break;
+			case 3:
+				obj = road.getMaxSpeed();
+				break;
+			case 4:
+				obj = road.getSpeedLimit();
+				break;
+			case 5:
+				obj = road.getTotalCO2();
+				break;
+			case 6:
+				obj = road.getContLimit();
+				break;
+		default:
+			 obj = "ERROR";
+		}
+		return obj;
 	}
 
 	@Override
-	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReset(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+	void setRawData(RoadMap map, List<Event> events, int time) {
+		rawData = map.getRoads();
 	}
 }
