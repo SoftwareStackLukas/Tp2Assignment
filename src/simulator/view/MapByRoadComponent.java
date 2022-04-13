@@ -85,7 +85,7 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 	}
 
 	private void initGUI() {
-//		this.setPreferredSize(new Dimension(300, 300));
+		//this.setPreferredSize(new Dimension(300, 300));
 	}
 	
 	@Override
@@ -132,6 +132,8 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 	}
 	
 	private void drawRoad(Graphics g, Road r, int index) {
+		//We have to fit the sizeing part in here
+		
 		//Lines
 		Coordinates co1 = new Coordinates(50, index);
 		Coordinates co2 = new Coordinates(getWidth() - 100, index);		
@@ -140,10 +142,9 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 		//Circles
 		//Source Junction
 		g.setColor(COLOR_CLASS.JUNCTION_COLOR);
-		g.drawOval(co1.x - JUNCTION_RADIUS / 2, co1.y - JUNCTION_RADIUS / 2, JUNCTION_RADIUS, JUNCTION_RADIUS);
-		g.fillOval(co1.x, co1.y, 3, 3);
+		g.fillOval(co1.x - JUNCTION_RADIUS / 2, co1.y - JUNCTION_RADIUS / 2, JUNCTION_RADIUS, JUNCTION_RADIUS);
 		g.setColor(COLOR_CLASS.JUNCTION_LABEL_COLOR);
-		g.drawString(r.getSrc().getId(), co1.x, co1.y);
+		g.drawString(r.getSrc().getId(), co1.x - 5, co1.y - 15);
 		
 		//Destination Junction
 		int idx = r.getDest().getGreenLightIndex();
@@ -152,33 +153,32 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 		} else {
 			g.setColor(COLOR_CLASS.RED_LIGHT_COLOR);
 		}
-		g.drawOval(co2.x, co2.y, 3, 3);
-		g.fillOval(co2.x, co2.y, 3, 3);
-		g.drawString(r.getDest().getId(), co2.x, co2.y);
+		g.fillOval(co2.x - JUNCTION_RADIUS / 2, co2.y - JUNCTION_RADIUS / 2, JUNCTION_RADIUS, JUNCTION_RADIUS);
+		g.drawString(r.getDest().getId(), co2.x - 5, co2.y - 15);
 		
 		//Draw the vehicles
 		final List<Vehicle> vehicles = r.getVehicles();
 		int x = 0;
 		for (Vehicle v : vehicles) {
 			x = co1.x + (int) ((co2.x - co1.x) * ((double) v.getLocation() / (double) r.getLength()));
-			g.drawImage(this.car, x, co1.y - 6, MapByRoadComponent.CAR_SIZE_IMAGE, MapByRoadComponent.CAR_SIZE_IMAGE, this);
+			g.drawImage(this.car, x, co1.y - 15, MapByRoadComponent.CAR_SIZE_IMAGE, MapByRoadComponent.CAR_SIZE_IMAGE, this);
 			
 			// Choose a color for the vehcile's label and background, depending on its
 			// contamination class
 			int vLabelColor = (int) (25.0 * (10.0 - (double) v.getContClass()));
 			g.setColor(new Color(0, vLabelColor, 0));
-			g.drawString(v.getId(), x, co1.y - 10);
+			g.drawString(v.getId(), x + 2, co1.y - 15);
 		}
 		
 		//Draw the road id
 		g.setColor(COLOR_CLASS.ROAD_LABEL_COLOR);
-		g.drawString(r.getId(), co1.x - 6, co1.y);
+		g.drawString(r.getId(), co1.x - 30, co1.y + 3);
 		
 		//Draw the weather
-		g.drawImage(this.getWeatherI(r), co2.x, co2.y, MapByRoadComponent.WEATHER_SIZE_IMAGE, MapByRoadComponent.WEATHER_SIZE_IMAGE, this);
+		g.drawImage(this.getWeatherI(r), co2.x + 10, co2.y - 15, MapByRoadComponent.WEATHER_SIZE_IMAGE, MapByRoadComponent.WEATHER_SIZE_IMAGE, this);
 		
 		//Draw contamination level
-		g.drawImage(this.getContI(r), co2.x, co2.y, MapByRoadComponent.CONT_CLASS_SIZE_IMAGE, MapByRoadComponent.CONT_CLASS_SIZE_IMAGE, this);		
+		g.drawImage(this.getContI(r), co2.x + 50, co2.y - 15, MapByRoadComponent.CONT_CLASS_SIZE_IMAGE, MapByRoadComponent.CONT_CLASS_SIZE_IMAGE, this);		
 	}
 		
 	private Image getContI(Road road) {
