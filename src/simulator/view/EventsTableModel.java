@@ -1,16 +1,12 @@
 package simulator.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.table.AbstractTableModel;
 
 import simulator.control.Controller;
 import simulator.misc.SortedArrayList;
 import simulator.model.Event;
-import simulator.model.Junction;
 import simulator.model.RoadMap;
-import simulator.model.TrafficSimObserver;
 
 @SuppressWarnings("serial")
 public class EventsTableModel extends MyTable<Event> {
@@ -40,7 +36,6 @@ public class EventsTableModel extends MyTable<Event> {
 
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
 		rawData = events; // Not sure if this is a good idea
 		fireTableDataChanged();
 	}

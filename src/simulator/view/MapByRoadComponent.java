@@ -32,10 +32,6 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 	private RoadMap map;
 	
 	private Image car;
-	private Image car;
-	private Image car;
-	private Image car;
-	private Image car;
 
 
 	
@@ -45,7 +41,7 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 	}
 
 	private void initGUI() {
-		this.setPreferredSize(new Dimension(300, 300));
+//		this.setPreferredSize(new Dimension(300, 300));
 		
 	}
 	
