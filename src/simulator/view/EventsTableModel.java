@@ -1,16 +1,12 @@
 package simulator.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.table.AbstractTableModel;
 
 import simulator.control.Controller;
 import simulator.misc.SortedArrayList;
 import simulator.model.Event;
-import simulator.model.Junction;
 import simulator.model.RoadMap;
-import simulator.model.TrafficSimObserver;
 
 @SuppressWarnings("serial")
 public class EventsTableModel extends MyTable<Event> {
@@ -23,8 +19,9 @@ public class EventsTableModel extends MyTable<Event> {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object obj;
-		Event e = rowIndex < rawData.size() ? rawData.get(rowIndex) : null;
+		Event e = getRow(rowIndex);
 		if (e == null) return "Not Available";
+		
 		switch (columnIndex) {
 			case 0:
 				obj = e.getTime();
@@ -39,32 +36,7 @@ public class EventsTableModel extends MyTable<Event> {
 	}
 
 	@Override
-	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		rawData = events; // Not sure if this is a good idea
-		fireTableDataChanged();
-	}
-
-	@Override
-	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		rawData = events; // Not sure if this is a good idea
-		fireTableDataChanged();
-	}
-
-	@Override
-	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		rawData = events; // Not sure if this is a good idea
-		fireTableDataChanged();
-	}
-
-	@Override
-	public void onReset(RoadMap map, List<Event> events, int time) {
-		rawData = new SortedArrayList<Event>();
-	}
-
-	@Override
-	public void onRegister(RoadMap map, List<Event> events, int time) {
-		rawData = events; // Not sure if this is a good idea
-		fireTableDataChanged();
+	void setRawData(RoadMap map, List<Event> events, int time) {
+		rawData = events;
 	}
 }

@@ -10,10 +10,10 @@ import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.Vehicle;
 
-class VehiclesTableModel extends MyTable {
+@SuppressWarnings("serial")
+class VehiclesTableModel extends MyTable<Vehicle> {
 
 	private static final String[] columnNames = {"Id", "Location", "Itinerary", "CO2 Class", "Max Speed", "Speed", "Total CO2", "Distance"};
-	private List<Vehicle> rowData;
 	
 	VehiclesTableModel(Controller ctlr) {
 		super(ctlr, columnNames);
@@ -21,36 +21,43 @@ class VehiclesTableModel extends MyTable {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+		Object obj;
+		Vehicle vehicle = getRow(rowIndex);
+		if (vehicle == null) return "Not Available";
 		
+		switch (columnIndex) {
+		case 0:
+			obj = vehicle.getId();
+			break;
+		case 1:
+			obj = vehicle.getLocation();
+			break;
+		case 2:
+			obj = vehicle.getItinerary();
+			break;
+		case 3:
+			obj = vehicle.getMaxSpeed();
+			break;
+		case 4:
+			obj = vehicle.getContClass();
+			break;
+		case 5:
+			obj = vehicle.getMaxSpeed();
+			break;
+		case 6:
+			obj = vehicle.getSpeed();
+			break;
+		case 7:
+			obj = vehicle.getDistance();
+			break;
+		default:
+			 obj = "ERROR";
+		}
+		return obj;
 	}
 
 	@Override
-	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReset(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+	void setRawData(RoadMap map, List<Event> events, int time) {
+		rawData = map.getVehilces();
 	}
 }

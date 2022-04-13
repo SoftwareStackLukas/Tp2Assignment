@@ -138,11 +138,15 @@ public class Vehicle extends SimulatedObject {
 		return this.location;
 	}
 	
-	int getSpeed() {
+	public int getDistance() {
+		return this.totalTraveledDistance;
+	}
+	
+	public int getSpeed() {
 		return this.currSpeed;
 	}
 	
-	int getMaxSpeed() {
+	public int getMaxSpeed() {
 		return this.maxSpeed;
 	}
 	
@@ -154,11 +158,11 @@ public class Vehicle extends SimulatedObject {
 		return this.status;
 	}
 	
-	int getTotalCO2() {
+	public int getTotalCO2() {
 		return this.totalContamination;
 	}
 	
-	List<Junction> getItinerary() {
+	public List<Junction> getItinerary() {
 		return this.itinerary;
 	}
 	

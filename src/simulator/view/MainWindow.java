@@ -52,10 +52,10 @@ public class MainWindow extends JFrame {
 		viewsPanel.add(mapView, constraints);
 		
 //		//MapByRoadComponent
-		JPanel mapRoadView = createViewPanel(new MapByRoadComponent(this.ctrl), "MapRoad");
+//		JPanel mapRoadView = createViewPanel(new MapByRoadComponent(this.ctrl), "MapRoad");
 		constraints.gridx = 1;
 		constraints.gridy = 2;
-		viewsPanel.add(mapRoadView, constraints);
+//		viewsPanel.add(mapRoadView, constraints);
 		
 		this.setContentPane(mainPanel);
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);

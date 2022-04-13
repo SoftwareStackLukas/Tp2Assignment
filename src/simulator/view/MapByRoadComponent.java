@@ -45,6 +45,7 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 	
 	//Introduced const for no MagicLetters(-Numbers)
 	private Image car;
+
 	private static final String CAR = "car";
 	//final fix just the array size but the image are change able
 	private final Image[] contClass = new Image[6];
@@ -84,7 +85,7 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 	}
 
 	private void initGUI() {
-		this.setPreferredSize(new Dimension(300, 300));
+//		this.setPreferredSize(new Dimension(300, 300));
 	}
 	
 	@Override
