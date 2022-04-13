@@ -110,8 +110,38 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 		}
 	}
 	
+	private class Coordinates {
+		final int x;
+		final int y;
+		
+		Coordinates(int x, int i) {
+			this.x = x;
+			this.y =  (i + 1) * 50;
+		}
+	}
+	
 	private void drawRoad(Graphics g, Road r, int index) {
-		//DO SOMETHING
+		//Lines
+		Coordinates co1 = new Coordinates(50, index);
+		Coordinates co2 = new Coordinates(getWidth() - 100, index);		
+		g.drawLine(co1.x, co1.y, co2.x, co2.y);
+		
+		//Circles
+		//Source Junction
+		
+		
+		
+		// draw the left junction's circle
+		g.setColor(Color.blue);
+		g.fillOval(leftJuncX - _JUNC_RADIUS / 2, leftJuncY - _JUNC_RADIUS / 2,
+				_JUNC_RADIUS, _JUNC_RADIUS);
+
+		// draw the left junction's id
+		g.setColor(_JUNCTION_LABEL_COLOR);
+		String id = road.getSrcJunc().getId();
+		g.drawString(id, leftJuncX - _JUNC_RADIUS / 2, leftJuncY - _JUNC_RADIUS);
+
+		
 	}
 		
 	private Image getContI(Road road) {
