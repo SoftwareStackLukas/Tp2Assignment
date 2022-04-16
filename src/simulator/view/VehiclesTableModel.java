@@ -58,6 +58,6 @@ class VehiclesTableModel extends MyTable<Vehicle> {
 
 	@Override
 	void setRawData(RoadMap map, List<Event> events, int time) {
-		rawData = map.getVehilces();
+		rawData = map.getVehicles();
 	}
 }

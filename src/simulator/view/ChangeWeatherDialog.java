@@ -31,8 +31,6 @@ public class ChangeWeatherDialog extends MyDialog {
 	
 	Controller ctrl;
 	
-//	JComboBox<Integer> weatherBox;
-//	JComboBox<Integer> roadBox;
 	JComboBox<Weather> weatherBox;
 	JComboBox<Road> roadBox;
 	JSpinner ticksSpinner;
@@ -65,12 +63,12 @@ public class ChangeWeatherDialog extends MyDialog {
 		mainPanel.add(boxPanel);
 		
 		boxPanel.add(new JLabel("Road: "));
-		roadBox = new JComboBox<Road>();
+		
 		roadBox.setPreferredSize(new Dimension(50, 20));
 		boxPanel.add(roadBox);
 		
 		boxPanel.add(new JLabel("Weather: "));
-		weatherBox = new JComboBox<Weather>();
+		
 		weatherBox.setPreferredSize(new Dimension(50, 20));
 		boxPanel.add(weatherBox);
 		
@@ -87,10 +85,13 @@ public class ChangeWeatherDialog extends MyDialog {
 	
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
+		super.onRegister(map, events, time);
+		roadBox = new JComboBox<Road>();
 		for (Road road: map.getRoads()) {
 			roadBox.addItem(road);
 		}
 		
+		weatherBox = new JComboBox<Weather>();
 		for (Weather weather: Weather.values()) {
 			weatherBox.addItem(weather);
 		}
@@ -105,7 +106,7 @@ public class ChangeWeatherDialog extends MyDialog {
 	}
 	
 	public int getTicks() {
-		return (int) ticksSpinner.getValue();
+		return (int) ticksSpinner.getValue() + timeAtRegister;
 	}
 }
 

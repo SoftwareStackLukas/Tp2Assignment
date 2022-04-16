@@ -51,8 +51,11 @@ public class Main {
 		try {
 			CommandLine line = parser.parse(cmdLineOptions, args);
 			parseHelpOption(line, cmdLineOptions);
+			parseModeOption(line);
 			parseInFileOption(line);
-			parseOutFileOption(line);
+			if (Main.mode == Mode.BATCH) {
+				parseOutFileOption(line);				
+			}
 			parseTicksOption(line);
 
 			// if there are some remaining arguments, then something wrong is
@@ -71,13 +74,6 @@ public class Main {
 		}
 	}
 	
-	void parseGUIorBATCH(String line) {
-		if (line.toUpperCase() == "GUI") {
-			Main.mode = Mode.GUI;
-		} else if (line.toUpperCase() == "CONSOLE") {
-			Main.mode = Mode.BATCH;
-		}
-	}
 
 	private static Options buildOptions() {
 		Options cmdLineOptions = new Options();
@@ -87,7 +83,23 @@ public class Main {
 				Option.builder("o").longOpt("output").hasArg().desc("Output file, where reports are written.").build());
 		cmdLineOptions.addOption(Option.builder("h").longOpt("help").desc("Print this message").build());
 		cmdLineOptions.addOption(Option.builder("t").longOpt("ticks").hasArg().desc("Ticks to the simulator’s main loop (default value is 10).").build());
+		cmdLineOptions.addOption(Option.builder("m").longOpt("mode").hasArg().desc("Mode of execution (gui/batch)").build());
 		return cmdLineOptions;
+	}
+
+	private static void parseModeOption(CommandLine line) throws ParseException {
+		// By default its gui
+		Main.mode = Mode.GUI;
+		if (line.hasOption("m")) {
+			String mode = line.getOptionValue("m").toLowerCase();
+			if (mode.equals("gui"))
+				Main.mode = Mode.GUI;
+			else if (mode.equals("batch")) {
+				Main.mode = Mode.BATCH;
+			} else {
+				throw new ParseException("Invalid mode");
+			}
+		} 		
 	}
 
 	private static void parseHelpOption(CommandLine line, Options cmdLineOptions) {
@@ -99,8 +111,10 @@ public class Main {
 	}
 
 	private static void parseInFileOption(CommandLine line) throws ParseException {
-		_inFile = line.getOptionValue("i");
-		if (_inFile == null) {
+		if (line.hasOption("i")) {
+			_inFile = line.getOptionValue("i");			
+		}
+		if (Main.mode == Mode.BATCH && _inFile == null) {
 			throw new ParseException("An events file is missing");
 		}
 	}
@@ -142,23 +156,29 @@ public class Main {
 
 	}
 	
-	private static void startGUIMode() {
+	private static void startGUIMode() throws IOException{
 		Controller ctrl = new Controller(new TrafficSimulator(), Main._eventsFactory);
+		if (Main._inFile != null) {
+			InputStream in = new FileInputStream(Main._inFile);
+			ctrl.loadEvents(in);
+		}
+		
 		SwingUtilities.invokeLater(() -> new MainWindow(ctrl));
 	}
 
 	private static void startBatchMode() throws IOException {
-		TrafficSimulator tp;
+		System.out.println("Starting batch mode");
+		TrafficSimulator ts;
 		Controller c;
 		OutputStream out;
-		tp = new TrafficSimulator();
+		ts = new TrafficSimulator();
 		InputStream in = new FileInputStream(Main._inFile);
 		if (Main._outFile != null) {
 			out = new FileOutputStream(Main._outFile);			
 		} else {
 			out = System.out;
 		}
-		c = new Controller(tp, _eventsFactory);
+		c = new Controller(ts, _eventsFactory);
 		
 		c.loadEvents(in);
 		in.close();
@@ -169,7 +189,7 @@ public class Main {
 		initFactories();
 		parseArgs(args);
 		
-		if (Main.mode == Mode.BATCH) {
+		if (Main.mode == Mode.BATCH) { // is .equals necessary?
 			startBatchMode();
 		} else if (Main.mode == Mode.GUI) {
 			startGUIMode();
@@ -177,6 +197,7 @@ public class Main {
 			throw new IOException("False args");
 		}
 	}
+	
 
 	// example command lines:
 	//

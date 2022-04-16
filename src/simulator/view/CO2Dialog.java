@@ -8,6 +8,7 @@ import java.awt.Frame;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -22,7 +23,9 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import simulator.control.Controller;
+import simulator.model.Event;
 import simulator.model.Road;
+import simulator.model.RoadMap;
 import simulator.model.Vehicle;
 
 @SuppressWarnings("serial")
@@ -31,8 +34,7 @@ public class CO2Dialog extends MyDialog {
 	private static final String HELP_TEXT = "Schedule an event to change the weather of a road after a given number of simulation ticks from now.";
 
 	
-//	JComboBox<Vehicle> vehicleBox;
-	JComboBox<Integer> vehicleBox;
+	JComboBox<Vehicle> vehicleBox;
 	JComboBox<Integer> classBox;
 	JSpinner ticksSpinner;
 	
@@ -67,7 +69,6 @@ public class CO2Dialog extends MyDialog {
 		boxPanel.add(classBox);
 		
 		boxPanel.add(new JLabel("Vehicle: "));
-		vehicleBox = new JComboBox<Integer>(new Integer[] {0,1,2,3,4,5,6,7,8,9,10});
 		boxPanel.add(vehicleBox);
 		
 		
@@ -81,16 +82,26 @@ public class CO2Dialog extends MyDialog {
 		boxPanel.add(ticksSpinner);
 	}
 	
+	@Override
+	public void onRegister(RoadMap map, List<Event> events, int time) {
+		super.onRegister(map, events, time);
+		vehicleBox = new JComboBox<Vehicle>();
+		for (Vehicle vehicle: map.getVehicles()) {
+			vehicleBox.addItem(vehicle);
+		}
+		
+	}
+	
 	public int getContClass() {
 		return (int) classBox.getSelectedItem();
 	}
 	
-	public int getVehicle() {
-		return (int) vehicleBox.getSelectedItem();
+	public Vehicle getVehicle() {
+		return (Vehicle) vehicleBox.getSelectedItem();
 	}
 	
 	public int getTicks() {
-		return (int) ticksSpinner.getValue();
+		return (int) ticksSpinner.getValue() + timeAtRegister;
 	}
 
 }

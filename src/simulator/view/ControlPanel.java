@@ -40,6 +40,7 @@ import simulator.factories.BuilderBasedFactory;
 import simulator.misc.Pair;
 import simulator.model.Event;
 import simulator.model.RoadMap;
+import simulator.model.SetContClassEvent;
 import simulator.model.SetWeatherEvent;
 import simulator.model.TrafficSimObserver;
 import simulator.model.TrafficSimulator;
@@ -137,11 +138,9 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		JButton button = new JButton();
 		Icon icon = new ImageIcon(Locations.getIconsDir() + imageName + ".png");
 		button.setBackground(MainWindow.mainColor);
-//		button.setBorder(BorderFactory.createEmptyBorder());
 		button.setBorder(BorderFactory.createRaisedSoftBevelBorder());
 		button.setIcon(icon);
 		button.setToolTipText(tipText);
-//		button.setSize(new Dimension(20,20));
 		return button;
 	}
 	
@@ -154,6 +153,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		});
 		
 		this.stopButton = createToolButton("stop", "Stops the game");
+		stopButton.setEnabled(false);
 		this.stopButton.addActionListener((e) -> {
 			this.stopped = true;
 			enableToolBar(stopped);
@@ -170,14 +170,9 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		this.ticker.setMaximumSize(new Dimension(80, 40));
 		this.ticker.setMinimumSize(new Dimension(80, 40));
 		this.ticker.setPreferredSize(new Dimension(80, 40));
-//		this.ticker.addChangeListener((e) -> {
-//			JSpinner spinner = (JSpinner) e.getSource();
-//			spinner.getValue()
-//								
-//				});
+		
 		Dimension sepDim = new Dimension(5, 0);
 		toolBar.add(runButton);
-//		toolBar.addSeparator(sepDim);
 		toolBar.add(stopButton);
 		toolBar.addSeparator(sepDim);
 		toolBar.add(tickLabel);
@@ -220,7 +215,6 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	//Exit the Simulator -- This method has to be checked
 	private void initExitButton() {
 		exitButton = createToolButton("exit", "Quit");
-		exitButton.setSize(10,10); //Which size should we take? 
 		exitButton.addActionListener((e) -> {
 			int n = JOptionPane.showOptionDialog((Frame) SwingUtilities.getWindowAncestor(this),
 					"Are sure you want to quit?", "Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
@@ -229,30 +223,17 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 				System.exit(0);
 			}
 		});
-//		exit.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
 		toolBar.add(exitButton);
-	}
-	
-	private void changeCO2() {
-		CO2Dialog dialog = new CO2Dialog(mainFrame, ctrl); // Maybe should be outside of this method
-		int closeOption = dialog.open();
-		if (closeOption == CO2Dialog.OK) {
-			System.out.println("Vehicle: " + dialog.getVehicle());
-			System.out.println("CO2 Class: " + dialog.getContClass());
-		} else {
-			System.out.println("Closed");
-		}
-
 	}
 	
 	private void load() {
 		ctrl.reset();
 		try {
-			File file = new File("resources/examples/ex1.json");
-			int returnVal = JFileChooser.APPROVE_OPTION;
-//			int returnVal = fileChooser.showOpenDialog(this);
+//			File file = new File("resources/examples/ex1.json");	Debug only
+//			int returnVal = JFileChooser.APPROVE_OPTION;
+			int returnVal = fileChooser.showOpenDialog(this);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-//				File file = fileChooser.getSelectedFile();
+				File file = fileChooser.getSelectedFile();
 				ctrl.loadEvents(new FileInputStream(file));
 			} else {
 				System.out.println("Load cancelled by user.");
@@ -266,23 +247,29 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		ChangeWeatherDialog dialog = new ChangeWeatherDialog(mainFrame, ctrl);
 		int closeOption = dialog.open();
 		if (closeOption == CO2Dialog.OK) {
-			System.out.println("Weather: " + dialog.getWeather());
-			System.out.println("Road: " + dialog.getRoad());
-			System.out.println("Ticks: " + dialog.getTicks());
+			ArrayList<Pair<String, Weather>> weathers = new ArrayList<Pair<String, Weather>>();
+			weathers.add(new Pair<String, Weather>(dialog.getRoad().getId(), dialog.getWeather()));
+			ctrl.addEvent(new SetWeatherEvent(dialog.getTicks(), weathers));
 		} else {
-			System.out.println("Closed");
+			// Do nothing I guess
 		}
-		ArrayList<Pair<String, Weather>> weathers = new ArrayList<Pair<String, Weather>>();
-//		weathers.add(new Pair<String, Weather>(dialog.getRoad(), dialog.getWeather()));
-		weathers.add(new Pair<String, Weather>(dialog.getRoad().getId(), Weather.RAINY));
-		ctrl.addEvent(new SetWeatherEvent(dialog.getTicks(), weathers));
 	}	
-
-	private ImageIcon loadImage(String file) {
-		return new ImageIcon(Toolkit.getDefaultToolkit().createImage(ControlPanel.class.getResource(file)));
+	
+	private void changeCO2() {
+		CO2Dialog dialog = new CO2Dialog(mainFrame, ctrl); // Maybe should be outside of this method
+		int closeOption = dialog.open();
+		if (closeOption == CO2Dialog.OK) {
+			ArrayList<Pair<String, Integer>> changes = new ArrayList<Pair<String, Integer>>();
+			changes.add(new Pair<String, Integer>(dialog.getVehicle().getId(), dialog.getContClass()));
+			ctrl.addEvent(new SetContClassEvent(dialog.getTicks(), changes));
+		} else {
+			// Do nothing I guess
+		}
 	}
 	//gui end 
 	
+	
+	// I just dont understand why should the ControlPanel be an observer when it observes nothing
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub

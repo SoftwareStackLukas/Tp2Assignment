@@ -38,5 +38,6 @@ public class EventsTableModel extends MyTable<Event> {
 	@Override
 	void setRawData(RoadMap map, List<Event> events, int time) {
 		rawData = events;
+		fireTableDataChanged();
 	}
 }

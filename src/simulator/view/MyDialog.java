@@ -23,6 +23,8 @@ public class MyDialog extends JDialog implements TrafficSimObserver{
 	JPanel mainPanel;
 	int closeOption;
 	
+	int timeAtRegister;
+	
 	public MyDialog(JFrame parent, Controller ctrl) {
 		super(parent, true);
 		ctrl.addObserver(this);
@@ -96,8 +98,7 @@ public class MyDialog extends JDialog implements TrafficSimObserver{
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		timeAtRegister = time;
 	}
 
 	@Override

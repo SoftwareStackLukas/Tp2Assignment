@@ -99,7 +99,7 @@ public class RoadMap {
 		return Collections.unmodifiableList(roadList);	
 	}
 
-	public List<Vehicle> getVehilces() {
+	public List<Vehicle> getVehicles() {
 		return Collections.unmodifiableList(vehicleList);	
 	}
 	
