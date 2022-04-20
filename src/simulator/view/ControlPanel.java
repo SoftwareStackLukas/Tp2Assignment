@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -68,8 +69,12 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	private JButton runButton;
 	private JButton stopButton;
 	private JButton exitButton;
-	private JSpinner ticker;
 	private JLabel tickLabel;
+	private JSpinner ticker;
+	private JLabel delayLabel;
+	private JSpinner delaySpinner;
+	
+	private volatile Thread thread;
 	
 	ControlPanel(Controller ctrl, JFrame mainFrame) {
 		super(new BorderLayout()); 
@@ -149,14 +154,23 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		this.runButton.addActionListener((e) -> {
 			this.stopped = false;
 			enableToolBar(stopped);
-			run_sim((Integer)this.ticker.getValue());
+			thread = new Thread() {
+				public void run() {
+					run_sim((int) ticker.getValue(), ((Number) delaySpinner.getValue()).longValue());		 // Is there an other way?		
+					enableToolBar(true);
+					stopped = true;
+				}
+			};
+			thread.start();
+//			run_sim((int) this.ticker.getValue(), (long) delaySpinner.getValue());
 		});
 		
 		this.stopButton = createToolButton("stop", "Stops the game");
 		stopButton.setEnabled(false);
 		this.stopButton.addActionListener((e) -> {
-			this.stopped = true;
-			enableToolBar(stopped);
+			if (thread != null) {
+				thread.interrupt();
+			}
 		});
 		
 		this.tickLabel = new JLabel(ControlPanel.TICKER_LABEL);	
@@ -171,16 +185,32 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		this.ticker.setMinimumSize(new Dimension(80, 40));
 		this.ticker.setPreferredSize(new Dimension(80, 40));
 		
+		this.delayLabel = new JLabel("Delay: ");	
+		SpinnerModel delaySpinnerModel = new SpinnerNumberModel(10, //initial value
+				   								    0, //min
+				   								  	1000, //max
+				   								  	1); //step
+		this.delaySpinner = new JSpinner(delaySpinnerModel);
+		this.delaySpinner.setToolTipText("Delay: ");
+		this.delaySpinner.setToolTipText("Simulation delay");
+		this.delaySpinner.setMaximumSize(new Dimension(80, 40));
+		this.delaySpinner.setMinimumSize(new Dimension(80, 40));
+		this.delaySpinner.setPreferredSize(new Dimension(80, 40));
+		
 		Dimension sepDim = new Dimension(5, 0);
 		toolBar.add(runButton);
 		toolBar.add(stopButton);
 		toolBar.addSeparator(sepDim);
 		toolBar.add(tickLabel);
 		toolBar.add(ticker);
+		toolBar.addSeparator(sepDim);
+		toolBar.add(delayLabel);
+		toolBar.add(delaySpinner);
 	}
 	
-	private void run_sim(int n) {
-		if (n > 0 && !stopped) {
+	private void run_sim(int n, long delay) {
+		while ( n > 0 && thread.getState() == Thread.State.RUNNABLE) {
+			// 1. execute the simulator one step, i.e., call method _ctrl.run(1) and handle exceptions if any
 			try {
 				ctrl.run(1);
 			} catch (Exception e) {
@@ -188,12 +218,31 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 				stopped = true;
 				return;
 			}
-			
-			SwingUtilities.invokeLater(() -> run_sim(n - 1));
-		} else {
-			enableToolBar(true);
-			stopped = true;
+			// 2. sleep the current thread for ’delay’ milliseconds
+			try {
+				Thread.sleep(delay);
+			} catch (InterruptedException e) {
+				// Thread was interrupted but if I catch this exception it needs to be interrupted again
+//				thread.interrupt(); 	// This does not work somehow 
+				return;
+			}
+			n--;
 		}
+			
+//		if (n > 0 && !stopped) {
+//			try {
+//				ctrl.run(1);
+//			} catch (Exception e) {
+//				this.showErrorMessage(e);
+//				stopped = true;
+//				return;
+//			}
+//			
+//			SwingUtilities.invokeLater(() -> run_sim(n - 1));
+//		} else {
+//			enableToolBar(true);
+//			stopped = true;
+//		}
 	}		
 	
 	private void enableToolBar(Boolean enable) {
@@ -229,11 +278,11 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	private void load() {
 		ctrl.reset();
 		try {
-//			File file = new File("resources/examples/ex1.json");	Debug only
-//			int returnVal = JFileChooser.APPROVE_OPTION;
-			int returnVal = fileChooser.showOpenDialog(this);
+			File file = new File("resources/examples/ex1.json");	// Debug only
+			int returnVal = JFileChooser.APPROVE_OPTION;
+//			int returnVal = fileChooser.showOpenDialog(this);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				File file = fileChooser.getSelectedFile();
+//				File file = fileChooser.getSelectedFile();
 				ctrl.loadEvents(new FileInputStream(file));
 			} else {
 				System.out.println("Load cancelled by user.");
