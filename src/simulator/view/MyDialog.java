@@ -19,6 +19,7 @@ import simulator.model.TrafficSimObserver;
 public class MyDialog extends JDialog implements TrafficSimObserver{
 	public static final int CANCEL = 0;
 	public static final int OK = 1;
+	protected Controller ctrl = null;
 	
 	JPanel mainPanel;
 	int closeOption;
@@ -28,6 +29,7 @@ public class MyDialog extends JDialog implements TrafficSimObserver{
 	public MyDialog(JFrame parent, Controller ctrl) {
 		super(parent, true);
 		ctrl.addObserver(this);
+		this.ctrl = ctrl;
 		mainPanel = new JPanel();
 	}
 	
@@ -49,9 +51,14 @@ public class MyDialog extends JDialog implements TrafficSimObserver{
 		ok.setText("Ok");
 		ok.addActionListener((e) -> {
 			closeOption = OK;
+			this.deregisterObservers();
 			dispose();
 		});
 		botPannel.add(ok);
+	}
+	
+	protected void deregisterObservers() {
+		ctrl.removeObserver(this);
 	}
 	
 	

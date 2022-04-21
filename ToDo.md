@@ -30,7 +30,7 @@ OK
 Remove this method
 
 
-### Main
+### Main --> Do not know what he wants...
 
 
 > 			if (Main.mode == Mode.BATCH) {
@@ -48,4 +48,4 @@ No needed, simply don't use in in startGUIMode
 		ctlr.addObserver(this);
 		rawData = new SortedArrayList<T>();
 
-- In the dialog, you will end up with many objects registered as observers because you create the dialog every time you click the button, but you never remove them.		
+- In the dialog, you will end up with many objects registered as observers because you create the dialog every time you click the button, but you never remove them. (Done - I think so please check it in the MyDialog.java class)
