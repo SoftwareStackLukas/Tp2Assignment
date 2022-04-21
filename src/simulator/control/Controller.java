@@ -74,10 +74,6 @@ public class Controller {
 	}
 	//End of the Observer methods	
 	
-	TrafficSimulator getTrafficSim() {
-		return this.simulator;
-	}
-	
 	Factory<Event> getEventsFactory() {
 		return this.eventsFactory;
 	}

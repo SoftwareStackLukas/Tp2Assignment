@@ -22,10 +22,8 @@ public abstract class MyTable<T> extends AbstractTableModel implements TrafficSi
 
 	MyTable(Controller ctlr, String[] columnNames) {
 		this.columnNames = columnNames;
-		ctlr.addObserver(this);
 		rawData = new SortedArrayList<T>();
-		
-//		setBorder(BorderFactory.createEmptyBorder());
+		ctlr.addObserver(this);
 	}
 	
 	abstract void setRawData(RoadMap map, List<Event> events, int time);
