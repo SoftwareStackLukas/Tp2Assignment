@@ -30,7 +30,7 @@ class VehiclesTableModel extends MyTable<Vehicle> {
 			obj = vehicle.getId();
 			break;
 		case 1:
-			obj = vehicle.getLocation();
+			obj = vehicle.getRoad().getId() + ": " + vehicle.getLocation(); // example: "r1: 4234"
 			break;
 		case 2:
 			obj = vehicle.getItinerary();

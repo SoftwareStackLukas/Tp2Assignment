@@ -1,7 +1,7 @@
 package simulator.view;
 
 public enum Locations {
-	ICONS("/resources/icons/");
+	ICONS("/resources/icons/"), EXAMPLES("/resources/examples/");
 	private String dir;
 	
 	Locations(String dir) {

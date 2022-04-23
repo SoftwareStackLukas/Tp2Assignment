@@ -53,9 +53,7 @@ public class Main {
 			parseHelpOption(line, cmdLineOptions);
 			parseModeOption(line);
 			parseInFileOption(line);
-			if (Main.mode == Mode.BATCH) {
-				parseOutFileOption(line);				
-			}
+			parseOutFileOption(line);				
 			parseTicksOption(line);
 
 			// if there are some remaining arguments, then something wrong is
@@ -120,7 +118,9 @@ public class Main {
 	}
 
 	private static void parseOutFileOption(CommandLine line) throws ParseException {
-		_outFile = line.getOptionValue("o");
+		if (line.hasOption("o")) {
+			_outFile = line.getOptionValue("o");
+		}		
 	}
 	
 	private static void parseTicksOption(CommandLine line) {

@@ -90,32 +90,27 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		this.add(toolBar, BorderLayout.CENTER);
 		
 		
-//		JButton loadButton = new LoadButton();
-		fileChooser = new JFileChooser();
+		fileChooser = new JFileChooser(Locations.EXAMPLES.getDir()); // Starts file chooser on examples path
 		loadButton = createToolButton("open", "Load File");
 		loadButton.addActionListener((e) -> {
 			load();
 		}); 
 		toolBar.add(loadButton);
 		
-//		toolBar.add(new JSeparator(SwingConstants.VERTICAL));
 		toolBar.addSeparator();
 		
-//		JButton changeCO2Button = new ChangeContClassButton(); co2class changeWeather
 		changeCO2Button = createToolButton("co2class", "Change CO2 Class");
 		changeCO2Button.addActionListener((e) -> {
 			changeCO2();
 		});
 		toolBar.add(changeCO2Button);
 		
-//		JButton weatherButton = new ChangeWeatherButton();
 		weatherButton = createToolButton("weather", "Change Weather");
 		weatherButton.addActionListener((e) -> {
 			changeWeather();
 		});
 		toolBar.add(weatherButton);
 		
-//		toolBar.add(new JSeparator(SwingConstants.VERTICAL));
 		toolBar.addSeparator();
 		
 		this.initRunStopTick();
@@ -125,8 +120,6 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		
 		
 		
-//		addSeparator.setAlignmentX(JComponent.LEFT_ALIGNMENT);
-//		toolBar.add(new JSeparator(SwingConstants.VERTICAL));
 		toolBar.addSeparator();
 		
 		// Exit
