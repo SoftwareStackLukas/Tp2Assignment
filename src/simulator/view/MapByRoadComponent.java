@@ -235,27 +235,27 @@ class MapByRoadComponent extends JComponent implements TrafficSimObserver {
 	
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		//Do nothing
+		//Do nothing 
 	}
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		this.update(map);
+		SwingUtilities.invokeLater(() -> update(map));
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		this.update(map);
+		SwingUtilities.invokeLater(() -> update(map));
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-		this.update(map);
+		SwingUtilities.invokeLater(() -> update(map));
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		this.update(map);
+		SwingUtilities.invokeLater(() -> update(map));
 	}
 
 	@Override

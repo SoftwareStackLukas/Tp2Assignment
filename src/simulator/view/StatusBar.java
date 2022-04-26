@@ -46,29 +46,30 @@ class StatusBar extends JPanel implements TrafficSimObserver {
 		this.add(new JSeparator(SwingUtilities.VERTICAL));
 		this.add(txtEvent);
 	}
-
+	
+	private void updateData(int time, String event) {
+		this.txtTime.setText(StatusBar.TIME + time);
+		this.txtEvent.setText(event);
+	}
+	
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		this.txtTime.setText(StatusBar.TIME + time);
-		this.txtEvent.setText(StatusBar.NOTHING);
+		SwingUtilities.invokeLater(() -> updateData(time, StatusBar.NOTHING));
 	}
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		this.txtTime.setText(StatusBar.TIME + time);
-		this.txtEvent.setText(StatusBar.NOTHING);
+		SwingUtilities.invokeLater(() -> updateData(time, StatusBar.NOTHING));
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		this.txtTime.setText(StatusBar.TIME + time);
-		this.txtEvent.setText(StatusBar.ADD_EVENT + "(" + e + ")");
+		SwingUtilities.invokeLater(() -> updateData(time, StatusBar.ADD_EVENT + "(" + e + ")"));
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-		this.txtTime.setText(StatusBar.TIME + time);
-		this.txtEvent.setText(StatusBar.NOTHING);
+		SwingUtilities.invokeLater(() -> updateData(time, StatusBar.NOTHING));
 	}
 
 	@Override
@@ -78,6 +79,6 @@ class StatusBar extends JPanel implements TrafficSimObserver {
 
 	@Override
 	public void onError(String err) {
-		this.txtEvent.setText(err);		
+		SwingUtilities.invokeLater(() -> txtEvent.setText(err));
 	}
 }

@@ -70,30 +70,28 @@ public abstract class MyTable<T> extends AbstractTableModel implements TrafficSi
 	
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-//		setRawData(map, events, time);
-//		fireTableDataChanged();
 	}
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
 		setRawData(map, events, time);
-		fireTableDataChanged();
+		SwingUtilities.invokeLater(() -> fireTableDataChanged());
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
 		setRawData(map, events, time);
-		fireTableDataChanged();
+		SwingUtilities.invokeLater(() -> fireTableDataChanged());
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-		rawData = new SortedArrayList<T>();
+		SwingUtilities.invokeLater(() -> fireTableDataChanged());
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
 		setRawData(map, events, time);
-		fireTableDataChanged();
+		SwingUtilities.invokeLater(() -> fireTableDataChanged());
 	}
 }
