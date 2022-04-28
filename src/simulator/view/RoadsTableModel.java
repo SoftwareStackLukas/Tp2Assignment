@@ -58,4 +58,6 @@ class RoadsTableModel extends MyTable<Road> {
 	void setRawData(RoadMap map, List<Event> events, int time) {
 		rawData = map.getRoads();
 	}
+	
+	
 }

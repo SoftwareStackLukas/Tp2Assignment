@@ -26,10 +26,11 @@ import simulator.control.Controller;
 import simulator.model.Event;
 import simulator.model.Road;
 import simulator.model.RoadMap;
+import simulator.model.TrafficSimObserver;
 import simulator.model.Vehicle;
 
 @SuppressWarnings("serial")
-public class CO2Dialog extends MyDialog {
+public class CO2Dialog extends MyDialog implements TrafficSimObserver {
 	
 	private static final String HELP_TEXT = "Schedule an event to change the weather of a road after a given number of simulation ticks from now.";
 

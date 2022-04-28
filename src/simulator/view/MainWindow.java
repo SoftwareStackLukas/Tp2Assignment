@@ -74,21 +74,29 @@ public class MainWindow extends JFrame {
 		constraints.gridy = 0;
 
 //		EventsTableModel
-	    JPanel eventsView = createViewPanel(new PersonalizedTable(new EventsTableModel(this.ctrl)), "Events");
+		JTable t = new JTable(new EventsTableModel(this.ctrl));
+		t.setFillsViewportHeight(true);
+	    JPanel eventsView = createViewPanel(t, "Events");
 		viewsPanel.add(eventsView, constraints);
 //		
 		// VehiclesTableModel
-	    JPanel vehicleView = createViewPanel(new PersonalizedTable(new VehiclesTableModel(this.ctrl)), "Vehicles");
+		t = new JTable(new VehiclesTableModel(this.ctrl));
+		t.setFillsViewportHeight(true);
+	    JPanel vehicleView = createViewPanel(t, "Vehicles");
 	    constraints.gridy++;
 	    viewsPanel.add(vehicleView, constraints);
 	    
 		// RoadsTableModel
-	    JPanel roadView = createViewPanel(new PersonalizedTable(new RoadsTableModel(this.ctrl)), "Roads");
+	    t = new JTable(new RoadsTableModel(this.ctrl));
+	    t.setFillsViewportHeight(true);
+	    JPanel roadView = createViewPanel(t, "Roads");
 	    constraints.gridy++;
 	    viewsPanel.add(roadView, constraints);
 		
 		// JunctionsTableModel
-	    JPanel junctionView = createViewPanel(new PersonalizedTable(new JunctionsTableModel(this.ctrl)), "Junctions");
+	    t = new JTable(new JunctionsTableModel(this.ctrl));
+	    t.setFillsViewportHeight(true);
+	    JPanel junctionView = createViewPanel(t, "Junctions");
 	    constraints.gridy++;
 	    viewsPanel.add(junctionView, constraints);
 	}
