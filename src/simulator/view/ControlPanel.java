@@ -64,6 +64,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	JButton loadButton;
 	JButton changeCO2Button;
 	JButton weatherButton;
+	JButton speedButton;
 	
 	private JButton runButton;
 	private JButton stopButton;
@@ -110,6 +111,12 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 			changeWeather();
 		});
 		toolBar.add(weatherButton);
+		
+		speedButton = createToolButton("co2class", "Show speedlimit");
+		speedButton.addActionListener((e) -> {
+			this.speedDialog();
+		});
+		toolBar.add(speedButton);
 		
 		toolBar.addSeparator();
 		
@@ -258,6 +265,11 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		} else {
 			// Do nothing I guess
 		}
+	}
+	
+	private void speedDialog() {
+		SpeedDialog dialog = new SpeedDialog(mainFrame, ctrl); // Maybe should be outside of this method
+		int closeOption = dialog.open();
 	}
 	//gui end 
 	
