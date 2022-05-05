@@ -143,6 +143,7 @@ public class Main {
 		List<Builder<DequeuingStrategy>> dqbs = new ArrayList<>();
 		dqbs.add( new MoveFirstStrategyBuilder() );
 		dqbs.add( new MoveAllStrategyBuilder() );
+		dqbs.add( new VIPDequeStrategyBuilder() );
 		Factory<DequeuingStrategy> dqsFactory = new BuilderBasedFactory<>(dqbs);
 		
 		List<Builder<Event>> ebs = new ArrayList<>();
