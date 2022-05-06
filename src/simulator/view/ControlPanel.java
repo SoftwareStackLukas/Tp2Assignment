@@ -114,7 +114,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		
 		speedButton = createToolButton("co2class", "Show speedlimit");
 		speedButton.addActionListener((e) -> {
-			this.speedDialog();
+			speedDialog();
 		});
 		toolBar.add(speedButton);
 		
