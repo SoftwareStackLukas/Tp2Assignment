@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,6 +31,7 @@ import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.Vehicle;
 
+@SuppressWarnings("serial")
 public class SpeedDialog extends MyDialog {
 	private final static String HELP_TEXT = "Select a speed limit and press UPDATE to show the vehicels that exceed this speed in each tick.";
 	private final static String TICKER_LABEL = "Speed Limit";
@@ -96,8 +96,8 @@ public class SpeedDialog extends MyDialog {
 		this.update = new JButton("Update");
 		this.update.setLocation(30, 50);
 		this.update.addActionListener((e) -> {
-			table.fireTableStructureChanged();
-			table.fireTableDataChanged();
+			this.sLimit = (Integer) this.speedSpinner.getValue();
+			table.updateAll();
 		});
 		this.update.setSize(new Dimension (50,30));
 		buttonPanel.add(update);
@@ -120,6 +120,7 @@ public class SpeedDialog extends MyDialog {
 	    
 		setMinimumSize(new Dimension(100, 500));
 		setPreferredSize(new Dimension(500, 500));
+		pack();
 	}
 	
 	private JSpinner initSpinner(SpinnerModel model) {
@@ -151,6 +152,10 @@ public class SpeedDialog extends MyDialog {
 	@SuppressWarnings("serial")
 	private class innerTable extends AbstractTableModel {
 		private final String[] columnNames = {"Tick", "Vehicle"};
+		private void updateAll() {
+			fireTableStructureChanged();
+			fireTableDataChanged();
+		}
 		
 		@Override
 		public int getRowCount() {
@@ -166,18 +171,20 @@ public class SpeedDialog extends MyDialog {
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			String result = "";
 			if (columnIndex == 0) {
-				result = Integer.toString(rowIndex + 1);
+				result = Integer.toString(rowIndex);
 			} else if (columnIndex == 1) {
 				StringBuilder sb = new StringBuilder();
 				sb.append("[");
 				List<Pair<Integer, String>> ls = SpeedDialog.this.ticks.get(rowIndex);
-				for (Pair<Integer, String> p : ls) {
-					if (SpeedDialog.this.sLimit < p.getFirst()) sb.append(p.getSecond() + ",");
-				}
-				int length = sb.length();
-				sb.replace(length, length, "");
-				sb.append("]");
-				result = sb.toString();
+				if (ls != null) {
+					for (Pair<Integer, String> p : ls) {
+						if (SpeedDialog.this.sLimit < p.getFirst()) sb.append(p.getSecond() + ",");
+					}
+					int length = sb.length();
+					if (sb.toString().length() != 1) sb.replace(length, length, "");
+					sb.append("]");
+					result = sb.toString().length() != 2 ? sb.toString() : "";
+					}
 			}
 			return result;
 		}
@@ -209,11 +216,8 @@ public class SpeedDialog extends MyDialog {
 
 	@Override
 	public int open() {
-		this.mainPanel = new JPanel();
-		this.initDialog();
 		this.closeOption = MyDialog.OK;
 		setVisible(true);
-		pack();
 		return closeOption;
 	}
 	
