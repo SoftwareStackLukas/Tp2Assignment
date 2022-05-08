@@ -86,8 +86,8 @@ public class SpeedDialog extends MyDialog {
 		this.close = new JButton("Close");
 		this.close.addActionListener( (e) -> {
 			closeOption = CANCEL;
-			this.deregisterObservers();
-			dispose();
+			//dispose();
+			this.setVisible(false);
 		});
 		this.close.setSize(new Dimension (50,30));
 		buttonPanel.add(this.close);
@@ -96,6 +96,7 @@ public class SpeedDialog extends MyDialog {
 		this.update = new JButton("Update");
 		this.update.setLocation(30, 50);
 		this.update.addActionListener((e) -> {
+			table.fireTableStructureChanged();
 			table.fireTableDataChanged();
 		});
 		this.update.setSize(new Dimension (50,30));
@@ -206,4 +207,14 @@ public class SpeedDialog extends MyDialog {
 		return p;
 	}
 
+	@Override
+	public int open() {
+		this.mainPanel = new JPanel();
+		this.initDialog();
+		this.closeOption = MyDialog.OK;
+		setVisible(true);
+		pack();
+		return closeOption;
+	}
+	
 }

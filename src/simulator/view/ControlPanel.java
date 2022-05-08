@@ -71,6 +71,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	private JButton exitButton;
 	private JSpinner ticker;
 	private JLabel tickLabel;
+	private SpeedDialog dialog;
 	
 	ControlPanel(Controller ctrl, JFrame mainFrame) {
 		super(new BorderLayout()); 
@@ -113,6 +114,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		toolBar.add(weatherButton);
 		
 		speedButton = createToolButton("co2class", "Show speedlimit");
+		dialog = new SpeedDialog(mainFrame, ctrl); // Maybe should be outside of this method
 		speedButton.addActionListener((e) -> {
 			speedDialog();
 		});
@@ -203,6 +205,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 		this.runButton.setEnabled(enable);
 		this.stopButton.setEnabled(!enable);
 		this.exitButton.setEnabled(enable);
+		this.speedButton.setEnabled(enable);
 	}
 	
 	private void showErrorMessage(Exception e) {
@@ -268,8 +271,7 @@ class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 	
 	private void speedDialog() {
-		SpeedDialog dialog = new SpeedDialog(mainFrame, ctrl); // Maybe should be outside of this method
-		int closeOption = dialog.open();
+		dialog.open();
 	}
 	//gui end 
 	
