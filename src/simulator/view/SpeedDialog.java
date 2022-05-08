@@ -47,6 +47,7 @@ public class SpeedDialog extends MyDialog {
 	private JButton close;
 	private JButton update;
 	private innerTable table;
+	private JPanel viewsPanel;
 	private GridBagConstraints constraints;
 	
 	//Vehicle logic
@@ -97,12 +98,13 @@ public class SpeedDialog extends MyDialog {
 		this.update.setLocation(30, 50);
 		this.update.addActionListener((e) -> {
 			this.sLimit = (Integer) this.speedSpinner.getValue();
-			table.updateAll();
+			this.table.fireTableDataChanged();
+			this.viewsPanel.updateUI(); 
 		});
 		this.update.setSize(new Dimension (50,30));
 		buttonPanel.add(update);
 		
-		JPanel viewsPanel = new JPanel(new GridBagLayout());
+		viewsPanel = new JPanel(new GridBagLayout());
 		//Build gridconstraints
 		constraints = new GridBagConstraints();
 		constraints.fill = GridBagConstraints.BOTH;
@@ -112,11 +114,14 @@ public class SpeedDialog extends MyDialog {
 		constraints.gridy = 0;
 		//End Build
 		
-		JTable t = new JTable(new innerTable());
+		innerTable it = new innerTable();
+		JTable t = new JTable(it);
 		t.setFillsViewportHeight(true);
 	    JPanel eventsView = createViewPanel(t, "Events");
 	    viewsPanel.add(eventsView, constraints);
+	    viewsPanel.updateUI();
 	    this.mainPanel.add(viewsPanel);
+	    this.table = it;
 	    
 		setMinimumSize(new Dimension(100, 500));
 		setPreferredSize(new Dimension(500, 500));
@@ -153,7 +158,7 @@ public class SpeedDialog extends MyDialog {
 	private class innerTable extends AbstractTableModel {
 		private final String[] columnNames = {"Tick", "Vehicle"};
 		private void updateAll() {
-			fireTableStructureChanged();
+			//fireTableStructureChanged();
 			fireTableDataChanged();
 		}
 		
@@ -171,7 +176,7 @@ public class SpeedDialog extends MyDialog {
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			String result = "";
 			if (columnIndex == 0) {
-				result = Integer.toString(rowIndex);
+				result = Integer.toString(rowIndex + 1);
 			} else if (columnIndex == 1) {
 				StringBuilder sb = new StringBuilder();
 				sb.append("[");
