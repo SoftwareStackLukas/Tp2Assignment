@@ -23,6 +23,7 @@ import simulator.factories.*;
 import simulator.model.DequeuingStrategy;
 import simulator.model.Event;
 import simulator.model.LightSwitchingStrategy;
+import simulator.model.StateWatcher;
 import simulator.model.TrafficSimulator;
 import simulator.view.MainWindow;
 
@@ -169,7 +170,7 @@ public class Main {
 	}
 
 	private static void startBatchMode() throws IOException {
-		System.out.println("Starting batch mode");
+		System.out.println("Starting batch mode");		
 		TrafficSimulator ts;
 		Controller c;
 		OutputStream out;
@@ -181,10 +182,14 @@ public class Main {
 			out = System.out;
 		}
 		c = new Controller(ts, _eventsFactory);
+		//add StateWatcher
+		StateWatcher sw = new StateWatcher(c);		
 		
 		c.loadEvents(in);
 		in.close();
 		c.run(_ticks, out);
+		System.out.println("Done!");
+		System.out.println(sw);
 	}
 
 	private static void start(String[] args) throws IOException {
