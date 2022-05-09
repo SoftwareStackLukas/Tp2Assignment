@@ -6,7 +6,7 @@ import simulator.model.LightSwitchingStrategy;
 import simulator.model.VIPswitching;
 
 public class VIPswitchingBuilder extends Builder<LightSwitchingStrategy> {
-	private static final String TYPE = "round_robin_lss";
+	private static final String TYPE = "vip_lss";
 	
 	public VIPswitchingBuilder() {
 		super(TYPE);
