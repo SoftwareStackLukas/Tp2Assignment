@@ -26,6 +26,12 @@ import simulator.model.LightSwitchingStrategy;
 import simulator.model.TrafficSimulator;
 import simulator.view.MainWindow;
 
+/*
+ * java Main -i eventsfile.json -o output.json -t 100
+ * java Main -i eventsfile.json -t 100
+ * -m gui -i resources/examples/ex1.json -o resources/tmp/out.json -t 100
+ */
+
 public class Main {
 
 	private final static Integer _timeLimitDefaultValue = 10;
