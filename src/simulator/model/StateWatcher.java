@@ -40,13 +40,14 @@ public class StateWatcher implements TrafficSimObserver {
 		List<Pair<String, Integer>> l = new LinkedList<>();
 		List<Road> listRoads;
 		List<List<Vehicle>> listQueues;
+		Road r;
 		int vs;
 		for (Junction j : map.getJunctions()) {
 			vs = 0;
 			listRoads = j.getInRoads();
 			listQueues = j.getQueueList();
 			for (int x = 0; x < listRoads.size(); x++) {
-				Road r = listRoads.get(x);
+				r = listRoads.get(x);
 				vs = listQueues.get(x).size();
 				if (vs != 0) {
 					l.add(new Pair<String, Integer>(r.getId(), vs));
