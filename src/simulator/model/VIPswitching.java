@@ -13,7 +13,7 @@ public class VIPswitching implements LightSwitchingStrategy {
 	
 	@Override
 	public int chooseNextGreen(List<Road> roads, List<List<Vehicle>> qs, int currGreen, int lastSwitchingTime, int currTime) {
-		int result = -1;
+		int result = -1; //for the default if their are no raods in the list
 		if (!roads.isEmpty()) {
 			int vipCount = 0;
 			if (currGreen == -1) {
@@ -22,7 +22,7 @@ public class VIPswitching implements LightSwitchingStrategy {
 					for(Vehicle v : roads.get(x).getVehicles()) {
 						if (v.getId().endsWith(this.vipTag)) vipCount++;
 					}
-					if (vipCount != 0) break;
+					if (vipCount != 0) break; //Break if a road is found with vip cars
 				}
 			} else {
 				for(int x = 0; x < roads.size(); x++) {
